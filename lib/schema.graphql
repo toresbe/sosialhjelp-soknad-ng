@@ -1,0 +1,19 @@
+    type Soknad {
+        id: ID!
+        telefon: TelefonData
+    }
+
+    type TelefonData {
+        fraKRR: String
+        brukerdefinert: String
+    }
+
+    type Query {
+        soknad(id: ID!): Soknad
+    }
+
+    type Mutation {
+        opprettSoknad: Soknad!
+        setTelefonnummer(id: ID!, tlfnr: String): Soknad!
+    }
+

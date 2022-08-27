@@ -1,8 +1,18 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import "../styles/globals.css";
+import type {AppProps} from "next/app";
+import {ApolloProvider} from "@apollo/client";
+import {useApollo} from "../lib/apolloClient";
+import {appWithTranslation} from "next-i18next";
+import "@navikt/ds-css";
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+function MyApp({Component, pageProps}: AppProps) {
+    const apolloClient = useApollo(pageProps.initialApolloState);
+
+    return (
+        <ApolloProvider client={apolloClient}>
+            <Component {...pageProps} />
+        </ApolloProvider>
+    );
 }
 
-export default MyApp
+export default appWithTranslation(MyApp);
