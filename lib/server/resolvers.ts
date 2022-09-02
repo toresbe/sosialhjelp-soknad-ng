@@ -1,5 +1,5 @@
-import {createSoknad} from "../../../lib/restAPI/createSoknad";
-import {getTelefonnummer, setTelefonnummer} from "../../../lib/restAPI/personalia/telefon";
+import {createSoknad} from "../restAPI/createSoknad";
+import {getTelefonnummer, setTelefonnummer} from "../restAPI/personalia/telefon";
 import {Resolvers} from "@apollo/client";
 
 export const resolvers: Resolvers = {

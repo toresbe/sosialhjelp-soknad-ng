@@ -1,16 +1,17 @@
-query TelefonData($soknadId: ID!) {
+query GetTelefonData($soknadId: ID!) {
     soknad(id: $soknadId) {
         telefon {
-            fraKRR
+            id
+            fraKrr
             brukerdefinert
         }
     }
 }
 
-mutation SettTelefonnummer($soknadId: ID!, $tlfNr: String) {
+mutation SetTelefonnummer($soknadId: ID!, $tlfNr: String) {
     setTelefonnummer(id: $soknadId, tlfnr: $tlfNr) {
         telefon {
-            brukerdefinert
-        }
+        id
+        brukerdefinert}
     }
 }

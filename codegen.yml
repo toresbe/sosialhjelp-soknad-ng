@@ -7,6 +7,7 @@ generates:
       - typescript
       - typescript-operations
       - typed-document-node
+      - typescript-msw
   ./graphql.schema.json:
     plugins:
       - introspection

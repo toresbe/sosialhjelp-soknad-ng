@@ -16,13 +16,11 @@ const resources = ns.reduce((acc, n) => {
     return acc;
 }, {});
 
-console.log(resources);
-
 i18n.use(initReactI18next)
     .use(LanguageDetector)
     .use(Backend)
     .init({
-        debug: true,
+        //debug: true,
         lng: "nb",
         fallbackLng: "nb",
         ns,

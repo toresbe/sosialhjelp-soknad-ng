@@ -1,4 +1,5 @@
 import {serverGet, serverPut} from "../rest-utils";
+import {parsePhoneNumber} from "awesome-phonenumber";
 
 export interface Telefonnummer {
     brukerdefinert: null | boolean;
@@ -7,12 +8,13 @@ export interface Telefonnummer {
 }
 
 export const getTelefonnummer = async (behandlingsId: string) => {
-    const translateBrukerdefinert = (data: Telefonnummer) => (data.brukerdefinert ? data.brukerutfyltVerdi : null);
+    const translateBrukerdefinert = ({brukerdefinert, brukerutfyltVerdi}: Telefonnummer) =>
+        brukerdefinert ? brukerutfyltVerdi : null;
 
     const data = await serverGet<Telefonnummer>(`soknader/${behandlingsId}/personalia/telefonnummer`);
 
     return {
-        fraKRR: data.systemverdi,
+        fraKrr: data.systemverdi,
         brukerdefinert: translateBrukerdefinert(data),
     };
 };

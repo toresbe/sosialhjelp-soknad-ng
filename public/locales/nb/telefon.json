@@ -1,6 +1,7 @@
 {
 	"description": "Telefonnummeret du oppgir her kan bli brukt til å ta kontakt med deg i forbindelse med din sosialsak.",
-	"hentetFraKRR": "Fra kontakt- og reservasjonsregisteret:",
-	"legend": "Telefonnummer for søknaden",
+	"fraBruker": "Brukervalgt",
+	"fraKrr": "Fra kontakt- og reservasjonsregisteret",
+	"legend": "Telefonnummer",
 	"telefonnummer": "Telefonnummer"
 }

@@ -44,7 +44,6 @@ export const serverRequest = async <T>(path: string, method?: string, body?: str
     headers.set("cookie", [AuthCookie, lol, ...xsrfCookies].join("; "));
     headers.set("X-XSRF-TOKEN", await getXsrfToken(xsrfCookies));
 
-    console.log(requestUri);
     const options: RequestInit = {
         method,
         headers,

@@ -1,5 +1,5 @@
 import {ApolloServer} from "apollo-server-micro";
-import {resolvers} from "./resolvers";
+import {resolvers} from "../../lib/server/resolvers";
 import {
     ApolloServerPluginLandingPageLocalDefault,
     ApolloServerPluginLandingPageProductionDefault,

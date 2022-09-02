@@ -18,9 +18,12 @@
     "@navikt/ds-react": "^1.2.3",
     "@navikt/ds-react-internal": "^1.2.3",
     "apollo-server-micro": "^3.10.1",
+    "awesome-phonenumber": "^3.3.0",
     "axios": "^0.27.2",
     "env-var": "^7.1.1",
-    "graphql": "^16.6.0",
+    "graphql": "16",
+    "graphql-tools": "^8.3.4",
+    "graphql.macro": "^1.4.2",
     "i18next": "^21.9.1",
     "i18next-browser-languagedetector": "^6.1.5",
     "i18next-http-backend": "^1.4.1",
@@ -41,6 +44,7 @@
     "@graphql-codegen/introspection": "2.2.1",
     "@graphql-codegen/typed-document-node": "^2.3.3",
     "@graphql-codegen/typescript": "2.7.3",
+    "@graphql-codegen/typescript-msw": "^1.1.3",
     "@graphql-codegen/typescript-operations": "2.5.3",
     "@graphql-codegen/typescript-react-apollo": "3.3.3",
     "@graphql-codegen/typescript-resolvers": "2.7.3",
@@ -61,8 +65,12 @@
     "eslint": "8.22.0",
     "eslint-config-next": "12.2.5",
     "eslint-plugin-storybook": "^0.6.4",
-    "storybook-addon-apollo-client": "^4.0.12",
+    "msw": "^0.45.0",
+    "msw-storybook-addon": "^1.6.3",
     "storybook-react-i18next": "^1.1.2",
     "typescript": "4.7.4"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }

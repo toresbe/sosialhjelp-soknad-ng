@@ -33,7 +33,20 @@
                         </translations>
                     </concept_node>
                     <concept_node>
-                        <name>hentetFraKRR</name>
+                        <name>fraBruker</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description/>
+                        <comment/>
+                        <default_text/>
+                        <translations>
+                            <translation>
+                                <language>nb-NO</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
+                        <name>fraKrr</name>
                         <definition_loaded>false</definition_loaded>
                         <description/>
                         <comment/>
