@@ -6,7 +6,7 @@ import {
 } from "apollo-server-core";
 import {readFileSync} from "fs";
 
-const typeDefs = readFileSync("lib/schema.graphql", "utf8");
+const typeDefs = readFileSync("src/lib/schema.graphql", "utf8");
 
 const plugins =
     process.env.NODE_ENV === "production"
@@ -21,4 +21,9 @@ export const config = {
     },
 };
 
-export default apolloServer.createHandler({path: "/api/graphql"});
+export const createHandler = async (req: any, res: any) => {
+    await apolloServer.start();
+    return apolloServer.createHandler({path: "/api/graphql"})(req, res);
+};
+
+export default createHandler;

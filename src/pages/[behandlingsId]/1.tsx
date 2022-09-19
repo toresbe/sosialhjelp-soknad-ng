@@ -4,6 +4,7 @@ import {GetServerSideProps} from "next";
 import {Heading} from "@navikt/ds-react";
 import styled from "styled-components";
 import {useTelefon} from "../../lib/hooks/useTelefon";
+import Head from "next/head";
 
 export const SoknadDiv = styled.div`
     max-width: 720px;
@@ -15,10 +16,14 @@ export const SoknadDiv = styled.div`
 `;
 
 export const Page1 = () => {
+    const {telefon, onSetTelefonnummer} = useTelefon();
     return (
         <SoknadDiv>
+            <Head>
+                <title>Sosialhjelpsøknad - Personalia</title>
+            </Head>
             <Heading size={"large"}>Sosialhjelpsøknad</Heading>
-            <Telefon {...useTelefon()} />
+            <Telefon telefon={telefon} onSetTelefonnummer={onSetTelefonnummer} />
         </SoknadDiv>
     );
 };
