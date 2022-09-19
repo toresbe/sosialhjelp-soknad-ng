@@ -6,6 +6,9 @@ const nextConfig = {
     reactStrictMode: true,
     swcMinify: true,
     basePath: "/sosialhjelp/soknad",
+    compiler: {
+        styledComponents: true,
+    },
     i18n,
 };
 

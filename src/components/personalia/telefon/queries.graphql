@@ -1,0 +1,17 @@
+query getSoknad($soknadId: ID!) {
+    soknad(id: $soknadId) {
+        id
+        telefon {
+            fraKrr
+            brukerdefinert
+        }
+    }
+}
+
+mutation SetTelefonnummer($soknadId: ID!, $tlfNr: String) {
+    setTelefonnummer(id: $soknadId, tlfnr: $tlfNr) {
+        telefon {
+            brukerdefinert
+        }
+    }
+}
