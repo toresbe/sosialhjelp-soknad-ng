@@ -1,13 +1,20 @@
 overwrite: true
-schema: "lib/schema.graphql"
-documents: "components/**/*.graphql"
+schema: "src/lib/schema.graphql"
+documents: "src/components/**/*.graphql"
 generates:
-  lib/generated.ts:
+  src/generated/apollo.ts:
     plugins:
       - typescript
       - typescript-operations
       - typed-document-node
       - typescript-msw
+  src/generated/resolvers.ts:
+    config:
+      useIndexSignature: true
+      defaultMapper: Partial<{T}>
+    plugins:
+      - typescript
+      - typescript-resolvers
   ./graphql.schema.json:
     plugins:
       - introspection

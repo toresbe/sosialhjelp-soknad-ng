@@ -1,6 +1,6 @@
 import {createSoknad} from "../apiShimClient/createSoknad";
 import {getTelefonnummer, setTelefonnummer} from "../apiShimClient/personalia/telefon";
-import {Resolvers} from "@apollo/client";
+import {Resolvers} from "../../generated/resolvers";
 
 export const resolvers: Resolvers = {
     Query: {
@@ -13,10 +13,10 @@ export const resolvers: Resolvers = {
             const id = await createSoknad();
             return {id};
         },
-        setTelefonnummer: async (_: any, args: any) => {
-            await setTelefonnummer(args.id, args.tlfnr);
+        setTelefonnummer: async (_, {id, tlfnr}) => {
+            await setTelefonnummer(id, tlfnr || null);
 
-            return {id: args.id};
+            return {id};
         },
     },
     Soknad: {
