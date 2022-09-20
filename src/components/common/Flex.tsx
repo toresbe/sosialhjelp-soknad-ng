@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
 // Convenience component: Div with display: flex,
-// vertical centering and horizontal space-between
-export const DivWithFlex = styled.div`
+// vertical centering and horizontal space-between,
+// used for horizontal alignment of components
+export const Flex = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
 `;
 
-export default DivWithFlex;
+export default Flex;

@@ -1,15 +1,21 @@
-import * as env from "env-var";
 import fetch, {RequestInit} from "node-fetch";
 import {z, ZodType} from "zod";
+import {API_BASE_URL, API_BASE_URL_WITH_TOKEN, MOCK_ALT_API_BASE} from "../config";
+import logger from "../logger";
 
-const API_BASE_URL = env.get("NEXT_PUBLIC_API_BASE").required().asString();
-const API_BASE_URL_WITH_TOKEN = env.get("NEXT_PUBLIC_API_BASE").required().asString();
-const MOCK_ALT_API_BASE = "http://localhost:8989/sosialhjelp/mock-alt-api";
+// HERE BE DRAGONS: The authentication is incredibly bodged here.
+// It works just enough to sort of use it with sosialhjelp-soknad-api
+// with mock-alt.
+
+// Yeah, it ain't pretty. You have to copy and paste the default user's
+// fødselsnummer. It's enough for me to get started consuming
+// the REST API on a development system.
+const SUBJECT_FNR = "26104514269";
 
 let AuthCookie: string;
 
 const getAuthCookie = async () => {
-    const url = MOCK_ALT_API_BASE + "/login/cookie?subject=26104514269&issuerId=selvbetjening&audience=someaudience";
+    const url = `${MOCK_ALT_API_BASE}/login/cookie?subject=${SUBJECT_FNR}&issuerId=selvbetjening&audience=someaudience`;
 
     const res = await fetch(url);
 
@@ -58,8 +64,16 @@ export const serverRequest = async <T>(path: string, method?: string, body?: str
 
     if (res.status === 204) return (await res.text()) as any;
 
-    if (schema) return schema.parse(await res.json());
-    else return (await res.json()) as T;
+    const jsonResponse = await res.json();
+
+    if (schema)
+        try {
+            return schema.parse(jsonResponse);
+        } catch (e: any) {
+            logger.warn(`Failed to validate from ${path}: Zod error ${e.toString()}`);
+            return jsonResponse as T;
+        }
+    else return jsonResponse as T;
 };
 
 export const serverGet = async <T>(path: string, schema?: ZodType): Promise<T> => {

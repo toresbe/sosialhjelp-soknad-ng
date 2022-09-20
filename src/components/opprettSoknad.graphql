@@ -1,5 +1,0 @@
-mutation OpprettSoknad {
-    opprettSoknad {
-        id
-    }
-}

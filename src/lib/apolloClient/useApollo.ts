@@ -1,6 +1,8 @@
 import {ApolloClient, HttpLink, InMemoryCache, NormalizedCacheObject} from "@apollo/client";
 import {useMemo} from "react";
 
+// React hook for useApollo, with various magic sprinkled in to give fast server-side rendering and caching.
+
 let client: ApolloClient<NormalizedCacheObject> | null;
 
 const createApolloClient = () =>
@@ -34,4 +36,5 @@ const initializeApollo = (initialState: any = null) => {
     return _apolloClient;
 };
 
+// React hook returning an Apollo client for use both for client- and server-side rendering
 export const useApollo = (initialState: any) => useMemo(() => initializeApollo(initialState), [initialState]);

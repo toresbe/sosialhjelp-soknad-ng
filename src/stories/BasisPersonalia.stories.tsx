@@ -42,4 +42,15 @@ export const MedMellomnavn: ComponentStory<typeof BasisPersonalia> = () => {
 export default {
     title: "BasisPersonalia",
     component: BasisPersonalia,
+    argTypes: {
+        personalia: {
+            navn: {
+                fornavn: {
+                    control: {
+                        type: "text",
+                    },
+                },
+            },
+        },
+    },
 } as ComponentMeta<typeof BasisPersonalia>;

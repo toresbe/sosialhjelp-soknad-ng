@@ -6,16 +6,18 @@ import {
     SetTelefonnummerDocument,
     SetTelefonnummerMutation,
 } from "../../generated/apollo";
-import {TelefonProps} from "../../components/personalia/telefon/Telefon";
+
 import {useSoknadIdFromRouter} from "../soknadContext/useSoknadIdFromRouter";
 
-export const useTelefon = (): TelefonProps => {
+// React hook for applicant telephone data via GraphQL API
+export const useTelefon = () => {
     const soknadId = useSoknadIdFromRouter();
 
     const {data} = useQuery<GetTelefonQuery>(GetTelefonDocument, {variables: {soknadId}});
     const [mutate] = useMutation<SetTelefonnummerMutation>(SetTelefonnummerDocument, {variables: {soknadId}});
 
-    const onSetTelefonnummer = async (tlfNr: Maybe<string>) => {
+    // TODO: Metrics for network failures.
+    const setTelefonnummer = async (tlfNr: Maybe<string>) => {
         try {
             await mutate({variables: {tlfNr}});
         } catch (e: any) {
@@ -26,7 +28,9 @@ export const useTelefon = (): TelefonProps => {
     };
 
     return {
+        // Telephony data
         telefon: data?.soknad?.telefon,
-        onSetTelefonnummer,
+        // Callback to modify user-defined number
+        setTelefonnummer,
     };
 };

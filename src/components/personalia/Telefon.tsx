@@ -1,11 +1,11 @@
 import * as React from "react";
 import {Fieldset, Loader} from "@navikt/ds-react";
 import {useTranslation} from "next-i18next";
-import {PhoneEditBox} from "./PhoneEditBox";
+import {PhoneEditBox} from "./telefon/PhoneEditBox";
 import {useState} from "react";
-import {Maybe, TelefonData} from "../../../generated/apollo";
-import {FromUser} from "./FromUser";
-import {FromKrr} from "./FromKrr";
+import {Maybe, TelefonData} from "../../generated/apollo";
+import {FromUser} from "./telefon/FromUser";
+import {FromKrr} from "./telefon/FromKrr";
 
 export interface TelefonProps {
     telefon?: TelefonData;

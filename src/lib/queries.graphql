@@ -1,3 +1,9 @@
+mutation OpprettSoknad {
+    opprettSoknad {
+        id
+    }
+}
+
 query getTelefon($soknadId: ID!) {
     soknad(id: $soknadId) {
         id

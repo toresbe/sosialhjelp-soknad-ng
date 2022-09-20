@@ -1,10 +1,13 @@
 import {ApolloServer} from "apollo-server-micro";
-import {resolvers} from "../../lib/apiShimServer/resolvers";
+import {resolvers} from "../../lib/apiShim/resolvers";
 import {
     ApolloServerPluginLandingPageLocalDefault,
     ApolloServerPluginLandingPageProductionDefault,
 } from "apollo-server-core";
 import {readFileSync} from "fs";
+
+// This code, which runs in a server-side Node environment, serves
+// the GraphQL endpoint on /api/graphql.
 
 const typeDefs = readFileSync("src/lib/schema.graphql", "utf8");
 

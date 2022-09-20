@@ -1,5 +1,10 @@
 import styled from "styled-components";
 
+// A table styled to be suitable for information obtained from
+// systems and registries, presented in tabular form.
+//
+// Table markup is used hoping it can expose data in a good way
+// for screen readers.
 export const SysteminfoTabell = styled.table`
     width: 100%;
     caption {

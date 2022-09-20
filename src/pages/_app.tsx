@@ -1,6 +1,6 @@
 import type {AppProps} from "next/app";
 import {ApolloProvider} from "@apollo/client";
-import {useApollo} from "../lib/apollo/client";
+import {useApollo} from "../lib/apolloClient/useApollo";
 import {appWithTranslation} from "next-i18next";
 import "@navikt/ds-css";
 

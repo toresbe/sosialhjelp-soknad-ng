@@ -2,7 +2,7 @@ import {Button, Detail, Loader} from "@navikt/ds-react";
 import * as React from "react";
 import {formatPhone} from "../../../lib/formatters/FormatPhone";
 import {useTranslation} from "next-i18next";
-import DivWithFlex from "../../common/DivWithFlex";
+import Flex from "../../common/Flex";
 
 interface FromKrrProps {
     fraKrr?: string | null;
@@ -14,12 +14,12 @@ export const FromKrr = ({fraKrr, onEdit}: FromKrrProps) => {
     const {t} = useTranslation("telefon");
 
     return (
-        <DivWithFlex>
+        <Flex>
             <div>
                 <Detail size={"small"}>{t("fraKrr")}</Detail>
                 {fraKrrFormattert ?? <Loader size={"xsmall"} />}
             </div>
             <Button onClick={onEdit}>Jeg vil kontaktes på et annet nummer</Button>
-        </DivWithFlex>
+        </Flex>
     );
 };

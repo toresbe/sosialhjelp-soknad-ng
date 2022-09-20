@@ -7,7 +7,6 @@ generates:
       - typescript
       - typescript-operations
       - typed-document-node
-      - typescript-msw
   src/generated/resolvers.ts:
     config:
       makeResolverTypeCallable: true

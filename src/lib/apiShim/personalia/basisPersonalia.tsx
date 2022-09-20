@@ -1,4 +1,4 @@
-import {serverGet} from "../rest-utils";
+import {serverGet} from "../restClients";
 import {LegacyNavn, LegacyPersonalia, LegacyPersonaliaSchema} from "../schemas/personalia";
 import {Navn, Personalia} from "../../../generated/resolvers";
 

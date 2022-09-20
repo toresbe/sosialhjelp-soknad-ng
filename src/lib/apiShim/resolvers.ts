@@ -1,18 +1,14 @@
-import {createSoknad} from "../apiShimClient/createSoknad";
-import {getTelefonnummer, setTelefonnummer} from "../apiShimClient/personalia/telefon";
+import {createSoknad} from "./createSoknad";
+import {getTelefonnummer, setTelefonnummer} from "./personalia/telefon";
 import {Resolvers} from "../../generated/resolvers";
-import {getBasisPersonalia} from "../apiShimClient/personalia/basisPersonalia";
+import {getBasisPersonalia} from "./personalia/basisPersonalia";
 
 export const resolvers: Resolvers = {
     Query: {
-        soknad: async (parent, {id}) => {
-            return {
-                id,
-            };
-        },
+        soknad: async (parent, {id}) => ({id}),
     },
     Mutation: {
-        opprettSoknad: async () => ({id: await createSoknad()}),
+        nySoknad: async () => createSoknad(),
         setTelefonnummer: async (_, {id, tlfnr}) => {
             await setTelefonnummer(id, tlfnr || null);
             return {id};

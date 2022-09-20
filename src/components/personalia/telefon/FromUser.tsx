@@ -3,7 +3,7 @@ import * as React from "react";
 import styled from "styled-components";
 import {useTranslation} from "next-i18next";
 import {formatPhone} from "../../../lib/formatters/FormatPhone";
-import DivWithFlex from "../../common/DivWithFlex";
+import Flex from "../../common/Flex";
 
 interface PhoneNumberUserDefinedProps {
     numberFromUser?: string | null;
@@ -22,7 +22,7 @@ export const FromUser = ({numberFromUser, onDelete, onEdit}: PhoneNumberUserDefi
     const fromUserFormatted = numberFromUser ? formatPhone(numberFromUser) : numberFromUser;
 
     return (
-        <DivWithFlex>
+        <Flex>
             <div>
                 <Detail size={"small"}>{t("fraBruker")}</Detail>
                 {fromUserFormatted ?? <Loader size={"xsmall"} />}
@@ -33,6 +33,6 @@ export const FromUser = ({numberFromUser, onDelete, onEdit}: PhoneNumberUserDefi
                     Slett
                 </Button>
             </KnappRad>
-        </DivWithFlex>
+        </Flex>
     );
 };

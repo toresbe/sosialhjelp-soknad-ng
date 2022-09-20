@@ -1,4 +1,4 @@
-import Telefon from "../../components/personalia/telefon/Telefon";
+import Telefon from "../../components/personalia/Telefon";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import {GetServerSideProps} from "next";
 import {Heading} from "@navikt/ds-react";
@@ -8,6 +8,7 @@ import Head from "next/head";
 import {BasisPersonalia} from "../../components/personalia/BasisPersonalia";
 import {usePersonalia} from "../../lib/hooks/usePersonalia";
 
+// Just a little div to put the application in a column until we have more defined style
 export const SoknadDiv = styled.div`
     max-width: 720px;
     display: flex;
@@ -18,7 +19,7 @@ export const SoknadDiv = styled.div`
 `;
 
 export const Page1 = () => {
-    const {telefon, onSetTelefonnummer} = useTelefon();
+    const {telefon, setTelefonnummer} = useTelefon();
     const {personalia} = usePersonalia();
 
     return (
@@ -28,7 +29,7 @@ export const Page1 = () => {
             </Head>
             <Heading size={"large"}>Sosialhjelpsøknad</Heading>
             <BasisPersonalia personalia={personalia} />
-            <Telefon telefon={telefon} onSetTelefonnummer={onSetTelefonnummer} />
+            <Telefon telefon={telefon} onSetTelefonnummer={setTelefonnummer} />
         </SoknadDiv>
     );
 };
