@@ -1,6 +1,13 @@
 type Soknad {
     id: ID!
+    personalia: Personalia!
     telefon: TelefonData!
+}
+
+type Personalia {
+    navn: Navn!
+    fnr: String!
+    statsborgerskap: String!
 }
 
 type TelefonData {
@@ -10,6 +17,12 @@ type TelefonData {
 
 type Query {
     soknad(id: ID!): Soknad
+}
+
+type Navn {
+    fornavn: String!
+    mellomnavn: String
+    etternavn: String!
 }
 
 type Mutation {

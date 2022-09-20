@@ -1,6 +1,6 @@
 overwrite: true
 schema: "src/lib/schema.graphql"
-documents: "src/components/**/*.graphql"
+documents: "src/lib/queries.graphql"
 generates:
   src/generated/apollo.ts:
     plugins:
@@ -10,8 +10,9 @@ generates:
       - typescript-msw
   src/generated/resolvers.ts:
     config:
-      useIndexSignature: true
+      makeResolverTypeCallable: true
       defaultMapper: Partial<{T}>
+      useIndexSignature: true
     plugins:
       - typescript
       - typescript-resolvers

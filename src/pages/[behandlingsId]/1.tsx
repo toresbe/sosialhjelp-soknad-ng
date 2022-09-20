@@ -5,6 +5,8 @@ import {Heading} from "@navikt/ds-react";
 import styled from "styled-components";
 import {useTelefon} from "../../lib/hooks/useTelefon";
 import Head from "next/head";
+import {BasisPersonalia} from "../../components/personalia/BasisPersonalia";
+import {usePersonalia} from "../../lib/hooks/usePersonalia";
 
 export const SoknadDiv = styled.div`
     max-width: 720px;
@@ -17,12 +19,15 @@ export const SoknadDiv = styled.div`
 
 export const Page1 = () => {
     const {telefon, onSetTelefonnummer} = useTelefon();
+    const {personalia} = usePersonalia();
+
     return (
         <SoknadDiv>
             <Head>
                 <title>Sosialhjelpsøknad - Personalia</title>
             </Head>
             <Heading size={"large"}>Sosialhjelpsøknad</Heading>
+            <BasisPersonalia personalia={personalia} />
             <Telefon telefon={telefon} onSetTelefonnummer={onSetTelefonnummer} />
         </SoknadDiv>
     );

@@ -1,5 +1,6 @@
 import * as env from "env-var";
 import fetch, {RequestInit} from "node-fetch";
+import {z, ZodType} from "zod";
 
 const API_BASE_URL = env.get("NEXT_PUBLIC_API_BASE").required().asString();
 const API_BASE_URL_WITH_TOKEN = env.get("NEXT_PUBLIC_API_BASE").required().asString();
@@ -34,7 +35,7 @@ getAuthCookie().then((c) => (AuthCookie = c));
 
 export const getApiBaseUrl = (withAccessToken?: boolean) => (withAccessToken ? API_BASE_URL_WITH_TOKEN : API_BASE_URL);
 
-export const serverRequest = async <T>(path: string, method?: string, body?: string): Promise<T> => {
+export const serverRequest = async <T>(path: string, method?: string, body?: string, schema?: z.Schema): Promise<T> => {
     const requestUri = getApiBaseUrl(false) + path;
 
     const headers = new Headers({"Content-Type": "application/json", accept: "application/json, text/plain, */*"});
@@ -57,17 +58,18 @@ export const serverRequest = async <T>(path: string, method?: string, body?: str
 
     if (res.status === 204) return (await res.text()) as any;
 
-    return (await res.json()) as T;
+    if (schema) return schema.parse(await res.json());
+    else return (await res.json()) as T;
 };
 
-export const serverGet = async <T>(path: string): Promise<T> => {
-    return serverRequest<T>(path);
+export const serverGet = async <T>(path: string, schema?: ZodType): Promise<T> => {
+    return serverRequest<T>(path, undefined, undefined, schema);
 };
 
-export const serverPost = async <T>(path: string, body?: string): Promise<T> => {
-    return serverRequest<T>(path, "POST", body);
+export const serverPost = async <T>(path: string, body?: string, schema?: ZodType): Promise<T> => {
+    return serverRequest<T>(path, "POST", body, schema);
 };
 
-export const serverPut = async <T>(path: string, body?: string): Promise<T> => {
-    return serverRequest<T>(path, "PUT", body);
+export const serverPut = async <T>(path: string, body?: string, schema?: ZodType): Promise<T> => {
+    return serverRequest<T>(path, "PUT", body, schema);
 };

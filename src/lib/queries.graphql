@@ -1,0 +1,32 @@
+query getTelefon($soknadId: ID!) {
+    soknad(id: $soknadId) {
+        id
+        telefon {
+            fraKrr
+            brukerdefinert
+        }
+    }
+}
+
+query getPersonalia($soknadId: ID!) {
+    soknad(id: $soknadId) {
+        id
+        personalia {
+            navn {
+                fornavn
+                mellomnavn
+                etternavn
+            }
+            fnr
+            statsborgerskap
+        }
+    }
+}
+
+mutation SetTelefonnummer($soknadId: ID!, $tlfNr: String) {
+    setTelefonnummer(id: $soknadId, tlfnr: $tlfNr) {
+        telefon {
+            brukerdefinert
+        }
+    }
+}

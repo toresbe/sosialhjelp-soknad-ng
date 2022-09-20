@@ -6,4 +6,6 @@ export const FakeQuestionWrapper = styled.div`
     padding: 1rem;
     border-right: 1px solid black;
     border-left: 1px solid black;
+    border-top: 40px solid #eeeeee;
+    border-bottom: 40px solid #eeeeee;
 `;

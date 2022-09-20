@@ -36,7 +36,8 @@
     "react-dom": "18.2.0",
     "react-i18next": "^11.18.5",
     "react-intl": "^6.0.8",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.5",
+    "zod": "^3.19.1"
   },
   "devDependencies": {
     "@babel/core": "^7.18.13",

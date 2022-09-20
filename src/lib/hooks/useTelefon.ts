@@ -1,7 +1,7 @@
 import {useMutation, useQuery} from "@apollo/client";
 import {
-    GetSoknadDocument,
-    GetSoknadQuery,
+    GetTelefonDocument,
+    GetTelefonQuery,
     Maybe,
     SetTelefonnummerDocument,
     SetTelefonnummerMutation,
@@ -12,7 +12,7 @@ import {useSoknadIdFromRouter} from "../soknadContext/useSoknadIdFromRouter";
 export const useTelefon = (): TelefonProps => {
     const soknadId = useSoknadIdFromRouter();
 
-    const {data} = useQuery<GetSoknadQuery>(GetSoknadDocument, {variables: {soknadId}});
+    const {data} = useQuery<GetTelefonQuery>(GetTelefonDocument, {variables: {soknadId}});
     const [mutate] = useMutation<SetTelefonnummerMutation>(SetTelefonnummerDocument, {variables: {soknadId}});
 
     const onSetTelefonnummer = async (tlfNr: Maybe<string>) => {

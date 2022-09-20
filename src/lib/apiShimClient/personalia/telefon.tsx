@@ -1,16 +1,11 @@
 import {serverGet, serverPut} from "../rest-utils";
-
-export interface Telefonnummer {
-    brukerdefinert: null | boolean;
-    systemverdi: null | string;
-    brukerutfyltVerdi: null | string;
-}
+import {LegacyTelefon} from "../schemas/personalia";
 
 export const getTelefonnummer = async (behandlingsId: string) => {
-    const translateBrukerdefinert = ({brukerdefinert, brukerutfyltVerdi}: Telefonnummer) =>
+    const translateBrukerdefinert = ({brukerdefinert, brukerutfyltVerdi}: LegacyTelefon) =>
         brukerdefinert ? brukerutfyltVerdi : null;
 
-    const data = await serverGet<Telefonnummer>(`soknader/${behandlingsId}/personalia/telefonnummer`);
+    const data = await serverGet<LegacyTelefon>(undefined, `soknader/${behandlingsId}/personalia/telefonnummer`);
 
     return {
         fraKrr: data.systemverdi,
@@ -19,11 +14,12 @@ export const getTelefonnummer = async (behandlingsId: string) => {
 };
 
 export const setTelefonnummer = async (behandlingsId: string, tlfnr: string | null) => {
-    await serverPut<Telefonnummer>(
-        `soknader/${behandlingsId}/personalia/telefonnummer`,
+    await serverPut<LegacyTelefon>(
         JSON.stringify({
             brukerdefinert: tlfnr !== null,
             brukerutfyltVerdi: tlfnr,
-        })
+        }),
+        undefined,
+        `soknader/${behandlingsId}/personalia/telefonnummer`
     );
 };
