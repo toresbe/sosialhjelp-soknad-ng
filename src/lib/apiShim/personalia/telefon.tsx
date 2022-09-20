@@ -23,6 +23,6 @@ export const setTelefonnummer = async (behandlingsId: string, tlfnr: string | nu
             brukerdefinert: tlfnr !== null,
             brukerutfyltVerdi: tlfnr,
         }),
-        undefined
+        LegacyTelefonSchema
     );
 };
