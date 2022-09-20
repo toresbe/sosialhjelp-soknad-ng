@@ -3,7 +3,7 @@ import {Personalia} from "../../generated/apollo";
 import {Heading} from "@navikt/ds-react";
 import {formatFnr, screenReaderFnr} from "../../lib/formatters/FormatFnr";
 import {formatName} from "../../lib/formatters/FormatName";
-import {RegisterdataTabell} from "../RegisterdataTabell";
+import {SysteminfoTabell} from "../SysteminfoTabell";
 
 export interface BasisPersonaliaProps {
     personalia?: Personalia;
@@ -15,7 +15,7 @@ export const BasisPersonalia = ({personalia}: BasisPersonaliaProps) => {
     const {navn, fnr, statsborgerskap} = personalia || {};
 
     return (
-        <RegisterdataTabell aria-label={"personalia"}>
+        <SysteminfoTabell aria-label={"personalia"}>
             <caption>
                 <Heading size={"small"}>{t("legend")}</Heading>
             </caption>
@@ -33,6 +33,6 @@ export const BasisPersonalia = ({personalia}: BasisPersonaliaProps) => {
                     <td>{statsborgerskap}</td>
                 </tr>
             </tbody>
-        </RegisterdataTabell>
+        </SysteminfoTabell>
     );
 };

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const RegisterdataTabell = styled.table`
+export const SysteminfoTabell = styled.table`
     width: 100%;
     caption {
         text-align: left;
