@@ -1,5 +1,5 @@
 import {serverPost} from "./restClients";
-import {NySoknadResponse, NySoknadResponseSchema} from "./schemas/opprettSoknad";
+import {NySoknadResponse, NySoknadResponseSchema} from "./schemas/nySoknad";
 
 // Create a new application.
 //
@@ -7,7 +7,7 @@ import {NySoknadResponse, NySoknadResponseSchema} from "./schemas/opprettSoknad"
 // a string identifying the form.
 //
 // TODO: Error handling.
-export const createSoknad = async () => {
+export const nySoknad = async () => {
     const {brukerBehandlingId} = await serverPost<NySoknadResponse>(
         "soknader/opprettSoknad",
         undefined,

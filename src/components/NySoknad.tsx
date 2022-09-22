@@ -1,9 +1,9 @@
 import {useMutation} from "@apollo/client";
-import {OpprettSoknadDocument, OpprettSoknadMutation} from "../generated/apollo";
+import {NySoknadDocument, NySoknadMutation} from "../generated/apollo";
 
 // Just a placeholder page for now.
-export const OpprettSoknad = () => {
-    const [mutation] = useMutation<OpprettSoknadMutation>(OpprettSoknadDocument);
+export const NySoknad = () => {
+    const [mutation] = useMutation<NySoknadMutation>(NySoknadDocument);
 
     return (
         <div>
@@ -18,4 +18,4 @@ export const OpprettSoknad = () => {
     );
 };
 
-export default OpprettSoknad;
+export default NySoknad;

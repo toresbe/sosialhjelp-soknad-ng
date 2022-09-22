@@ -34,7 +34,7 @@
         "description": null,
         "fields": [
           {
-            "name": "opprettSoknad",
+            "name": "nySoknad",
             "description": null,
             "args": [],
             "type": {

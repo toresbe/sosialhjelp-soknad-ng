@@ -1,6 +1,6 @@
 import type {NextPage} from "next";
 import Head from "next/head";
-import OpprettSoknad from "../components/OpprettSoknad";
+import NySoknad from "../components/NySoknad";
 import {SoknadDiv} from "./[behandlingsId]/1";
 
 const Home: NextPage = () => {
@@ -12,7 +12,7 @@ const Home: NextPage = () => {
 
             <main>
                 <SoknadDiv>
-                    <OpprettSoknad />
+                    <NySoknad />
                 </SoknadDiv>
             </main>
         </div>

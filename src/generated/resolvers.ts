@@ -16,7 +16,7 @@ export type Scalars = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  opprettSoknad: Soknad;
+  nySoknad: Soknad;
   setTelefonnummer: Soknad;
 };
 
@@ -154,7 +154,7 @@ export type ResolversParentTypes = ResolversObject<{
 }>;
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
-  opprettSoknad?: Resolver<ResolversTypes['Soknad'], ParentType, ContextType>;
+  nySoknad?: Resolver<ResolversTypes['Soknad'], ParentType, ContextType>;
   setTelefonnummer?: Resolver<ResolversTypes['Soknad'], ParentType, ContextType, RequireFields<MutationSetTelefonnummerArgs, 'id'>>;
 }>;
 

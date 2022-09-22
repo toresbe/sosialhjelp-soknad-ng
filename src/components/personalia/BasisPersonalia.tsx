@@ -1,6 +1,6 @@
 import {useTranslation} from "next-i18next";
 import {Personalia} from "../../generated/apollo";
-import {Heading} from "@navikt/ds-react";
+import {Heading, Loader} from "@navikt/ds-react";
 import {formatFnr, screenReaderFnr} from "../../lib/formatters/FormatFnr";
 import {formatName} from "../../lib/formatters/FormatName";
 import {SysteminfoTabell} from "../SysteminfoTabell";
@@ -12,7 +12,9 @@ export interface BasisPersonaliaProps {
 export const BasisPersonalia = ({personalia}: BasisPersonaliaProps) => {
     const {t} = useTranslation("skjema", {keyPrefix: "personalia"});
 
-    const {navn, fnr, statsborgerskap} = personalia || {};
+    if (!personalia) return <Loader />;
+
+    const {navn, fnr, statsborgerskap} = personalia;
 
     return (
         <SysteminfoTabell aria-label={"personalia"}>

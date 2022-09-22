@@ -1,5 +1,5 @@
-mutation OpprettSoknad {
-    opprettSoknad {
+mutation nySoknad {
+    nySoknad {
         id
     }
 }

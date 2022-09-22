@@ -26,7 +26,7 @@ type Navn {
 }
 
 type Mutation {
-    opprettSoknad: Soknad!
+    nySoknad: Soknad!
     setTelefonnummer(id: ID!, tlfnr: String): Soknad!
 }
 

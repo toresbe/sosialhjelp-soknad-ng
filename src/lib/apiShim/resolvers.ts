@@ -1,4 +1,4 @@
-import {createSoknad} from "./createSoknad";
+import {nySoknad} from "./nySoknad";
 import {getTelefonnummer, setTelefonnummer} from "./personalia/telefon";
 import {Resolvers} from "../../generated/resolvers";
 import {getBasisPersonalia} from "./personalia/basisPersonalia";
@@ -8,7 +8,7 @@ export const resolvers: Resolvers = {
         soknad: async (parent, {id}) => ({id}),
     },
     Mutation: {
-        nySoknad: async () => createSoknad(),
+        nySoknad: async () => nySoknad(),
         setTelefonnummer: async (_, {id, tlfnr}) => {
             await setTelefonnummer(id, tlfnr || null);
             return {id};
