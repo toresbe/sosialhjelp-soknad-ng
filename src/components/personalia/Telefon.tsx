@@ -13,7 +13,7 @@ export interface TelefonProps {
 }
 
 export const Telefon = ({telefon, onSetTelefonnummer}: TelefonProps) => {
-    const {t} = useTranslation("telefon");
+    const {t} = useTranslation("skjema", {keyPrefix: "telefon"});
 
     const [editMode, setEditMode] = useState<boolean>(false);
 

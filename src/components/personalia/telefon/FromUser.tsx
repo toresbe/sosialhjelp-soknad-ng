@@ -17,7 +17,7 @@ const KnappRad = styled.div`
 `;
 
 export const FromUser = ({numberFromUser, onDelete, onEdit}: PhoneNumberUserDefinedProps) => {
-    const {t} = useTranslation("telefon");
+    const {t} = useTranslation("skjema", {keyPrefix: "telefon"});
 
     const fromUserFormatted = numberFromUser ? formatPhone(numberFromUser) : numberFromUser;
 

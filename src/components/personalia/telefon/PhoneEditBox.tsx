@@ -20,7 +20,7 @@ interface TelefonSelvvalgtProps {
 }
 
 export const PhoneEditBox = ({defaultValue, onCancel, onSave}: TelefonSelvvalgtProps) => {
-    const {t} = useTranslation("telefon");
+    const {t} = useTranslation("skjema", {keyPrefix: "telefon"});
 
     const [tlfnr, setTlfnr] = useState<string>(defaultValue ?? "");
 

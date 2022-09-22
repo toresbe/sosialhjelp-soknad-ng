@@ -11,7 +11,7 @@ interface FromKrrProps {
 
 export const FromKrr = ({fraKrr, onEdit}: FromKrrProps) => {
     const fraKrrFormattert = fraKrr ? formatPhone(fraKrr) : fraKrr;
-    const {t} = useTranslation("telefon");
+    const {t} = useTranslation("skjema", {keyPrefix: "telefon"});
 
     return (
         <Flex>
