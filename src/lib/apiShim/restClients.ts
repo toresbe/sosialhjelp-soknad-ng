@@ -7,15 +7,19 @@ import logger from "../logger";
 // It works just enough to sort of use it with sosialhjelp-soknad-api
 // with mock-alt.
 
-// Yeah, it ain't pretty. You have to copy and paste the default user's
-// fødselsnummer. It's enough for me to get started consuming
-// the REST API on a development system.
-const SUBJECT_FNR = "26104514269";
-
 let AuthCookie: string;
 
+const getmockFnr = async () => {
+    const url = `${MOCK_ALT_API_BASE}/mock-alt/personalia/liste`;
+    const res = await fetch(url);
+    const personalia = (await res.json()) as any;
+    return personalia[0].fnr;
+};
+
 const getAuthCookie = async () => {
-    const url = `${MOCK_ALT_API_BASE}/login/cookie?subject=${SUBJECT_FNR}&issuerId=selvbetjening&audience=someaudience`;
+    const fnr = await getmockFnr();
+
+    const url = `${MOCK_ALT_API_BASE}/login/cookie?subject=${fnr}&issuerId=selvbetjening&audience=someaudience`;
 
     const res = await fetch(url);
 
