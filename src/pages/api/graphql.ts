@@ -17,6 +17,7 @@ const plugins =
         : [ApolloServerPluginLandingPageLocalDefault({embed: true})];
 
 const apolloServer = new ApolloServer({typeDefs, resolvers, plugins});
+const startServer = apolloServer.start();
 
 export const config = {
     api: {
@@ -25,7 +26,7 @@ export const config = {
 };
 
 export const createHandler = async (req: any, res: any) => {
-    await apolloServer.start();
+    await startServer;
     return apolloServer.createHandler({path: "/api/graphql"})(req, res);
 };
 
