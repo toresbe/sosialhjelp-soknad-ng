@@ -8,5 +8,10 @@
   "telefon.fraKrr": "Fra kontakt- og reservasjonsregisteret",
   "telefon.legend": "Telefonnummer",
   "telefon.telefonnummer": "Telefonnummer",
-  "telefon.norsknummer": "Norsk telefonnummer"
+  "telefon.norsknummer": "Norsk telefonnummer",
+  "navEnhet.gyldig": "Søknaden vil bli sendt til: {{navn}}, {{kommune}} kommune.",
+  "navEnhet.ugyldig": "{{kommune}} kommune kan ikke ta i mot digitale søknader.",
+  "navEnhet.papirSoknad": "Du kan <a href=\"{{link}}\">søke med papirskjema</a>.",
+  "navEnhet.midlUgyldig": "{kommuneNavn} kommune kan dessverre ikke ta i mot digitale søknader akkurat nå.",
+  "navEnhet.midlPapirSoknad": "Du kan <a href=\"{{link}}\">søke med papirskjema</a> eller prøve igjen senere."
 }

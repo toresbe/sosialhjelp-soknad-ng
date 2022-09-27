@@ -13,6 +13,7 @@ const Template = (args: {personalia: Personalia}) => {
 };
 
 export const Primary = Template.bind({});
+// @ts-ignore
 Primary.args = {
     personalia: {
         navn: {
