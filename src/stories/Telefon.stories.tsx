@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {ComponentMeta, ComponentStory} from "@storybook/react";
 import Telefon from "../components/personalia/Telefon";
-import {Maybe, TelefonData} from "../generated/apollo";
+import {Maybe, TelefonData} from "../generated/apolloClientTypes";
 import {FakeQuestionWrapper} from "./FakeQuestionWrapper";
 
 export const IngentingIKrr: ComponentStory<typeof Telefon> = () => {

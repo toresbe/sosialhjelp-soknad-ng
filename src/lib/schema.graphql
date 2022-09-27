@@ -1,7 +1,34 @@
+scalar DateTime
+
+type Mutation {
+    nySoknad: Soknad!
+    setTelefonnummer(soknadId: ID!, tlfnr: String): Soknad!
+    setAdresse(soknadId: ID!, adresseValg: AdresseValg!, soknadsAdresse: NyVegadresse): Soknad!
+}
+
+type Query {
+    soknad(id: ID!): Soknad
+}
+
 type Soknad {
     id: ID!
     personalia: Personalia!
     telefon: TelefonData!
+    adresser: AdresseData!
+    navEnhet: NavEnhet
+}
+
+type AdresseData {
+    valgt: AdresseValg!
+    bostedsadresse: Adresse
+    oppholdsadresse: Adresse
+    soknadsadresse: Vegadresse
+}
+
+enum AdresseValg {
+    BOSTED
+    OPPHOLD
+    SOKNAD
 }
 
 type Personalia {
@@ -15,18 +42,62 @@ type TelefonData {
     brukerdefinert: String
 }
 
-type Query {
-    soknad(id: ID!): Soknad
-}
-
 type Navn {
     fornavn: String!
     mellomnavn: String
     etternavn: String!
 }
 
-type Mutation {
-    nySoknad: Soknad!
-    setTelefonnummer(id: ID!, tlfnr: String): Soknad!
+enum NavEnhetStatus {
+    AKTIV
+    MIDL_DEAKTIVERT
+    DEAKTIVERT
 }
 
+type NavEnhet {
+    id: ID!
+    navn: String!
+    status: NavEnhetStatus!
+    kommune: String!
+}
+
+input NyVegadresse {
+    husnummer: String
+    husbokstav: String
+    bruksenhetsnummer: String
+    adressenavn: String
+    kommunenummer: String
+    bydelsnummer: String
+    tilleggsnavn: String
+    postnummer: String
+}
+
+###################################################################################################################
+# Typene under er i praksis fragmenter av typer i PDL-schema. Kanskje frontend bør hente dataene direkte fra PDL? #
+###################################################################################################################
+
+# MatrikkelID og Koordinater fjernet for enkelhets skyld
+type Vegadresse {
+    husnummer: String
+    husbokstav: String
+    bruksenhetsnummer: String
+    adressenavn: String
+    kommunenummer: String
+    bydelsnummer: String
+    tilleggsnavn: String
+    postnummer: String
+}
+
+# MatrikkelID og Koordinater fjernet for enkelhets skyld
+type Matrikkeladresse {
+    bruksenhetsnummer: String
+    tilleggsnavn: String
+    postnummer: String
+    kommunenummer: String
+}
+
+# Kopiert fra PDL, slanket til våre behov og generalisert
+type Adresse {
+    vegadresse: Vegadresse
+    matrikkeladresse: Matrikkeladresse
+}

@@ -17,22 +17,74 @@ query getTelefon($soknadId: ID!) {
 query getPersonalia($soknadId: ID!) {
     soknad(id: $soknadId) {
         id
-        personalia {
-            navn {
-                fornavn
-                mellomnavn
-                etternavn
-            }
-            fnr
-            statsborgerskap
+        ...BasisPersonalia
+        adresser {
+            ...Adresser
         }
     }
 }
 
+fragment BasisPersonalia on Soknad {
+    personalia {
+        navn {
+            fornavn
+            mellomnavn
+            etternavn
+        }
+        fnr
+        statsborgerskap
+    }
+}
+
+fragment Adresser on AdresseData {
+    bostedsadresse {
+        vegadresse {
+            ...vegadresse
+        }
+        matrikkeladresse {
+            ...matrikkeladresse
+        }
+    }
+    oppholdsadresse {
+        vegadresse {
+            ...vegadresse
+        }
+    }
+    soknadsadresse {
+        ...vegadresse
+    }
+}
+
+fragment vegadresse on Vegadresse {
+    adressenavn
+    husnummer
+    husbokstav
+    tilleggsnavn
+    postnummer
+    kommunenummer
+    bruksenhetsnummer
+    bydelsnummer
+}
+
+fragment matrikkeladresse on Matrikkeladresse {
+    postnummer
+    tilleggsnavn
+    kommunenummer
+    bruksenhetsnummer
+}
+
 mutation SetTelefonnummer($soknadId: ID!, $tlfNr: String) {
-    setTelefonnummer(id: $soknadId, tlfnr: $tlfNr) {
+    setTelefonnummer(soknadId: $soknadId, tlfnr: $tlfNr) {
         telefon {
             brukerdefinert
+        }
+    }
+}
+
+mutation Koko($soknadId: ID!, $adresseValg: AdresseValg!, $soknadsAdresse: NyVegadresse) {
+    setAdresse(soknadId: $soknadId, adresseValg: $adresseValg, soknadsAdresse: $soknadsAdresse) {
+        adresser {
+            ...Adresser
         }
     }
 }

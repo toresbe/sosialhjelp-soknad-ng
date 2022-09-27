@@ -5,7 +5,7 @@ import {
     Maybe,
     SetTelefonnummerDocument,
     SetTelefonnummerMutation,
-} from "../../generated/apollo";
+} from "../../generated/apolloClientTypes";
 
 import {useSoknadIdFromRouter} from "../soknadContext/useSoknadIdFromRouter";
 

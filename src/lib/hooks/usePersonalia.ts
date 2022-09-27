@@ -1,5 +1,5 @@
 import {useQuery} from "@apollo/client";
-import {GetPersonaliaDocument, GetPersonaliaQuery} from "../../generated/apollo";
+import {GetPersonaliaDocument, GetPersonaliaQuery} from "../../generated/apolloClientTypes";
 import {useSoknadIdFromRouter} from "../soknadContext/useSoknadIdFromRouter";
 import {BasisPersonaliaProps} from "../../components/personalia/BasisPersonalia";
 

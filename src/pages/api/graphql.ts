@@ -1,5 +1,5 @@
 import {ApolloServer} from "apollo-server-micro";
-import {resolvers} from "../../lib/apiShim/resolvers";
+import {resolvers} from "../../lib/apiShim/router";
 import {
     ApolloServerPluginLandingPageLocalDefault,
     ApolloServerPluginLandingPageProductionDefault,

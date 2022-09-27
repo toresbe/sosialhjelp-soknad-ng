@@ -1,4 +1,4 @@
-import {Navn} from "../../generated/apollo";
+import {Navn} from "../../generated/apolloClientTypes";
 
 export const formatName = ({fornavn, mellomnavn, etternavn}: Navn) => {
     if (!fornavn) throw new Error("formatName received a name without required first name");

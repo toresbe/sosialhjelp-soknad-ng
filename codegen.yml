@@ -2,16 +2,21 @@ overwrite: true
 schema: "src/lib/schema.graphql"
 documents: "src/lib/queries.graphql"
 generates:
-  src/generated/apollo.ts:
+  src/generated/apolloClientTypes.ts:
     plugins:
       - typescript
       - typescript-operations
       - typed-document-node
-  src/generated/resolvers.ts:
+  src/generated/apolloServerTypes.ts:
     config:
       makeResolverTypeCallable: true
-      defaultMapper: Partial<{T}>
+      defaultMapper: DeepPartial<{T}>
       useIndexSignature: true
     plugins:
       - typescript
       - typescript-resolvers
+      - add:
+          content: "import { DeepPartial } from 'utility-types';"
+  ./graphql.schema.json:
+    plugins:
+      - introspection

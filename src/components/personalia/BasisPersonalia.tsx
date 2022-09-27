@@ -1,5 +1,5 @@
 import {useTranslation} from "next-i18next";
-import {Personalia} from "../../generated/apollo";
+import {Personalia} from "../../generated/apolloClientTypes";
 import {Heading, Loader} from "@navikt/ds-react";
 import {formatFnr, screenReaderFnr} from "../../lib/formatters/FormatFnr";
 import {formatName} from "../../lib/formatters/FormatName";

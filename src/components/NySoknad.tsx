@@ -1,5 +1,5 @@
 import {useMutation} from "@apollo/client";
-import {NySoknadDocument, NySoknadMutation} from "../generated/apollo";
+import {NySoknadDocument, NySoknadMutation} from "../generated/apolloClientTypes";
 import {useRouter} from "next/router";
 
 // Just a placeholder page for now.

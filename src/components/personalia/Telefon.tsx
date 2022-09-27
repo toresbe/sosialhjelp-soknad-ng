@@ -3,7 +3,7 @@ import {Fieldset, Loader} from "@navikt/ds-react";
 import {useTranslation} from "next-i18next";
 import {PhoneEditBox} from "./telefon/PhoneEditBox";
 import {useState} from "react";
-import {Maybe, TelefonData} from "../../generated/apollo";
+import {Maybe, TelefonData} from "../../generated/apolloClientTypes";
 import {FromUser} from "./telefon/FromUser";
 import {FromKrr} from "./telefon/FromKrr";
 
