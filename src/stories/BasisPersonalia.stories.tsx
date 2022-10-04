@@ -1,19 +1,18 @@
-import {ComponentMeta} from "@storybook/react";
+import {ComponentMeta, Story} from "@storybook/react";
 import React from "react";
 import {FakeQuestionWrapper} from "./FakeQuestionWrapper";
-import {BasisPersonalia} from "../components/personalia/BasisPersonalia";
-import {Personalia} from "../generated/apolloClientTypes";
+import {BasisPersonalia, BasisPersonaliaProps} from "../components/personalia/BasisPersonalia";
 
-const Template = (args: {personalia: Personalia}) => {
+const Template: Story<BasisPersonaliaProps> = ({personalia}: BasisPersonaliaProps) => {
     return (
         <FakeQuestionWrapper>
-            <BasisPersonalia personalia={args.personalia} />
+            <BasisPersonalia personalia={personalia} />
         </FakeQuestionWrapper>
     );
 };
 
 export const Primary = Template.bind({});
-// @ts-ignore
+
 Primary.args = {
     personalia: {
         navn: {

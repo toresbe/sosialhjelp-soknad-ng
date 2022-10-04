@@ -2,12 +2,12 @@
 
 import {LegacyAdresser, LegacyAdresserSchema} from "../legacyTypes/personalia";
 import {serverGet} from "../restClients";
-import {AdresseData} from "../../../generated/apolloServerTypes";
+import {AdresseData, Resolver, Soknad} from "../../../generated/apolloServerTypes";
 import {adresseValgFraLegacy} from "../translators/adresseValg";
 
-export const resolveAdresse = async (behandlingsId: string): Promise<AdresseData> => {
+export const resolveAdresse: Resolver<AdresseData, Pick<Soknad, "id">> = async (parent): Promise<AdresseData> => {
     const legacyAdresser = await serverGet<LegacyAdresser>(
-        `soknader/${behandlingsId}/personalia/adresser`,
+        `soknader/${parent.id}/personalia/adresser`,
         LegacyAdresserSchema
     );
 
