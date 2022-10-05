@@ -5,6 +5,7 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -36,32 +37,46 @@ export enum AdresseValg {
   Soknad = 'SOKNAD'
 }
 
+export type InputVegadresse = {
+  adressenavn?: InputMaybe<Scalars['String']>;
+  bruksenhetsnummer?: InputMaybe<Scalars['String']>;
+  bydelsnummer?: InputMaybe<Scalars['String']>;
+  husbokstav?: InputMaybe<Scalars['String']>;
+  husnummer?: InputMaybe<Scalars['String']>;
+  kommunenummer?: InputMaybe<Scalars['String']>;
+  postnummer?: InputMaybe<Scalars['String']>;
+  tilleggsnavn?: InputMaybe<Scalars['String']>;
+};
+
 export type Matrikkeladresse = {
   __typename?: 'Matrikkeladresse';
   bruksenhetsnummer?: Maybe<Scalars['String']>;
+  bruksnummer?: Maybe<Scalars['String']>;
+  festenummer?: Maybe<Scalars['String']>;
+  gaardsnummer?: Maybe<Scalars['String']>;
   kommunenummer?: Maybe<Scalars['String']>;
   postnummer?: Maybe<Scalars['String']>;
+  poststed?: Maybe<Scalars['String']>;
+  seksjonsnummer?: Maybe<Scalars['String']>;
   tilleggsnavn?: Maybe<Scalars['String']>;
+  undernummer?: Maybe<Scalars['String']>;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
   nySoknad: Soknad;
-  setAdresse: Soknad;
-  setTelefonnummer: Soknad;
+  setAdresse: SoknadMutation;
+  setTelefonnummer: SoknadMutation;
 };
 
 
 export type MutationSetAdresseArgs = {
-  adresseValg: AdresseValg;
-  soknadId: Scalars['ID'];
-  soknadsAdresse?: InputMaybe<NyVegadresse>;
+  input: SetAdresseInput;
 };
 
 
 export type MutationSetTelefonnummerArgs = {
-  soknadId: Scalars['ID'];
-  tlfnr?: InputMaybe<Scalars['String']>;
+  input: SetTelefonnummerInput;
 };
 
 export type NavEnhet = {
@@ -85,17 +100,6 @@ export type Navn = {
   mellomnavn?: Maybe<Scalars['String']>;
 };
 
-export type NyVegadresse = {
-  adressenavn?: InputMaybe<Scalars['String']>;
-  bruksenhetsnummer?: InputMaybe<Scalars['String']>;
-  bydelsnummer?: InputMaybe<Scalars['String']>;
-  husbokstav?: InputMaybe<Scalars['String']>;
-  husnummer?: InputMaybe<Scalars['String']>;
-  kommunenummer?: InputMaybe<Scalars['String']>;
-  postnummer?: InputMaybe<Scalars['String']>;
-  tilleggsnavn?: InputMaybe<Scalars['String']>;
-};
-
 export type Personalia = {
   __typename?: 'Personalia';
   fnr: Scalars['String'];
@@ -113,6 +117,17 @@ export type QuerySoknadArgs = {
   id: Scalars['ID'];
 };
 
+export type SetAdresseInput = {
+  adresseValg: AdresseValg;
+  soknadId: Scalars['ID'];
+  soknadsAdresse?: InputMaybe<InputVegadresse>;
+};
+
+export type SetTelefonnummerInput = {
+  soknadId: Scalars['ID'];
+  tlfnr?: InputMaybe<Scalars['String']>;
+};
+
 export type Soknad = {
   __typename?: 'Soknad';
   adresser: AdresseData;
@@ -120,6 +135,11 @@ export type Soknad = {
   navEnhet?: Maybe<NavEnhet>;
   personalia: Personalia;
   telefon: TelefonData;
+};
+
+export type SoknadMutation = {
+  __typename?: 'SoknadMutation';
+  soknad?: Maybe<Soknad>;
 };
 
 export type TelefonData = {
@@ -137,6 +157,7 @@ export type Vegadresse = {
   husnummer?: Maybe<Scalars['String']>;
   kommunenummer?: Maybe<Scalars['String']>;
   postnummer?: Maybe<Scalars['String']>;
+  poststed?: Maybe<Scalars['String']>;
   tilleggsnavn?: Maybe<Scalars['String']>;
 };
 
@@ -212,15 +233,18 @@ export type ResolversTypes = ResolversObject<{
   Boolean: ResolverTypeWrapper<DeepPartial<Scalars['Boolean']>>;
   DateTime: ResolverTypeWrapper<DeepPartial<Scalars['DateTime']>>;
   ID: ResolverTypeWrapper<DeepPartial<Scalars['ID']>>;
+  InputVegadresse: ResolverTypeWrapper<DeepPartial<InputVegadresse>>;
   Matrikkeladresse: ResolverTypeWrapper<DeepPartial<Matrikkeladresse>>;
   Mutation: ResolverTypeWrapper<{}>;
   NavEnhet: ResolverTypeWrapper<DeepPartial<NavEnhet>>;
   NavEnhetStatus: ResolverTypeWrapper<DeepPartial<NavEnhetStatus>>;
   Navn: ResolverTypeWrapper<DeepPartial<Navn>>;
-  NyVegadresse: ResolverTypeWrapper<DeepPartial<NyVegadresse>>;
   Personalia: ResolverTypeWrapper<DeepPartial<Personalia>>;
   Query: ResolverTypeWrapper<{}>;
-  Soknad: ResolverTypeWrapper<DeepPartial<Soknad>>;
+  SetAdresseInput: ResolverTypeWrapper<DeepPartial<SetAdresseInput>>;
+  SetTelefonnummerInput: ResolverTypeWrapper<DeepPartial<SetTelefonnummerInput>>;
+  Soknad: ResolverTypeWrapper<DeepPartial<Soknad> & Pick<Soknad, "id">>;
+  SoknadMutation: ResolverTypeWrapper<DeepPartial<Omit<SoknadMutation, 'soknad'> & { soknad?: Maybe<ResolversTypes['Soknad']> }>>;
   String: ResolverTypeWrapper<DeepPartial<Scalars['String']>>;
   TelefonData: ResolverTypeWrapper<DeepPartial<TelefonData>>;
   Vegadresse: ResolverTypeWrapper<DeepPartial<Vegadresse>>;
@@ -233,14 +257,17 @@ export type ResolversParentTypes = ResolversObject<{
   Boolean: DeepPartial<Scalars['Boolean']>;
   DateTime: DeepPartial<Scalars['DateTime']>;
   ID: DeepPartial<Scalars['ID']>;
+  InputVegadresse: DeepPartial<InputVegadresse>;
   Matrikkeladresse: DeepPartial<Matrikkeladresse>;
   Mutation: {};
   NavEnhet: DeepPartial<NavEnhet>;
   Navn: DeepPartial<Navn>;
-  NyVegadresse: DeepPartial<NyVegadresse>;
   Personalia: DeepPartial<Personalia>;
   Query: {};
-  Soknad: DeepPartial<Soknad>;
+  SetAdresseInput: DeepPartial<SetAdresseInput>;
+  SetTelefonnummerInput: DeepPartial<SetTelefonnummerInput>;
+  Soknad: DeepPartial<Soknad> & Pick<Soknad, "id">;
+  SoknadMutation: DeepPartial<Omit<SoknadMutation, 'soknad'> & { soknad?: Maybe<ResolversParentTypes['Soknad']> }>;
   String: DeepPartial<Scalars['String']>;
   TelefonData: DeepPartial<TelefonData>;
   Vegadresse: DeepPartial<Vegadresse>;
@@ -266,16 +293,22 @@ export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversT
 
 export type MatrikkeladresseResolvers<ContextType = any, ParentType extends ResolversParentTypes['Matrikkeladresse'] = ResolversParentTypes['Matrikkeladresse']> = ResolversObject<{
   bruksenhetsnummer?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  bruksnummer?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  festenummer?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  gaardsnummer?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   kommunenummer?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   postnummer?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  poststed?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  seksjonsnummer?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   tilleggsnavn?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  undernummer?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
   nySoknad?: Resolver<ResolversTypes['Soknad'], ParentType, ContextType>;
-  setAdresse?: Resolver<ResolversTypes['Soknad'], ParentType, ContextType, RequireFields<MutationSetAdresseArgs, 'adresseValg' | 'soknadId'>>;
-  setTelefonnummer?: Resolver<ResolversTypes['Soknad'], ParentType, ContextType, RequireFields<MutationSetTelefonnummerArgs, 'soknadId'>>;
+  setAdresse?: Resolver<ResolversTypes['SoknadMutation'], ParentType, ContextType, RequireFields<MutationSetAdresseArgs, 'input'>>;
+  setTelefonnummer?: Resolver<ResolversTypes['SoknadMutation'], ParentType, ContextType, RequireFields<MutationSetTelefonnummerArgs, 'input'>>;
 }>;
 
 export type NavEnhetResolvers<ContextType = any, ParentType extends ResolversParentTypes['NavEnhet'] = ResolversParentTypes['NavEnhet']> = ResolversObject<{
@@ -313,6 +346,11 @@ export type SoknadResolvers<ContextType = any, ParentType extends ResolversParen
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type SoknadMutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['SoknadMutation'] = ResolversParentTypes['SoknadMutation']> = ResolversObject<{
+  soknad?: Resolver<Maybe<ResolversTypes['Soknad']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type TelefonDataResolvers<ContextType = any, ParentType extends ResolversParentTypes['TelefonData'] = ResolversParentTypes['TelefonData']> = ResolversObject<{
   brukerdefinert?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   fraKrr?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -327,6 +365,7 @@ export type VegadresseResolvers<ContextType = any, ParentType extends ResolversP
   husnummer?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   kommunenummer?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   postnummer?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  poststed?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   tilleggsnavn?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
@@ -342,6 +381,7 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   Personalia?: PersonaliaResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Soknad?: SoknadResolvers<ContextType>;
+  SoknadMutation?: SoknadMutationResolvers<ContextType>;
   TelefonData?: TelefonDataResolvers<ContextType>;
   Vegadresse?: VegadresseResolvers<ContextType>;
 }>;

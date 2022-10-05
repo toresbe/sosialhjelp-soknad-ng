@@ -30,6 +30,13 @@ export const LegacyTelefonSchema = z.object({
     brukerutfyltVerdi: z.string().nullable(),
 });
 
+export const LegacyTelefonInputSchema = z.object({
+    brukerdefinert: z.boolean(),
+    brukerutfyltVerdi: z.string().nullable(),
+});
+
+export type LegacyTelefonInput = z.infer<typeof LegacyTelefonInputSchema>;
+
 export const LegacyKontonummerSchema = z.object({
     brukerdefinert: z.boolean(),
     systemverdi: z.string().nullable(),

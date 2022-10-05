@@ -6,6 +6,7 @@ import {resolveSoknad} from "./resolvers/resolveSoknad";
 import {mutateTelefonnummer} from "./resolvers/mutateTelefonnummer";
 import {resolveNavEnhet} from "./resolvers/resolveNavEnhet";
 import {mutateAdresse} from "./resolvers/mutateAdresse";
+import {resolveAdresser} from "./resolvers/resolveAdresser";
 
 export const resolvers: Resolvers = {
     Query: {
@@ -20,5 +21,6 @@ export const resolvers: Resolvers = {
         telefon: resolveTelefonnummer,
         navEnhet: resolveNavEnhet,
         personalia: resolveBasisPersonalia,
+        adresser: resolveAdresser,
     },
 };

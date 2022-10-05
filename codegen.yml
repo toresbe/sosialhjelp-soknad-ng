@@ -12,6 +12,8 @@ generates:
       makeResolverTypeCallable: true
       defaultMapper: DeepPartial<{T}>
       useIndexSignature: true
+      mappers:
+        Soknad: DeepPartial<Soknad> & Pick<Soknad, "id">
     plugins:
       - typescript
       - typescript-resolvers

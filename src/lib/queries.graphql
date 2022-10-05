@@ -73,18 +73,24 @@ fragment matrikkeladresse on Matrikkeladresse {
     bruksenhetsnummer
 }
 
-mutation SetTelefonnummer($soknadId: ID!, $tlfNr: String) {
-    setTelefonnummer(soknadId: $soknadId, tlfnr: $tlfNr) {
-        telefon {
-            brukerdefinert
+mutation SetTelefonnummer($input: SetTelefonnummerInput!) {
+    setTelefonnummer(input: $input) {
+        soknad {
+            id
+            telefon {
+                brukerdefinert
+            }
         }
     }
 }
 
-mutation Koko($soknadId: ID!, $adresseValg: AdresseValg!, $soknadsAdresse: NyVegadresse) {
-    setAdresse(soknadId: $soknadId, adresseValg: $adresseValg, soknadsAdresse: $soknadsAdresse) {
-        adresser {
-            ...Adresser
+mutation SetAdresse($input: SetAdresseInput!) {
+    setAdresse(input: $input) {
+        soknad {
+            id
+            adresser {
+                ...Adresser
+            }
         }
     }
 }

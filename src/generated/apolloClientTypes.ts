@@ -34,32 +34,46 @@ export enum AdresseValg {
   Soknad = 'SOKNAD'
 }
 
+export type InputVegadresse = {
+  adressenavn?: InputMaybe<Scalars['String']>;
+  bruksenhetsnummer?: InputMaybe<Scalars['String']>;
+  bydelsnummer?: InputMaybe<Scalars['String']>;
+  husbokstav?: InputMaybe<Scalars['String']>;
+  husnummer?: InputMaybe<Scalars['String']>;
+  kommunenummer?: InputMaybe<Scalars['String']>;
+  postnummer?: InputMaybe<Scalars['String']>;
+  tilleggsnavn?: InputMaybe<Scalars['String']>;
+};
+
 export type Matrikkeladresse = {
   __typename?: 'Matrikkeladresse';
   bruksenhetsnummer?: Maybe<Scalars['String']>;
+  bruksnummer?: Maybe<Scalars['String']>;
+  festenummer?: Maybe<Scalars['String']>;
+  gaardsnummer?: Maybe<Scalars['String']>;
   kommunenummer?: Maybe<Scalars['String']>;
   postnummer?: Maybe<Scalars['String']>;
+  poststed?: Maybe<Scalars['String']>;
+  seksjonsnummer?: Maybe<Scalars['String']>;
   tilleggsnavn?: Maybe<Scalars['String']>;
+  undernummer?: Maybe<Scalars['String']>;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
   nySoknad: Soknad;
-  setAdresse: Soknad;
-  setTelefonnummer: Soknad;
+  setAdresse: SoknadMutation;
+  setTelefonnummer: SoknadMutation;
 };
 
 
 export type MutationSetAdresseArgs = {
-  adresseValg: AdresseValg;
-  soknadId: Scalars['ID'];
-  soknadsAdresse?: InputMaybe<NyVegadresse>;
+  input: SetAdresseInput;
 };
 
 
 export type MutationSetTelefonnummerArgs = {
-  soknadId: Scalars['ID'];
-  tlfnr?: InputMaybe<Scalars['String']>;
+  input: SetTelefonnummerInput;
 };
 
 export type NavEnhet = {
@@ -83,17 +97,6 @@ export type Navn = {
   mellomnavn?: Maybe<Scalars['String']>;
 };
 
-export type NyVegadresse = {
-  adressenavn?: InputMaybe<Scalars['String']>;
-  bruksenhetsnummer?: InputMaybe<Scalars['String']>;
-  bydelsnummer?: InputMaybe<Scalars['String']>;
-  husbokstav?: InputMaybe<Scalars['String']>;
-  husnummer?: InputMaybe<Scalars['String']>;
-  kommunenummer?: InputMaybe<Scalars['String']>;
-  postnummer?: InputMaybe<Scalars['String']>;
-  tilleggsnavn?: InputMaybe<Scalars['String']>;
-};
-
 export type Personalia = {
   __typename?: 'Personalia';
   fnr: Scalars['String'];
@@ -111,6 +114,17 @@ export type QuerySoknadArgs = {
   id: Scalars['ID'];
 };
 
+export type SetAdresseInput = {
+  adresseValg: AdresseValg;
+  soknadId: Scalars['ID'];
+  soknadsAdresse?: InputMaybe<InputVegadresse>;
+};
+
+export type SetTelefonnummerInput = {
+  soknadId: Scalars['ID'];
+  tlfnr?: InputMaybe<Scalars['String']>;
+};
+
 export type Soknad = {
   __typename?: 'Soknad';
   adresser: AdresseData;
@@ -118,6 +132,11 @@ export type Soknad = {
   navEnhet?: Maybe<NavEnhet>;
   personalia: Personalia;
   telefon: TelefonData;
+};
+
+export type SoknadMutation = {
+  __typename?: 'SoknadMutation';
+  soknad?: Maybe<Soknad>;
 };
 
 export type TelefonData = {
@@ -135,6 +154,7 @@ export type Vegadresse = {
   husnummer?: Maybe<Scalars['String']>;
   kommunenummer?: Maybe<Scalars['String']>;
   postnummer?: Maybe<Scalars['String']>;
+  poststed?: Maybe<Scalars['String']>;
   tilleggsnavn?: Maybe<Scalars['String']>;
 };
 
@@ -166,21 +186,18 @@ export type VegadresseFragment = { __typename?: 'Vegadresse', adressenavn?: stri
 export type MatrikkeladresseFragment = { __typename?: 'Matrikkeladresse', postnummer?: string | null, tilleggsnavn?: string | null, kommunenummer?: string | null, bruksenhetsnummer?: string | null };
 
 export type SetTelefonnummerMutationVariables = Exact<{
-  soknadId: Scalars['ID'];
-  tlfNr?: InputMaybe<Scalars['String']>;
+  input: SetTelefonnummerInput;
 }>;
 
 
-export type SetTelefonnummerMutation = { __typename?: 'Mutation', setTelefonnummer: { __typename?: 'Soknad', telefon: { __typename?: 'TelefonData', brukerdefinert?: string | null } } };
+export type SetTelefonnummerMutation = { __typename?: 'Mutation', setTelefonnummer: { __typename?: 'SoknadMutation', soknad?: { __typename?: 'Soknad', id: string, telefon: { __typename?: 'TelefonData', brukerdefinert?: string | null } } | null } };
 
-export type KokoMutationVariables = Exact<{
-  soknadId: Scalars['ID'];
-  adresseValg: AdresseValg;
-  soknadsAdresse?: InputMaybe<NyVegadresse>;
+export type SetAdresseMutationVariables = Exact<{
+  input: SetAdresseInput;
 }>;
 
 
-export type KokoMutation = { __typename?: 'Mutation', setAdresse: { __typename?: 'Soknad', adresser: { __typename?: 'AdresseData', bostedsadresse?: { __typename?: 'Adresse', vegadresse?: { __typename?: 'Vegadresse', adressenavn?: string | null, husnummer?: string | null, husbokstav?: string | null, tilleggsnavn?: string | null, postnummer?: string | null, kommunenummer?: string | null, bruksenhetsnummer?: string | null, bydelsnummer?: string | null } | null, matrikkeladresse?: { __typename?: 'Matrikkeladresse', postnummer?: string | null, tilleggsnavn?: string | null, kommunenummer?: string | null, bruksenhetsnummer?: string | null } | null } | null, oppholdsadresse?: { __typename?: 'Adresse', vegadresse?: { __typename?: 'Vegadresse', adressenavn?: string | null, husnummer?: string | null, husbokstav?: string | null, tilleggsnavn?: string | null, postnummer?: string | null, kommunenummer?: string | null, bruksenhetsnummer?: string | null, bydelsnummer?: string | null } | null } | null, soknadsadresse?: { __typename?: 'Vegadresse', adressenavn?: string | null, husnummer?: string | null, husbokstav?: string | null, tilleggsnavn?: string | null, postnummer?: string | null, kommunenummer?: string | null, bruksenhetsnummer?: string | null, bydelsnummer?: string | null } | null } } };
+export type SetAdresseMutation = { __typename?: 'Mutation', setAdresse: { __typename?: 'SoknadMutation', soknad?: { __typename?: 'Soknad', id: string, adresser: { __typename?: 'AdresseData', bostedsadresse?: { __typename?: 'Adresse', vegadresse?: { __typename?: 'Vegadresse', adressenavn?: string | null, husnummer?: string | null, husbokstav?: string | null, tilleggsnavn?: string | null, postnummer?: string | null, kommunenummer?: string | null, bruksenhetsnummer?: string | null, bydelsnummer?: string | null } | null, matrikkeladresse?: { __typename?: 'Matrikkeladresse', postnummer?: string | null, tilleggsnavn?: string | null, kommunenummer?: string | null, bruksenhetsnummer?: string | null } | null } | null, oppholdsadresse?: { __typename?: 'Adresse', vegadresse?: { __typename?: 'Vegadresse', adressenavn?: string | null, husnummer?: string | null, husbokstav?: string | null, tilleggsnavn?: string | null, postnummer?: string | null, kommunenummer?: string | null, bruksenhetsnummer?: string | null, bydelsnummer?: string | null } | null } | null, soknadsadresse?: { __typename?: 'Vegadresse', adressenavn?: string | null, husnummer?: string | null, husbokstav?: string | null, tilleggsnavn?: string | null, postnummer?: string | null, kommunenummer?: string | null, bruksenhetsnummer?: string | null, bydelsnummer?: string | null } | null } } | null } };
 
 export const BasisPersonaliaFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BasisPersonalia"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Soknad"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"personalia"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"navn"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"fornavn"}},{"kind":"Field","name":{"kind":"Name","value":"mellomnavn"}},{"kind":"Field","name":{"kind":"Name","value":"etternavn"}}]}},{"kind":"Field","name":{"kind":"Name","value":"fnr"}},{"kind":"Field","name":{"kind":"Name","value":"statsborgerskap"}}]}}]}}]} as unknown as DocumentNode<BasisPersonaliaFragment, unknown>;
 export const VegadresseFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"vegadresse"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Vegadresse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adressenavn"}},{"kind":"Field","name":{"kind":"Name","value":"husnummer"}},{"kind":"Field","name":{"kind":"Name","value":"husbokstav"}},{"kind":"Field","name":{"kind":"Name","value":"tilleggsnavn"}},{"kind":"Field","name":{"kind":"Name","value":"postnummer"}},{"kind":"Field","name":{"kind":"Name","value":"kommunenummer"}},{"kind":"Field","name":{"kind":"Name","value":"bruksenhetsnummer"}},{"kind":"Field","name":{"kind":"Name","value":"bydelsnummer"}}]}}]} as unknown as DocumentNode<VegadresseFragment, unknown>;
@@ -189,5 +206,5 @@ export const AdresserFragmentDoc = {"kind":"Document","definitions":[{"kind":"Fr
 export const NySoknadDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"nySoknad"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nySoknad"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<NySoknadMutation, NySoknadMutationVariables>;
 export const GetTelefonDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getTelefon"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"soknadId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"soknad"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"soknadId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"telefon"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"fraKrr"}},{"kind":"Field","name":{"kind":"Name","value":"brukerdefinert"}}]}}]}}]}}]} as unknown as DocumentNode<GetTelefonQuery, GetTelefonQueryVariables>;
 export const GetPersonaliaDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getPersonalia"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"soknadId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"soknad"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"soknadId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"BasisPersonalia"}},{"kind":"Field","name":{"kind":"Name","value":"adresser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Adresser"}}]}}]}}]}},...BasisPersonaliaFragmentDoc.definitions,...AdresserFragmentDoc.definitions]} as unknown as DocumentNode<GetPersonaliaQuery, GetPersonaliaQueryVariables>;
-export const SetTelefonnummerDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SetTelefonnummer"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"soknadId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"tlfNr"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"setTelefonnummer"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"soknadId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"soknadId"}}},{"kind":"Argument","name":{"kind":"Name","value":"tlfnr"},"value":{"kind":"Variable","name":{"kind":"Name","value":"tlfNr"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"telefon"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"brukerdefinert"}}]}}]}}]}}]} as unknown as DocumentNode<SetTelefonnummerMutation, SetTelefonnummerMutationVariables>;
-export const KokoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"Koko"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"soknadId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"adresseValg"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AdresseValg"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"soknadsAdresse"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"NyVegadresse"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"setAdresse"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"soknadId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"soknadId"}}},{"kind":"Argument","name":{"kind":"Name","value":"adresseValg"},"value":{"kind":"Variable","name":{"kind":"Name","value":"adresseValg"}}},{"kind":"Argument","name":{"kind":"Name","value":"soknadsAdresse"},"value":{"kind":"Variable","name":{"kind":"Name","value":"soknadsAdresse"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adresser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Adresser"}}]}}]}}]}},...AdresserFragmentDoc.definitions]} as unknown as DocumentNode<KokoMutation, KokoMutationVariables>;
+export const SetTelefonnummerDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SetTelefonnummer"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SetTelefonnummerInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"setTelefonnummer"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"soknad"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"telefon"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"brukerdefinert"}}]}}]}}]}}]}}]} as unknown as DocumentNode<SetTelefonnummerMutation, SetTelefonnummerMutationVariables>;
+export const SetAdresseDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SetAdresse"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SetAdresseInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"setAdresse"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"soknad"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"adresser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Adresser"}}]}}]}}]}}]}},...AdresserFragmentDoc.definitions]} as unknown as DocumentNode<SetAdresseMutation, SetAdresseMutationVariables>;

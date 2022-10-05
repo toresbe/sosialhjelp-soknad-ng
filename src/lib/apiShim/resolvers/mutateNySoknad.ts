@@ -2,6 +2,7 @@ import {serverPost} from "../restClients";
 import {NySoknadResponse, NySoknadResponseSchema} from "../legacyTypes/nySoknad";
 import {Resolver, Soknad} from "../../../generated/apolloServerTypes";
 import {DeepPartial} from "utility-types";
+import {SoknadType} from "../SoknadType";
 
 // Create a new application.
 //
@@ -9,7 +10,7 @@ import {DeepPartial} from "utility-types";
 // a string identifying the form.
 //
 // TODO: Error handling.
-export const mutateNySoknad: Resolver<DeepPartial<Soknad>> = async () => {
+export const mutateNySoknad: Resolver<SoknadType> = async () => {
     const {brukerBehandlingId} = await serverPost<NySoknadResponse>(
         "soknader/opprettSoknad",
         undefined,

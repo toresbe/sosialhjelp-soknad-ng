@@ -2,8 +2,23 @@ scalar DateTime
 
 type Mutation {
     nySoknad: Soknad!
-    setTelefonnummer(soknadId: ID!, tlfnr: String): Soknad!
-    setAdresse(soknadId: ID!, adresseValg: AdresseValg!, soknadsAdresse: NyVegadresse): Soknad!
+    setTelefonnummer(input: SetTelefonnummerInput!): SoknadMutation!
+    setAdresse(input: SetAdresseInput!): SoknadMutation!
+}
+
+input SetTelefonnummerInput {
+    soknadId: ID!
+    tlfnr: String
+}
+
+type SoknadMutation {
+    soknad: Soknad
+}
+
+input SetAdresseInput {
+    soknadId: ID!
+    adresseValg: AdresseValg!
+    soknadsAdresse: InputVegadresse
 }
 
 type Query {
@@ -61,7 +76,7 @@ type NavEnhet {
     kommune: String!
 }
 
-input NyVegadresse {
+input InputVegadresse {
     husnummer: String
     husbokstav: String
     bruksenhetsnummer: String
@@ -72,11 +87,6 @@ input NyVegadresse {
     postnummer: String
 }
 
-###################################################################################################################
-# Typene under er i praksis fragmenter av typer i PDL-schema. Kanskje frontend bør hente dataene direkte fra PDL? #
-###################################################################################################################
-
-# MatrikkelID og Koordinater fjernet for enkelhets skyld
 type Vegadresse {
     husnummer: String
     husbokstav: String
@@ -86,17 +96,23 @@ type Vegadresse {
     bydelsnummer: String
     tilleggsnavn: String
     postnummer: String
+    poststed: String
 }
 
-# MatrikkelID og Koordinater fjernet for enkelhets skyld
 type Matrikkeladresse {
     bruksenhetsnummer: String
     tilleggsnavn: String
     postnummer: String
     kommunenummer: String
+    gaardsnummer: String
+    festenummer: String
+    seksjonsnummer: String
+    undernummer: String
+    bruksnummer: String
+    poststed: String
 }
 
-# Kopiert fra PDL, slanket til våre behov og generalisert
+# TODO: Maybe this should be a union type
 type Adresse {
     vegadresse: Vegadresse
     matrikkeladresse: Matrikkeladresse

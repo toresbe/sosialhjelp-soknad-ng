@@ -6,8 +6,9 @@ import {BasisPersonaliaProps} from "../../components/personalia/BasisPersonalia"
 export const usePersonalia = (): BasisPersonaliaProps => {
     const soknadId = useSoknadIdFromRouter();
 
-    const {data} = useQuery<GetPersonaliaQuery>(GetPersonaliaDocument, {variables: {soknadId}});
+    const {data, error} = useQuery<GetPersonaliaQuery>(GetPersonaliaDocument, {variables: {soknadId}});
 
+    console.log({data, error});
     return {
         personalia: data?.soknad?.personalia,
     };
