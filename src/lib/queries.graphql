@@ -18,7 +18,7 @@ query getPersonalia($soknadId: ID!) {
     soknad(id: $soknadId) {
         id
         ...BasisPersonalia
-        adresser {
+        opphold {
             ...Adresser
         }
     }
@@ -36,42 +36,13 @@ fragment BasisPersonalia on Soknad {
     }
 }
 
-fragment Adresser on AdresseData {
-    bostedsadresse {
-        vegadresse {
-            ...vegadresse
-        }
-        matrikkeladresse {
-            ...matrikkeladresse
-        }
-    }
-    oppholdsadresse {
-        vegadresse {
-            ...vegadresse
-        }
-    }
-    soknadsadresse {
-        ...vegadresse
-    }
+fragment Adresser on Opphold {
+    bostedsAdresse { adresseTekst, postnummer, poststed }
+    oppholdsAdresse { adresseTekst, postnummer, poststed }
+    soknadsAdresse { adresseTekst, postnummer, poststed }
 }
 
-fragment vegadresse on Vegadresse {
-    adressenavn
-    husnummer
-    husbokstav
-    tilleggsnavn
-    postnummer
-    kommunenummer
-    bruksenhetsnummer
-    bydelsnummer
-}
 
-fragment matrikkeladresse on Matrikkeladresse {
-    postnummer
-    tilleggsnavn
-    kommunenummer
-    bruksenhetsnummer
-}
 
 mutation SetTelefonnummer($input: SetTelefonnummerInput!) {
     setTelefonnummer(input: $input) {
@@ -88,7 +59,7 @@ mutation SetAdresse($input: SetAdresseInput!) {
     setAdresse(input: $input) {
         soknad {
             id
-            adresser {
+            opphold {
                 ...Adresser
             }
         }

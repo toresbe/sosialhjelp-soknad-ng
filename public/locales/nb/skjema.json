@@ -13,5 +13,6 @@
   "navEnhet.ugyldig": "{{kommune}} kommune kan ikke ta i mot digitale søknader.",
   "navEnhet.midlUgyldig": "{{kommune}} kommune kan dessverre ikke ta i mot digitale søknader akkurat nå.",
   "navEnhet.midlPapirSoknad": "Du kan <0>søke med papirskjema</0> eller prøve igjen senere.",
-  "navEnhet.papirSoknad": "Du kan <0>søke med papirskjema</0>."
+  "navEnhet.papirSoknad": "Du kan <0>søke med papirskjema</0>.",
+  "navEnhet.papirSkjemaLink": "https://www.nav.no/sosialhjelp/sok-papir"
 }

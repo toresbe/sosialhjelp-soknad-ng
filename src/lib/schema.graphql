@@ -26,18 +26,50 @@ type Query {
 }
 
 type Soknad {
+    """ soknadId (tidl. kjent som behandlingsId) """
     id: ID!
+
+    """ Grunnleggende personalia """
     personalia: Personalia!
+
+    """ Kontaktinformasjon telefon"""
     telefon: TelefonData!
-    adresser: AdresseData!
+
+    """ Informasjon om oppholdssted (og nærmeste NAV-enhet) """
+    opphold: Opphold
+}
+
+type Opphold {
+    """ Bostedsadresse hentet fra PDL """
+    bostedsAdresse: AdresseFraSystem
+
+    """ Oppholdsadresse hentet fra PDL """
+    oppholdsAdresse: AdresseFraSystem
+
+    """ Adresse definert av søker """
+    soknadsAdresse: AdresseFraSystem
+
+    """ Adresse valgt av bruker. """
+    valgtAdresse: AdresseValg!
+
+    """ navEnhet for brukerens oppholdssted """
     navEnhet: NavEnhet
 }
 
-type AdresseData {
-    valgt: AdresseValg!
-    bostedsadresse: Adresse
-    oppholdsadresse: Adresse
-    soknadsadresse: Vegadresse
+""" Adresse, kokt ned til streng av backend """
+type AdresseFraSystem {
+    """ Adresser formattert for visning i frontend. Eksempel: "Storgata 2B" eller "123/4-2"
+
+    Der det i tillegg er adressetilleggsnavn: "Haugen, Storgata 2B" eller "Midtgard, 123/4-2" """
+    adresseTekst: String!
+    """ Firesifret kode som identifiserer et postnummerområde
+
+    Merknad: Det første sifferet angir postsone, de to første sifrene angir postregion,
+    de tre første sifrene angir postområde og alle fire sifrene angir postnummerområde/poststed. """
+    postnummer: String!
+
+    """ Navn på poststed i henhold til Postens egne lister """
+    poststed: String!
 }
 
 enum AdresseValg {
@@ -77,43 +109,37 @@ type NavEnhet {
 }
 
 input InputVegadresse {
-    husnummer: String
-    husbokstav: String
-    bruksenhetsnummer: String
+    """ Navn på gate, veg, sti, plass eller område som er ført i matrikkelen (eksempel Sørumvegen). """
     adressenavn: String
-    kommunenummer: String
-    bydelsnummer: String
-    tilleggsnavn: String
-    postnummer: String
-}
 
-type Vegadresse {
-    husnummer: String
-    husbokstav: String
-    bruksenhetsnummer: String
-    adressenavn: String
-    kommunenummer: String
-    bydelsnummer: String
-    tilleggsnavn: String
+    """ Adressebokstav, del av adressenummer (jfr Matrikkelforskrift § 2f).
+    Ved behov kan det i tillegg til tallet brukes en etterfølgende bokstav.
+
+    Bokstav skal bare brukes for å unngå omnummerering i tidligere tildelte adresser.
+    Bokstav skal gis i alfabetisk rekkefølge. (matrikkelforskrift § 52 tredje ledd).
+
+    Merknad: Høyst en bokstav """
+    bokstav: String
+
+    """ Del av adressenummer som er definert slik i matrikkelforskrift:
+
+    et nummer og en eventuell bokstav (husnummer) som entydig identifiserer eiendommer, anlegg,
+    bygninger eller innganger til bygninger innenfor en adresserbar gate, veg, sti, plass eller
+    område (Forskrift § 2f).
+    """
+    nummer: String
+
+    """ Firesifret kode som identifiserer et postnummerområde
+
+    Merknad: Det første sifferet angir postsone, de to første sifrene angir postregion,
+    de tre første sifrene angir postområde og alle fire sifrene angir postnummerområde/poststed. """
     postnummer: String
+
+    """ Navn på poststed i henhold til Postens egne lister """
     poststed: String
-}
 
-type Matrikkeladresse {
-    bruksenhetsnummer: String
-    tilleggsnavn: String
-    postnummer: String
+    """ Firesifret nummerering av kommunen i henhold til Statistisk sentralbyrå sin offisielle liste
+
+    Merknad: Det presiseres at kommunenummer alltid skal ha 4 siffer, dvs. eventuelt med ledende null."""
     kommunenummer: String
-    gaardsnummer: String
-    festenummer: String
-    seksjonsnummer: String
-    undernummer: String
-    bruksnummer: String
-    poststed: String
-}
-
-# TODO: Maybe this should be a union type
-type Adresse {
-    vegadresse: Vegadresse
-    matrikkeladresse: Matrikkeladresse
 }

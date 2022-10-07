@@ -1,13 +1,9 @@
 import {LegacyMatrikkelAdresse} from "../legacyTypes/personalia";
-import {Matrikkeladresse} from "../../../generated/apolloServerTypes";
+import {AdresseFraSystem} from "../../../generated/apolloServerTypes";
+import {formatLegacyMatrikkeladresse} from "../../formatters/FormatLegacyMatrikkeladresse";
 
-// FIXME: MOCK
-export const matrikkeladresseFraLegacy = (legacyMatrikkel: LegacyMatrikkelAdresse): Matrikkeladresse => {
-    return {
-        bruksnummer: "",
-        festenummer: "",
-        gaardsnummer: "",
-        seksjonsnummer: "",
-        undernummer: "",
-    };
-};
+export const matrikkeladresseFraLegacy = (adresse: LegacyMatrikkelAdresse): AdresseFraSystem => ({
+    adresseTekst: formatLegacyMatrikkeladresse(adresse),
+    postnummer: adresse.postnummer,
+    poststed: adresse.poststed,
+});

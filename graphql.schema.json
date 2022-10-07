@@ -10,90 +10,51 @@
     "types": [
       {
         "kind": "OBJECT",
-        "name": "Adresse",
-        "description": null,
+        "name": "AdresseFraSystem",
+        "description": " Adresse, kokt ned til streng av backend ",
         "fields": [
           {
-            "name": "matrikkeladresse",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "Matrikkeladresse",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "vegadresse",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "Vegadresse",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "AdresseData",
-        "description": null,
-        "fields": [
-          {
-            "name": "bostedsadresse",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "Adresse",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "oppholdsadresse",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "Adresse",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "soknadsadresse",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "Vegadresse",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "valgt",
-            "description": null,
+            "name": "adresseTekst",
+            "description": " Adresser formattert for visning i frontend. Eksempel: \"Storgata 2B\" eller \"123/4-2\"\n\nDer det i tillegg er adressetilleggsnavn: \"Haugen, Storgata 2B\" eller \"Midtgard, 123/4-2\" ",
             "args": [],
             "type": {
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "ENUM",
-                "name": "AdresseValg",
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "postnummer",
+            "description": " Firesifret kode som identifiserer et postnummerområde\n\nMerknad: Det første sifferet angir postsone, de to første sifrene angir postregion,\nde tre første sifrene angir postområde og alle fire sifrene angir postnummerområde/poststed. ",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "poststed",
+            "description": " Navn på poststed i henhold til Postens egne lister ",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               }
             },
@@ -173,7 +134,7 @@
         "inputFields": [
           {
             "name": "adressenavn",
-            "description": null,
+            "description": " Navn på gate, veg, sti, plass eller område som er ført i matrikkelen (eksempel Sørumvegen). ",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -184,44 +145,8 @@
             "deprecationReason": null
           },
           {
-            "name": "bruksenhetsnummer",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "bydelsnummer",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "husbokstav",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "husnummer",
-            "description": null,
+            "name": "bokstav",
+            "description": " Adressebokstav, del av adressenummer (jfr Matrikkelforskrift § 2f).\nVed behov kan det i tillegg til tallet brukes en etterfølgende bokstav.\n\nBokstav skal bare brukes for å unngå omnummerering i tidligere tildelte adresser.\nBokstav skal gis i alfabetisk rekkefølge. (matrikkelforskrift § 52 tredje ledd).\n\nMerknad: Høyst en bokstav ",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -233,7 +158,19 @@
           },
           {
             "name": "kommunenummer",
-            "description": null,
+            "description": " Firesifret nummerering av kommunen i henhold til Statistisk sentralbyrå sin offisielle liste\n\nMerknad: Det presiseres at kommunenummer alltid skal ha 4 siffer, dvs. eventuelt med ledende null.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nummer",
+            "description": " Del av adressenummer som er definert slik i matrikkelforskrift:\n\net nummer og en eventuell bokstav (husnummer) som entydig identifiserer eiendommer, anlegg,\nbygninger eller innganger til bygninger innenfor en adresserbar gate, veg, sti, plass eller\nområde (Forskrift § 2f).",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -245,7 +182,7 @@
           },
           {
             "name": "postnummer",
-            "description": null,
+            "description": " Firesifret kode som identifiserer et postnummerområde\n\nMerknad: Det første sifferet angir postsone, de to første sifrene angir postregion,\nde tre første sifrene angir postområde og alle fire sifrene angir postnummerområde/poststed. ",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -256,8 +193,8 @@
             "deprecationReason": null
           },
           {
-            "name": "tilleggsnavn",
-            "description": null,
+            "name": "poststed",
+            "description": " Navn på poststed i henhold til Postens egne lister ",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -269,137 +206,6 @@
           }
         ],
         "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "Matrikkeladresse",
-        "description": null,
-        "fields": [
-          {
-            "name": "bruksenhetsnummer",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "bruksnummer",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "festenummer",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "gaardsnummer",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "kommunenummer",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "postnummer",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "poststed",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "seksjonsnummer",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "tilleggsnavn",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "undernummer",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
         "enumValues": null,
         "possibleTypes": null
       },
@@ -657,6 +463,81 @@
       },
       {
         "kind": "OBJECT",
+        "name": "Opphold",
+        "description": null,
+        "fields": [
+          {
+            "name": "bostedsAdresse",
+            "description": " Bostedsadresse hentet fra PDL ",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "AdresseFraSystem",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "navEnhet",
+            "description": " navEnhet for brukerens oppholdssted ",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "NavEnhet",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "oppholdsAdresse",
+            "description": " Oppholdsadresse hentet fra PDL ",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "AdresseFraSystem",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "soknadsAdresse",
+            "description": " Adresse definert av søker ",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "AdresseFraSystem",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "valgtAdresse",
+            "description": " Adresse valgt av bruker. ",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "AdresseValg",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "Personalia",
         "description": null,
         "fields": [
@@ -854,24 +735,8 @@
         "description": null,
         "fields": [
           {
-            "name": "adresser",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "AdresseData",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "id",
-            "description": null,
+            "description": " soknadId (tidl. kjent som behandlingsId) ",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -886,12 +751,12 @@
             "deprecationReason": null
           },
           {
-            "name": "navEnhet",
-            "description": null,
+            "name": "opphold",
+            "description": " Informasjon om oppholdssted (og nærmeste NAV-enhet) ",
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "NavEnhet",
+              "name": "Opphold",
               "ofType": null
             },
             "isDeprecated": false,
@@ -899,7 +764,7 @@
           },
           {
             "name": "personalia",
-            "description": null,
+            "description": " Grunnleggende personalia ",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -915,7 +780,7 @@
           },
           {
             "name": "telefon",
-            "description": null,
+            "description": " Kontaktinformasjon telefon",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -987,125 +852,6 @@
           },
           {
             "name": "fraKrr",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "Vegadresse",
-        "description": null,
-        "fields": [
-          {
-            "name": "adressenavn",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "bruksenhetsnummer",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "bydelsnummer",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "husbokstav",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "husnummer",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "kommunenummer",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "postnummer",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "poststed",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "tilleggsnavn",
             "description": null,
             "args": [],
             "type": {

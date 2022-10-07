@@ -1,16 +1,18 @@
 // Konverterer GraphQL-definert vegadresse til REST API-kompatibel
-import {InputVegadresse} from "../../../generated/apolloServerTypes";
+
+import {AdresseFraSystem, InputVegadresse} from "../../../generated/apolloServerTypes";
 import {LegacyAdresseElement, LegacyGateadresse} from "../legacyTypes/personalia";
+import {formatLegacyGateadresse} from "../../formatters/FormatLegacyGateadresse";
 
 export const vegadresseTilLegacy = (adresse: InputVegadresse): LegacyAdresseElement => {
-    const {husnummer, husbokstav, kommunenummer, postnummer, adressenavn} = adresse;
+    const {nummer, bokstav, kommunenummer, postnummer, adressenavn} = adresse;
 
     return {
         type: "gateadresse",
         gateadresse: {
             gatenavn: adressenavn,
-            husbokstav,
-            husnummer,
+            husbokstav: bokstav,
+            husnummer: nummer,
             kommunenummer,
             postnummer,
         },
@@ -19,14 +21,14 @@ export const vegadresseTilLegacy = (adresse: InputVegadresse): LegacyAdresseElem
     };
 };
 
-export const vegadresseFraLegacy = (legacyGateadresse: LegacyGateadresse) => {
-    const {gatenavn, husbokstav, husnummer, kommunenummer, postnummer} = legacyGateadresse;
+export const vegadresseFraLegacy = (legacyGateadresse: LegacyGateadresse): AdresseFraSystem => {
+    const {postnummer, poststed} = legacyGateadresse;
+
+    if (!postnummer || !poststed) throw new Error("adresss lacks postnummer or poststed");
 
     return {
-        adressenavn: gatenavn,
-        husbokstav,
-        husnummer,
-        kommunenummer,
-        postnummer,
+        adresseTekst: formatLegacyGateadresse(legacyGateadresse),
+        postnummer: postnummer,
+        poststed: poststed,
     };
 };

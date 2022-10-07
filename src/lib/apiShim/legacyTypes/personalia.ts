@@ -90,6 +90,9 @@ export const LegacyMatrikkelAdresseSchema = z.object({
     festenummer: z.string(),
     seksjonsnummer: z.string(),
     undernummer: z.string(),
+    // FIXME: Disse finnes pt. ikke i backend!
+    postnummer: z.string().default(""),
+    poststed: z.string().default(""),
 });
 
 export type LegacyMatrikkelAdresse = z.infer<typeof LegacyMatrikkelAdresseSchema>;
