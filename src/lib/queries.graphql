@@ -37,12 +37,22 @@ fragment BasisPersonalia on Soknad {
 }
 
 fragment Adresser on Opphold {
-    bostedsAdresse { adresseTekst, postnummer, poststed }
-    oppholdsAdresse { adresseTekst, postnummer, poststed }
-    soknadsAdresse { adresseTekst, postnummer, poststed }
+    bostedsAdresse {
+        adresseTekst
+        postnummer
+        poststed
+    }
+    oppholdsAdresse {
+        adresseTekst
+        postnummer
+        poststed
+    }
+    soknadsAdresse {
+        adresseTekst
+        postnummer
+        poststed
+    }
 }
-
-
 
 mutation SetTelefonnummer($input: SetTelefonnummerInput!) {
     setTelefonnummer(input: $input) {

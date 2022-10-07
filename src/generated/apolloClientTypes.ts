@@ -14,7 +14,7 @@ export type Scalars = {
   DateTime: any;
 };
 
-/**  Adresse, kokt ned til streng av backend  */
+/** Adresse, kokt ned til streng av backend */
 export type AdresseFraSystem = {
   __typename?: 'AdresseFraSystem';
   /**
@@ -30,7 +30,7 @@ export type AdresseFraSystem = {
    * de tre første sifrene angir postområde og alle fire sifrene angir postnummerområde/poststed.
    */
   postnummer: Scalars['String'];
-  /**  Navn på poststed i henhold til Postens egne lister  */
+  /** Navn på poststed i henhold til Postens egne lister */
   poststed: Scalars['String'];
 };
 
@@ -41,7 +41,7 @@ export enum AdresseValg {
 }
 
 export type InputVegadresse = {
-  /**  Navn på gate, veg, sti, plass eller område som er ført i matrikkelen (eksempel Sørumvegen).  */
+  /** Navn på gate, veg, sti, plass eller område som er ført i matrikkelen (eksempel Sørumvegen). */
   adressenavn?: InputMaybe<Scalars['String']>;
   /**
    *  Adressebokstav, del av adressenummer (jfr Matrikkelforskrift § 2f).
@@ -74,7 +74,7 @@ export type InputVegadresse = {
    * de tre første sifrene angir postområde og alle fire sifrene angir postnummerområde/poststed.
    */
   postnummer?: InputMaybe<Scalars['String']>;
-  /**  Navn på poststed i henhold til Postens egne lister  */
+  /** Navn på poststed i henhold til Postens egne lister */
   poststed?: InputMaybe<Scalars['String']>;
 };
 
@@ -118,15 +118,15 @@ export type Navn = {
 
 export type Opphold = {
   __typename?: 'Opphold';
-  /**  Bostedsadresse hentet fra PDL  */
+  /** Bostedsadresse hentet fra PDL */
   bostedsAdresse?: Maybe<AdresseFraSystem>;
-  /**  navEnhet for brukerens oppholdssted  */
+  /** navEnhet for brukerens oppholdssted */
   navEnhet?: Maybe<NavEnhet>;
-  /**  Oppholdsadresse hentet fra PDL  */
+  /** Oppholdsadresse hentet fra PDL */
   oppholdsAdresse?: Maybe<AdresseFraSystem>;
-  /**  Adresse definert av søker  */
+  /** Adresse definert av søker */
   soknadsAdresse?: Maybe<AdresseFraSystem>;
-  /**  Adresse valgt av bruker.  */
+  /** Adresse valgt av bruker. */
   valgtAdresse: AdresseValg;
 };
 
@@ -160,13 +160,13 @@ export type SetTelefonnummerInput = {
 
 export type Soknad = {
   __typename?: 'Soknad';
-  /**  soknadId (tidl. kjent som behandlingsId)  */
+  /** soknadId (tidl. kjent som behandlingsId) */
   id: Scalars['ID'];
-  /**  Informasjon om oppholdssted (og nærmeste NAV-enhet)  */
+  /** Informasjon om oppholdssted (og nærmeste NAV-enhet) */
   opphold?: Maybe<Opphold>;
-  /**  Grunnleggende personalia  */
+  /** Grunnleggende personalia */
   personalia: Personalia;
-  /**  Kontaktinformasjon telefon */
+  /** Kontaktinformasjon telefon */
   telefon: TelefonData;
 };
 

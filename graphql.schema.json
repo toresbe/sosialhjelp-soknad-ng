@@ -11,11 +11,11 @@
       {
         "kind": "OBJECT",
         "name": "AdresseFraSystem",
-        "description": " Adresse, kokt ned til streng av backend ",
+        "description": "Adresse, kokt ned til streng av backend",
         "fields": [
           {
             "name": "adresseTekst",
-            "description": " Adresser formattert for visning i frontend. Eksempel: \"Storgata 2B\" eller \"123/4-2\"\n\nDer det i tillegg er adressetilleggsnavn: \"Haugen, Storgata 2B\" eller \"Midtgard, 123/4-2\" ",
+            "description": " Adresser formattert for visning i frontend. Eksempel: \"Storgata 2B\" eller \"123/4-2\"\n\nDer det i tillegg er adressetilleggsnavn: \"Haugen, Storgata 2B\" eller \"Midtgard, 123/4-2\"",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -31,7 +31,7 @@
           },
           {
             "name": "postnummer",
-            "description": " Firesifret kode som identifiserer et postnummerområde\n\nMerknad: Det første sifferet angir postsone, de to første sifrene angir postregion,\nde tre første sifrene angir postområde og alle fire sifrene angir postnummerområde/poststed. ",
+            "description": " Firesifret kode som identifiserer et postnummerområde\n\nMerknad: Det første sifferet angir postsone, de to første sifrene angir postregion,\nde tre første sifrene angir postområde og alle fire sifrene angir postnummerområde/poststed.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -47,7 +47,7 @@
           },
           {
             "name": "poststed",
-            "description": " Navn på poststed i henhold til Postens egne lister ",
+            "description": "Navn på poststed i henhold til Postens egne lister",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -134,7 +134,7 @@
         "inputFields": [
           {
             "name": "adressenavn",
-            "description": " Navn på gate, veg, sti, plass eller område som er ført i matrikkelen (eksempel Sørumvegen). ",
+            "description": "Navn på gate, veg, sti, plass eller område som er ført i matrikkelen (eksempel Sørumvegen).",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -146,7 +146,7 @@
           },
           {
             "name": "bokstav",
-            "description": " Adressebokstav, del av adressenummer (jfr Matrikkelforskrift § 2f).\nVed behov kan det i tillegg til tallet brukes en etterfølgende bokstav.\n\nBokstav skal bare brukes for å unngå omnummerering i tidligere tildelte adresser.\nBokstav skal gis i alfabetisk rekkefølge. (matrikkelforskrift § 52 tredje ledd).\n\nMerknad: Høyst en bokstav ",
+            "description": " Adressebokstav, del av adressenummer (jfr Matrikkelforskrift § 2f).\nVed behov kan det i tillegg til tallet brukes en etterfølgende bokstav.\n\nBokstav skal bare brukes for å unngå omnummerering i tidligere tildelte adresser.\nBokstav skal gis i alfabetisk rekkefølge. (matrikkelforskrift § 52 tredje ledd).\n\nMerknad: Høyst en bokstav",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -182,7 +182,7 @@
           },
           {
             "name": "postnummer",
-            "description": " Firesifret kode som identifiserer et postnummerområde\n\nMerknad: Det første sifferet angir postsone, de to første sifrene angir postregion,\nde tre første sifrene angir postområde og alle fire sifrene angir postnummerområde/poststed. ",
+            "description": " Firesifret kode som identifiserer et postnummerområde\n\nMerknad: Det første sifferet angir postsone, de to første sifrene angir postregion,\nde tre første sifrene angir postområde og alle fire sifrene angir postnummerområde/poststed.",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -194,7 +194,7 @@
           },
           {
             "name": "poststed",
-            "description": " Navn på poststed i henhold til Postens egne lister ",
+            "description": "Navn på poststed i henhold til Postens egne lister",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -468,7 +468,7 @@
         "fields": [
           {
             "name": "bostedsAdresse",
-            "description": " Bostedsadresse hentet fra PDL ",
+            "description": "Bostedsadresse hentet fra PDL",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -480,7 +480,7 @@
           },
           {
             "name": "navEnhet",
-            "description": " navEnhet for brukerens oppholdssted ",
+            "description": "navEnhet for brukerens oppholdssted",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -492,7 +492,7 @@
           },
           {
             "name": "oppholdsAdresse",
-            "description": " Oppholdsadresse hentet fra PDL ",
+            "description": "Oppholdsadresse hentet fra PDL",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -504,7 +504,7 @@
           },
           {
             "name": "soknadsAdresse",
-            "description": " Adresse definert av søker ",
+            "description": "Adresse definert av søker",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -516,7 +516,7 @@
           },
           {
             "name": "valgtAdresse",
-            "description": " Adresse valgt av bruker. ",
+            "description": "Adresse valgt av bruker.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -736,7 +736,7 @@
         "fields": [
           {
             "name": "id",
-            "description": " soknadId (tidl. kjent som behandlingsId) ",
+            "description": "soknadId (tidl. kjent som behandlingsId)",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -752,7 +752,7 @@
           },
           {
             "name": "opphold",
-            "description": " Informasjon om oppholdssted (og nærmeste NAV-enhet) ",
+            "description": "Informasjon om oppholdssted (og nærmeste NAV-enhet)",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -764,7 +764,7 @@
           },
           {
             "name": "personalia",
-            "description": " Grunnleggende personalia ",
+            "description": "Grunnleggende personalia",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -780,7 +780,7 @@
           },
           {
             "name": "telefon",
-            "description": " Kontaktinformasjon telefon",
+            "description": "Kontaktinformasjon telefon",
             "args": [],
             "type": {
               "kind": "NON_NULL",
