@@ -1,9 +1,9 @@
 import {LegacyMatrikkelAdresse} from "../legacyTypes/personalia";
 import {AdresseFraSystem} from "../../../generated/apolloServerTypes";
-import {formatLegacyMatrikkeladresse} from "../../formatters/FormatLegacyMatrikkeladresse";
+import {fmtLegacyMatrikkeladresse} from "../../formatters/fmtLegacyMatrikkeladresse";
 
 export const matrikkeladresseFraLegacy = (adresse: LegacyMatrikkelAdresse): AdresseFraSystem => ({
-    adresseTekst: formatLegacyMatrikkeladresse(adresse),
+    adresseTekst: fmtLegacyMatrikkeladresse(adresse),
     postnummer: adresse.postnummer,
     poststed: adresse.poststed,
 });

@@ -105,10 +105,10 @@ export const LegacyGateadresseSchema = z
         landkode: z.null(),
         adresselinjer: z.array(z.string()),
         bolignummer: z.string().nullable(),
-        postnummer: z.string().nullable(),
-        poststed: z.string().nullable(),
-        gatenavn: z.string().nullable(),
-        husnummer: z.string().nullable(),
+        postnummer: z.string(),
+        poststed: z.string(),
+        gatenavn: z.string(),
+        husnummer: z.string(),
         husbokstav: z.string().nullable(),
     })
     .partial();

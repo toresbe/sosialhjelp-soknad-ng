@@ -1,8 +1,8 @@
 import {useTranslation} from "next-i18next";
 import {Personalia} from "../../generated/apolloClientTypes";
 import {Heading, Loader} from "@navikt/ds-react";
-import {formatFnr, screenReaderFnr} from "../../lib/formatters/FormatFnr";
-import {formatName} from "../../lib/formatters/FormatName";
+import {fmtFodselsnummer, fmtFodselsnummerForScreenReader} from "../../lib/formatters/fmtFodselsnummer";
+import {fmtNavn} from "../../lib/formatters/fmtNavn";
 import {SysteminfoTabell} from "../SysteminfoTabell";
 
 export interface BasisPersonaliaProps {
@@ -24,11 +24,11 @@ export const BasisPersonalia = ({personalia}: BasisPersonaliaProps) => {
             <tbody>
                 <tr>
                     <th>{t("navn")}</th>
-                    <td>{navn && formatName(navn)}</td>
+                    <td>{navn && fmtNavn(navn)}</td>
                 </tr>
                 <tr>
                     <th>{t("fnr")}</th>
-                    <td aria-label={fnr && screenReaderFnr(fnr)}>{fnr && formatFnr(fnr)}</td>
+                    <td aria-label={fnr && fmtFodselsnummerForScreenReader(fnr)}>{fnr && fmtFodselsnummer(fnr)}</td>
                 </tr>
                 <tr>
                     <th>{t("statsborgerskap")}</th>

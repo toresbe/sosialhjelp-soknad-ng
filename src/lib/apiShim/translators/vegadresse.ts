@@ -2,7 +2,7 @@
 
 import {AdresseFraSystem, InputVegadresse} from "../../../generated/apolloServerTypes";
 import {LegacyAdresseElement, LegacyGateadresse} from "../legacyTypes/personalia";
-import {formatLegacyGateadresse} from "../../formatters/FormatLegacyGateadresse";
+import {fmtLegacyGateadresse} from "../../formatters/fmtLegacyGateadresse";
 
 export const vegadresseTilLegacy = (adresse: InputVegadresse): LegacyAdresseElement => {
     const {nummer, bokstav, kommunenummer, postnummer, adressenavn} = adresse;
@@ -27,7 +27,7 @@ export const vegadresseFraLegacy = (legacyGateadresse: LegacyGateadresse): Adres
     if (!postnummer || !poststed) throw new Error("adresss lacks postnummer or poststed");
 
     return {
-        adresseTekst: formatLegacyGateadresse(legacyGateadresse),
+        adresseTekst: fmtLegacyGateadresse(legacyGateadresse),
         postnummer: postnummer,
         poststed: poststed,
     };

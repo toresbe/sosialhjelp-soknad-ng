@@ -3,12 +3,15 @@ import {LegacyMatrikkelAdresse} from "../apiShim/legacyTypes/personalia";
 // Matrikkeladresse: <gardsnummer>/<bruksnummer>/<ev festenummer>-<ev undernummer>
 // ev= hvis fins. Hvis ikke skal formateringstegn utgå foran/bak
 // Støtter ikke adressetilleggsnavn
-export const formatLegacyMatrikkeladresse = ({
+export const fmtLegacyMatrikkeladresse = ({
     gaardsnummer,
     bruksnummer,
     festenummer,
     undernummer,
-}: LegacyMatrikkelAdresse) => {
+}: Pick<LegacyMatrikkelAdresse, "gaardsnummer" | "bruksnummer"> & Partial<LegacyMatrikkelAdresse>) => {
+    if (!/^\d+$/.test(gaardsnummer) || !/^\d+$/.test(bruksnummer))
+        throw new Error("must have numeric gaardsnummer and bruksnummer");
+
     if (festenummer)
         if (undernummer) return `${gaardsnummer}/${bruksnummer}/${festenummer}-${undernummer}`;
         else return `${gaardsnummer}/${bruksnummer}/${festenummer}`;
