@@ -3,10 +3,11 @@ import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import {GetServerSideProps} from "next";
 import {Heading} from "@navikt/ds-react";
 import styled from "styled-components";
-import {useTelefon} from "../../lib/hooks/useTelefon";
+import {useAPITelefon} from "../../lib/hooks/useAPITelefon";
 import Head from "next/head";
 import {BasisPersonalia} from "../../components/personalia/BasisPersonalia";
-import {usePersonalia} from "../../lib/hooks/usePersonalia";
+import {useAPIPersonalia} from "../../lib/hooks/useAPIPersonalia";
+import {useSoknadIdFromRouter} from "../../lib/soknadContext/useSoknadIdFromRouter";
 
 // Just a little div to put the application in a column until we have more defined style
 export const SoknadDiv = styled.div`
@@ -19,8 +20,9 @@ export const SoknadDiv = styled.div`
 `;
 
 export const Page1 = () => {
-    const {telefon, setTelefonnummer} = useTelefon();
-    const {personalia} = usePersonalia();
+    const soknadId = useSoknadIdFromRouter();
+    const {telefon, setTelefonnummer} = useAPITelefon();
+    const {personalia} = useAPIPersonalia(soknadId);
 
     return (
         <SoknadDiv>

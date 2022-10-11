@@ -10,7 +10,7 @@ import {
 import {useSoknadIdFromRouter} from "../soknadContext/useSoknadIdFromRouter";
 
 // React hook for applicant telephone data via GraphQL API
-export const useTelefon = () => {
+export const useAPITelefon = () => {
     const soknadId = useSoknadIdFromRouter();
 
     const {data} = useQuery<GetTelefonQuery>(GetTelefonDocument, {variables: {soknadId}});
