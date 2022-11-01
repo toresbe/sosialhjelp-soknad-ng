@@ -136,9 +136,13 @@
             "name": "adressenavn",
             "description": "Navn på gate, veg, sti, plass eller område som er ført i matrikkelen (eksempel Sørumvegen).",
             "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
             },
             "defaultValue": null,
             "isDeprecated": false,
@@ -172,9 +176,13 @@
             "name": "nummer",
             "description": " Del av adressenummer som er definert slik i matrikkelforskrift:\n\net nummer og en eventuell bokstav (husnummer) som entydig identifiserer eiendommer, anlegg,\nbygninger eller innganger til bygninger innenfor en adresserbar gate, veg, sti, plass eller\nområde (Forskrift § 2f).",
             "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
             },
             "defaultValue": null,
             "isDeprecated": false,
@@ -184,9 +192,13 @@
             "name": "postnummer",
             "description": " Firesifret kode som identifiserer et postnummerområde\n\nMerknad: Det første sifferet angir postsone, de to første sifrene angir postregion,\nde tre første sifrene angir postområde og alle fire sifrene angir postnummerområde/poststed.",
             "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
             },
             "defaultValue": null,
             "isDeprecated": false,

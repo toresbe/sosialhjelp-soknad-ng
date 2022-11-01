@@ -1,20 +1,28 @@
 import {z} from "zod";
 
-// In the absence of an API specification on the REST API,
-// Zod is used to verify data returned from calls, in addition
-// to typing.
+// To ensure that the data returned from the REST API looks how we expect it will,
+// we define schemas using the Zod validation library,
+// which can optionally be passed to the REST API calls.
 //
-// This allows us to verify that the data returned from the API
-// conforms to our expectations.
+// We also automagically get TypeScript types from these schemas.
 //
-// First, a schema is defined:
+// We use the names from the original statically defined TypeScript types, but:
+//
+//  - Schemas have prefix «Legacy» and postfix «Schema».
+//  - Types derived from these have prefix «Legacy».
+//
+// So for example the original type «Navn» is now «LegacyNavn»,
+// and the schema you can use to validate incoming JSON is «LegacyNavnSchema».
+
 export const LegacyNavnSchema = z.object({
     fornavn: z.string(),
     mellomnavn: z.string().optional(),
     etternavn: z.string(),
     fulltNavn: z.string(),
 });
-// Then a type is inferred from it.
+
+// ...then a type can be inferred from it.
+
 export type LegacyNavn = z.infer<typeof LegacyNavnSchema>;
 
 export const LegacyPersonaliaSchema = z.object({

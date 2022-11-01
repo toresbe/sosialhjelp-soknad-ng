@@ -11,9 +11,8 @@ import {resolveBasisPersonalia} from "./resolvers/resolveBasisPersonalia";
 import {Resolvers} from "../../generated/apolloServerTypes";
 import {resolveSoknad} from "./resolvers/resolveSoknad";
 import {mutateTelefonnummer} from "./resolvers/mutateTelefonnummer";
-import {resolveNavEnhet} from "./resolvers/resolveNavEnhet";
 import {mutateAdresse} from "./resolvers/mutateAdresse";
-import {resolveAdresser} from "./resolvers/resolveAdresser";
+import {resolveOpphold} from "./resolvers/resolveOpphold";
 
 const resolvers: Resolvers = {
     Query: {
@@ -26,9 +25,8 @@ const resolvers: Resolvers = {
     },
     Soknad: {
         telefon: resolveTelefonnummer,
-        navEnhet: resolveNavEnhet,
         personalia: resolveBasisPersonalia,
-        opphold: resolveAdresser,
+        opphold: resolveOpphold,
     },
 };
 
@@ -40,4 +38,9 @@ const plugins =
         ? [ApolloServerPluginLandingPageProductionDefault({footer: false})]
         : [ApolloServerPluginLandingPageLocalDefault({embed: true})];
 
-export const apolloServer = new ApolloServer({typeDefs, resolvers, plugins});
+export const apolloServer = new ApolloServer({
+    typeDefs,
+    resolvers,
+    plugins,
+    context: ({req: {cookies}}) => cookies,
+});

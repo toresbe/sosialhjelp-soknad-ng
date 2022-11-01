@@ -4,14 +4,10 @@ import {useApollo} from "../lib/apolloClient/useApollo";
 import {appWithTranslation} from "next-i18next";
 import "@navikt/ds-css";
 
-function MyApp({Component, pageProps}: AppProps) {
-    const apolloClient = useApollo(pageProps.initialApolloState);
-
-    return (
-        <ApolloProvider client={apolloClient}>
-            <Component {...pageProps} />
-        </ApolloProvider>
-    );
-}
+const MyApp = ({Component, pageProps}: AppProps) => (
+    <ApolloProvider client={useApollo(pageProps.initialApolloState)}>
+        <Component {...pageProps} />
+    </ApolloProvider>
+);
 
 export default appWithTranslation(MyApp);

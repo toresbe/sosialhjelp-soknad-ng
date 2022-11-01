@@ -3,7 +3,7 @@ import {LegacyTelefon, LegacyTelefonSchema} from "../legacyTypes/personalia";
 import {Resolver, Soknad, TelefonData} from "../../../generated/apolloServerTypes";
 import {DeepPartial} from "utility-types";
 
-export const resolveTelefonnummer: Resolver<TelefonData, DeepPartial<Soknad>> = async (parent) => {
+export const resolveTelefonnummer: Resolver<TelefonData, DeepPartial<Soknad>> = async (parent, _, context) => {
     const soknadId = parent.id;
 
     if (!soknadId) throw new Error("soknadId was nullish");
@@ -11,7 +11,11 @@ export const resolveTelefonnummer: Resolver<TelefonData, DeepPartial<Soknad>> = 
     const translateBrukerdefinert = ({brukerdefinert, brukerutfyltVerdi}: LegacyTelefon) =>
         brukerdefinert ? brukerutfyltVerdi : null;
 
-    const data = await serverGet<LegacyTelefon>(`soknader/${soknadId}/personalia/telefonnummer`, LegacyTelefonSchema);
+    const data = await serverGet<LegacyTelefon>(
+        `soknader/${soknadId}/personalia/telefonnummer`,
+        LegacyTelefonSchema,
+        context
+    );
 
     return {
         fraKrr: data.systemverdi,

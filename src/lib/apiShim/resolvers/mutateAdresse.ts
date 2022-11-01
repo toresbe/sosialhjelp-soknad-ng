@@ -8,9 +8,14 @@ import {navEnhetFraLegacy} from "../translators/navEnhet";
 
 export const mutateAdresse: Resolver<DeepPartial<SoknadMutation>, any, any, MutationSetAdresseArgs> = async (
     _,
-    {input: {soknadId, adresseValg, soknadsAdresse}}
+    {input: {soknadId, adresseValg, soknadsAdresse}},
+    context
 ) => {
-    const now = await serverGet<LegacyAdresser>(`soknader/${soknadId}/personalia/adresser`, LegacyAdresserSchema);
+    const now = await serverGet<LegacyAdresser>(
+        `soknader/${soknadId}/personalia/adresser`,
+        LegacyAdresserSchema,
+        context
+    );
 
     const legacyAdresser: LegacyAdresser = {
         ...now,
@@ -21,7 +26,8 @@ export const mutateAdresse: Resolver<DeepPartial<SoknadMutation>, any, any, Muta
     const legacyNavEnhet = await serverPut<LegacyNavEnhet>(
         `soknader/${soknadId}/personalia/adresser`,
         JSON.stringify(legacyAdresser),
-        LegacyNavEnhetSchema
+        LegacyNavEnhetSchema,
+        context
     );
 
     return {

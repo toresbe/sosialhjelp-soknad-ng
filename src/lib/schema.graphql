@@ -138,7 +138,7 @@ input InputVegadresse {
     """
     Navn på gate, veg, sti, plass eller område som er ført i matrikkelen (eksempel Sørumvegen).
     """
-    adressenavn: String
+    adressenavn: String!
 
     """
      Adressebokstav, del av adressenummer (jfr Matrikkelforskrift § 2f).
@@ -158,7 +158,7 @@ input InputVegadresse {
     bygninger eller innganger til bygninger innenfor en adresserbar gate, veg, sti, plass eller
     område (Forskrift § 2f).
     """
-    nummer: String
+    nummer: String!
 
     """
      Firesifret kode som identifiserer et postnummerområde
@@ -166,7 +166,7 @@ input InputVegadresse {
     Merknad: Det første sifferet angir postsone, de to første sifrene angir postregion,
     de tre første sifrene angir postområde og alle fire sifrene angir postnummerområde/poststed.
     """
-    postnummer: String
+    postnummer: String!
 
     """
     Navn på poststed i henhold til Postens egne lister

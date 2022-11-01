@@ -2,7 +2,7 @@ import {Button, Detail, Loader} from "@navikt/ds-react";
 import * as React from "react";
 import styled from "styled-components";
 import {useTranslation} from "next-i18next";
-import {formatPhone} from "../../../lib/formatters/FormatPhone";
+import {fmtPhone} from "../../../lib/formatters/fmtPhone";
 import Flex from "../../common/Flex";
 
 interface PhoneNumberUserDefinedProps {
@@ -19,7 +19,7 @@ const KnappRad = styled.div`
 export const FromUser = ({numberFromUser, onDelete, onEdit}: PhoneNumberUserDefinedProps) => {
     const {t} = useTranslation("skjema", {keyPrefix: "telefon"});
 
-    const fromUserFormatted = numberFromUser ? formatPhone(numberFromUser) : numberFromUser;
+    const fromUserFormatted = numberFromUser ? fmtPhone(numberFromUser) : numberFromUser;
 
     return (
         <Flex>

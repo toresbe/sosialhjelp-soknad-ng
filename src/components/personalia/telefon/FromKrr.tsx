@@ -1,6 +1,6 @@
 import {Button, Detail, Loader} from "@navikt/ds-react";
 import * as React from "react";
-import {formatPhone} from "../../../lib/formatters/FormatPhone";
+import {fmtPhone} from "../../../lib/formatters/fmtPhone";
 import {useTranslation} from "next-i18next";
 import Flex from "../../common/Flex";
 
@@ -10,7 +10,7 @@ interface FromKrrProps {
 }
 
 export const FromKrr = ({fraKrr, onEdit}: FromKrrProps) => {
-    const fraKrrFormattert = fraKrr ? formatPhone(fraKrr) : fraKrr;
+    const fraKrrFormattert = fraKrr ? fmtPhone(fraKrr) : fraKrr;
     const {t} = useTranslation("skjema", {keyPrefix: "telefon"});
 
     return (

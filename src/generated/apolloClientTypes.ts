@@ -42,7 +42,7 @@ export enum AdresseValg {
 
 export type InputVegadresse = {
   /** Navn på gate, veg, sti, plass eller område som er ført i matrikkelen (eksempel Sørumvegen). */
-  adressenavn?: InputMaybe<Scalars['String']>;
+  adressenavn: Scalars['String'];
   /**
    *  Adressebokstav, del av adressenummer (jfr Matrikkelforskrift § 2f).
    * Ved behov kan det i tillegg til tallet brukes en etterfølgende bokstav.
@@ -66,14 +66,14 @@ export type InputVegadresse = {
    * bygninger eller innganger til bygninger innenfor en adresserbar gate, veg, sti, plass eller
    * område (Forskrift § 2f).
    */
-  nummer?: InputMaybe<Scalars['String']>;
+  nummer: Scalars['String'];
   /**
    *  Firesifret kode som identifiserer et postnummerområde
    *
    * Merknad: Det første sifferet angir postsone, de to første sifrene angir postregion,
    * de tre første sifrene angir postområde og alle fire sifrene angir postnummerområde/poststed.
    */
-  postnummer?: InputMaybe<Scalars['String']>;
+  postnummer: Scalars['String'];
   /** Navn på poststed i henhold til Postens egne lister */
   poststed?: InputMaybe<Scalars['String']>;
 };

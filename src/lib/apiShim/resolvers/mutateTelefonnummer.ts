@@ -18,11 +18,12 @@ export const mutateTelefonnummer: Resolver<
     any,
     any,
     MutationSetTelefonnummerArgs
-> = async (_, {input: {tlfnr, soknadId}}) => {
+> = async (_, {input: {tlfnr, soknadId}}, context) => {
     await serverPut<LegacyTelefon>(
         `soknader/${soknadId}/personalia/telefonnummer`,
         JSON.stringify(telefonnummerToLegacy({tlfnr})),
-        LegacyTelefonSchema
+        LegacyTelefonSchema,
+        context
     );
 
     return {
