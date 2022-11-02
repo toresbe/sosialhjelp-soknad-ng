@@ -1,7 +1,8 @@
-import {serverPost} from "../restClients";
+import {RESTRequest} from "../restClients";
 import {NySoknadResponse, NySoknadResponseSchema} from "../legacyTypes/nySoknad";
 import {Resolver} from "../../../generated/apolloServerTypes";
 import {SoknadType} from "../SoknadType";
+import {ApolloContextType} from "../apolloServer";
 
 // Create a new application.
 //
@@ -9,13 +10,13 @@ import {SoknadType} from "../SoknadType";
 // a string identifying the form.
 //
 // TODO: Error handling.
-export const mutateNySoknad: Resolver<SoknadType> = async (parent, args, context) => {
-    const {brukerBehandlingId} = await serverPost<NySoknadResponse>(
-        "soknader/opprettSoknad",
-        undefined,
-        NySoknadResponseSchema,
-        context
-    );
+export const mutateNySoknad: Resolver<SoknadType, any, ApolloContextType> = async (parent, args, {cookies}) => {
+    const {brukerBehandlingId} = await RESTRequest<NySoknadResponse>({
+        path: "soknader/opprettSoknad",
+        method: "POST",
+        schema: NySoknadResponseSchema,
+        cookies,
+    });
 
     return {id: brukerBehandlingId};
 };

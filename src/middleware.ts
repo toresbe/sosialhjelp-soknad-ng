@@ -1,27 +1,35 @@
 import {NextResponse} from "next/server";
 import type {NextRequest} from "next/server";
-import {HTTPUnauthorized, serverGet} from "./lib/apiShim/restClients";
+import {convertNextJSCookiesToRecord, HTTPUnauthorized, RESTRequest} from "./lib/apiShim/restClients";
 import {LegacyTilgangResponse, LegacyTilgangResponseSchema} from "./lib/apiShim/legacyTypes/statusInformation";
 
-export const middleware = async (req: NextRequest) => {
+const RequireSession = async (req: NextRequest) => {
     try {
-        const cookies: Record<string, string> = {};
-
-        req.cookies.getAll().forEach((c) => (cookies[c.name] = c.value));
-
-        await serverGet<LegacyTilgangResponse>(
-            `informasjon/utslagskriterier/sosialhjelp`,
-            LegacyTilgangResponseSchema,
-            cookies
-        );
+        await RESTRequest<LegacyTilgangResponse>({
+            path: `informasjon/utslagskriterier/sosialhjelp`,
+            schema: LegacyTilgangResponseSchema,
+            cookies: convertNextJSCookiesToRecord(req.cookies),
+        });
 
         return NextResponse.next();
     } catch (e: any) {
-        const loginUrl = new URL(e.loginUrl);
+        if (e instanceof HTTPUnauthorized) {
+            const loginUrl = new URL(e.loginUrl);
 
-        loginUrl.searchParams.set("redirect", req.url);
-        if (e instanceof HTTPUnauthorized) return NextResponse.redirect(loginUrl);
+            // Set "redirect" parameter to the page the user attempted to load.
+            loginUrl.searchParams.set("redirect", req.url);
+
+            return NextResponse.redirect(loginUrl);
+        }
 
         throw e;
     }
+};
+
+// OBS: middleware() under invokeres av NextJS ved alle requests.
+// TODO: Her bør sannsynligvis NAV-dekoratoren inn på noe vis?
+// Før hver sidelasting gjør vi en request mot backend med cookies sendt av browseren.
+// Om den bouncer oss til login, så følger vi den lenken.
+export const middleware = async (req: NextRequest) => {
+    return await RequireSession(req);
 };

@@ -1,21 +1,26 @@
 import {LegacyAdresser, LegacyAdresserSchema, LegacyNavEnhet, LegacyNavEnhetSchema} from "../legacyTypes/personalia";
-import {serverGet} from "../restClients";
+import {RESTRequest} from "../restClients";
 import {Opphold, Resolver, Soknad} from "../../../generated/apolloServerTypes";
 import {adresseDataFraLegacy} from "../translators/adresseData";
 import {navEnhetFraLegacy} from "../translators/navEnhet";
+import {ApolloContextType} from "../apolloServer";
 
-export const resolveOpphold: Resolver<Opphold, Pick<Soknad, "id">> = async (parent, _, context) => {
-    const legacyAdresse = await serverGet<LegacyAdresser>(
-        `soknader/${parent.id}/personalia/adresser`,
-        LegacyAdresserSchema,
-        context
-    );
+export const resolveOpphold: Resolver<Opphold, Pick<Soknad, "id">, ApolloContextType> = async (
+    parent,
+    _,
+    {cookies}
+) => {
+    const legacyAdresse = await RESTRequest<LegacyAdresser>({
+        path: `soknader/${parent.id}/personalia/adresser`,
+        schema: LegacyAdresserSchema,
+        cookies,
+    });
 
-    const legacyNavEnhet = await serverGet<LegacyNavEnhet>(
-        `soknader/${parent.id}/personalia/navEnhet`,
-        LegacyNavEnhetSchema,
-        context
-    );
+    const legacyNavEnhet = await RESTRequest<LegacyNavEnhet>({
+        path: `soknader/${parent.id}/personalia/navEnhet`,
+        schema: LegacyNavEnhetSchema,
+        cookies,
+    });
 
     return {
         ...adresseDataFraLegacy(legacyAdresse),

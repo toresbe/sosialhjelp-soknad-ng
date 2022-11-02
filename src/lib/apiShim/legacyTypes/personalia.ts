@@ -82,7 +82,8 @@ export const LegacyAdressesokTreffSchema = z.object({
 
 export type LegacyAdressesokTreff = z.infer<typeof LegacyAdressesokTreffSchema>;
 
-// Oversettelser til ajour terminologi:
+// Terminologien er standardisert for å samsvare med PDLs begrepsbruk.
+// Oversettelser:
 // folkeregistrert -> oppholdsaddresse
 // midlertidig -> bostedsaddresse
 const LegacyAdresseKategoriSchema = z.enum(["folkeregistrert", "midlertidig", "soknad"]);
@@ -110,7 +111,7 @@ export type LegacyMatrikkelAdresse = z.infer<typeof LegacyMatrikkelAdresseSchema
 export const LegacyGateadresseSchema = z
     .object({
         kommunenummer: z.string().nullable(),
-        landkode: z.null(),
+        landkode: z.string(),
         adresselinjer: z.array(z.string()),
         bolignummer: z.string().nullable(),
         postnummer: z.string(),
@@ -133,7 +134,7 @@ export const LegacyAdresseElementSchema = z.object({
 export type LegacyAdresseElement = z.infer<typeof LegacyAdresseElementSchema>;
 
 export const LegacyAdresserSchema = z.object({
-    valg: LegacyAdresseKategoriSchema,
+    valg: LegacyAdresseKategoriSchema.nullable(),
     folkeregistrert: LegacyAdresseElementSchema.nullable(),
     midlertidig: LegacyAdresseElementSchema.nullable(),
     soknad: LegacyAdresseElementSchema.nullable(),

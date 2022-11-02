@@ -2,7 +2,7 @@ import {Button, Detail, Loader} from "@navikt/ds-react";
 import * as React from "react";
 import {fmtPhone} from "../../../lib/formatters/fmtPhone";
 import {useTranslation} from "next-i18next";
-import Flex from "../../common/Flex";
+import Flex from "../../layout/Flex";
 
 interface FromKrrProps {
     fraKrr?: string | null;

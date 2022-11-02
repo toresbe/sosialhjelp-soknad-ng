@@ -38,9 +38,13 @@ const plugins =
         ? [ApolloServerPluginLandingPageProductionDefault({footer: false})]
         : [ApolloServerPluginLandingPageLocalDefault({embed: true})];
 
+export interface ApolloContextType {
+    cookies: Record<string, string>;
+}
+
 export const apolloServer = new ApolloServer({
     typeDefs,
     resolvers,
     plugins,
-    context: ({req: {cookies}}) => cookies,
+    context: ({req: {cookies}}) => ({cookies}),
 });

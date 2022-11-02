@@ -3,7 +3,7 @@ import {Personalia} from "../../generated/apolloClientTypes";
 import {Heading, Loader} from "@navikt/ds-react";
 import {fmtFodselsnummer, fmtFodselsnummerForScreenReader} from "../../lib/formatters/fmtFodselsnummer";
 import {fmtNavn} from "../../lib/formatters/fmtNavn";
-import {SysteminfoTabell} from "../SysteminfoTabell";
+import {SysteminfoTabell} from "../layout/SysteminfoTabell";
 
 export interface BasisPersonaliaProps {
     personalia?: Personalia;

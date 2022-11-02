@@ -4,9 +4,10 @@ import {
     Resolver,
     SetTelefonnummerInput,
 } from "../../../generated/apolloServerTypes";
-import {serverPut} from "../restClients";
+import {RESTRequest} from "../restClients";
 import {LegacyTelefon, LegacyTelefonInput, LegacyTelefonSchema} from "../legacyTypes/personalia";
 import {DeepPartial} from "utility-types";
+import {ApolloContextType} from "../apolloServer";
 
 const telefonnummerToLegacy = ({tlfnr}: Pick<SetTelefonnummerInput, "tlfnr">): LegacyTelefonInput => ({
     brukerdefinert: tlfnr !== null,
@@ -16,15 +17,16 @@ const telefonnummerToLegacy = ({tlfnr}: Pick<SetTelefonnummerInput, "tlfnr">): L
 export const mutateTelefonnummer: Resolver<
     DeepPartial<SoknadMutation>,
     any,
-    any,
+    ApolloContextType,
     MutationSetTelefonnummerArgs
-> = async (_, {input: {tlfnr, soknadId}}, context) => {
-    await serverPut<LegacyTelefon>(
-        `soknader/${soknadId}/personalia/telefonnummer`,
-        JSON.stringify(telefonnummerToLegacy({tlfnr})),
-        LegacyTelefonSchema,
-        context
-    );
+> = async (_, {input: {tlfnr, soknadId}}, {cookies}) => {
+    await RESTRequest<LegacyTelefon>({
+        method: "PUT",
+        path: `soknader/${soknadId}/personalia/telefonnummer`,
+        body: JSON.stringify(telefonnummerToLegacy({tlfnr})),
+        schema: LegacyTelefonSchema,
+        cookies,
+    });
 
     return {
         soknad: {

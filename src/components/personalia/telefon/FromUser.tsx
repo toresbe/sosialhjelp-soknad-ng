@@ -3,7 +3,7 @@ import * as React from "react";
 import styled from "styled-components";
 import {useTranslation} from "next-i18next";
 import {fmtPhone} from "../../../lib/formatters/fmtPhone";
-import Flex from "../../common/Flex";
+import Flex from "../../layout/Flex";
 
 interface PhoneNumberUserDefinedProps {
     numberFromUser?: string | null;

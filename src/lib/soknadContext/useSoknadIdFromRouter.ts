@@ -5,6 +5,6 @@ import {useRouter} from "next/router";
 export const useSoknadIdFromRouter = () => {
     const router = useRouter();
     const {behandlingsId} = router.query;
-    if (typeof behandlingsId !== "string") throw new Error("Ugyldig behandlingsId!");
+    if (typeof behandlingsId !== "string") throw new Error(`Ugyldig behandlingsId ${behandlingsId}!`);
     return behandlingsId;
 };

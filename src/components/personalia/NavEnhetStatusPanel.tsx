@@ -2,7 +2,7 @@ import * as React from "react";
 import {Alert, GuidePanel, Heading} from "@navikt/ds-react";
 import {Trans, useTranslation} from "next-i18next";
 import {NavEnhet, NavEnhetStatus} from "../../generated/apolloClientTypes";
-import Brevkonvolutt from "../common/illustrations/Brevkonvolutt";
+import Brevkonvolutt from "../icons/Brevkonvolutt";
 import styled from "styled-components";
 
 interface NavEnhetStatusPanelProps {
