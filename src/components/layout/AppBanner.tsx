@@ -26,7 +26,7 @@ const StyledAppBanner = styled.header`
     }
 `;
 
-export const HeaderBanner = () => {
+export const AppBanner = () => {
     const {t} = useTranslation("skjema", {keyPrefix: "globalt"});
 
     return (
@@ -38,4 +38,4 @@ export const HeaderBanner = () => {
     );
 };
 
-export default HeaderBanner;
+export default AppBanner;
