@@ -1,9 +1,7 @@
 import Telefon from "../../components/personalia/Telefon";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import {GetServerSideProps} from "next";
-import {Heading} from "@navikt/ds-react";
 import {useAPITelefon} from "../../lib/hooks/useAPITelefon";
-import Head from "next/head";
 import {BasisPersonalia} from "../../components/personalia/BasisPersonalia";
 import {useAPIPersonalia} from "../../lib/hooks/useAPIPersonalia";
 import {useSoknadIdFromRouter} from "../../lib/soknadContext/useSoknadIdFromRouter";
@@ -16,10 +14,6 @@ export const Page1 = () => {
 
     return (
         <SkjemaSkritt activeStep={1}>
-            <Head>
-                <title>Sosialhjelpsøknad - Personalia</title>
-            </Head>
-            <Heading size={"large"}>Sosialhjelpsøknad</Heading>
             <BasisPersonalia personalia={personalia} />
             <Telefon telefon={telefon} onSetTelefonnummer={setTelefonnummer} />
         </SkjemaSkritt>

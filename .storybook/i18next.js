@@ -4,7 +4,7 @@ import Backend from "i18next-http-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
 
 const ns = ["common", "skjema"];
-const supportedLngs = ["nb"];
+const supportedLngs = ["nb", "en"];
 const resources = ns.reduce((acc, n) => {
     supportedLngs.forEach((lng) => {
         if (!acc[lng]) acc[lng] = {};
@@ -20,7 +20,7 @@ i18n.use(initReactI18next)
     .use(LanguageDetector)
     .use(Backend)
     .init({
-        //debug: true,
+        debug: true,
         lng: "nb",
         fallbackLng: "nb",
         ns,

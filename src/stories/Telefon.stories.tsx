@@ -52,6 +52,6 @@ export const TregLast: ComponentStory<typeof Telefon> = () => {
 };
 
 export default {
-    title: "Telefon",
+    title: "Personalia/Telefon",
     component: Telefon,
 } as ComponentMeta<typeof Telefon>;

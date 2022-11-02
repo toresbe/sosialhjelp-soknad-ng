@@ -1,5 +1,8 @@
 {
   "globalt.applikasjonsNavn": "Søknad om økonomisk sosialhjelp",
+  "globalt.sletteKnapp": "Slett",
+  "globalt.endreKnapp": "Endre",
+  "globalt.avbrytKnapp": "Avbryt",
   "personalia.legend": "Vi har hentet følgende personalia fra Min side",
   "personalia.navn": "Navn",
   "personalia.fnr": "Fødselsnummer",
@@ -10,6 +13,7 @@
   "telefon.legend": "Telefonnummer",
   "telefon.telefonnummer": "Telefonnummer",
   "telefon.norsknummer": "Norsk telefonnummer",
+  "telefon.annetNummer": "Jeg vil kontaktes på et annet nummer",
   "navEnhet.gyldig": "Søknaden vil bli sendt til: {{navn}}, {{kommune}} kommune.",
   "navEnhet.ugyldig": "{{kommune}} kommune kan ikke ta i mot digitale søknader.",
   "navEnhet.midlUgyldig": "{{kommune}} kommune kan dessverre ikke ta i mot digitale søknader akkurat nå.",

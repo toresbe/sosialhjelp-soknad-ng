@@ -26,7 +26,7 @@ Primary.args = {
 };
 
 export default {
-    title: "BasisPersonalia",
+    title: "Personalia/BasisPersonalia",
     component: BasisPersonalia,
     argTypes: {
         personalia: {

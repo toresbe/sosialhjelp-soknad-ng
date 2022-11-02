@@ -28,9 +28,9 @@ export const FromUser = ({numberFromUser, onDelete, onEdit}: PhoneNumberUserDefi
                 {fromUserFormatted ?? <Loader size={"xsmall"} />}
             </div>
             <KnappRad>
-                <Button onClick={onEdit}>Endre</Button>
+                <Button onClick={onEdit}> {t("endreKnapp", {keyPrefix: "globalt"})}</Button>
                 <Button variant="danger" onClick={onDelete}>
-                    Slett
+                    {t("sletteKnapp", {keyPrefix: "globalt"})}
                 </Button>
             </KnappRad>
         </Flex>

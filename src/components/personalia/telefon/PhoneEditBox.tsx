@@ -39,7 +39,7 @@ export const PhoneEditBox = ({defaultValue, onCancel, onSave}: TelefonSelvvalgtP
             <Button onClick={() => onSave(tlfnr)}>Lagre</Button>
             {onCancel && (
                 <Button variant="secondary" onClick={() => onCancel()}>
-                    Avbryt
+                    {t("avbrytKnapp", {keyPrefix: "globalt"})}
                 </Button>
             )}
         </FlexHorizontalDiv>

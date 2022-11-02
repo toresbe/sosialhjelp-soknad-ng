@@ -1,0 +1,2 @@
+Files in this directory are auto-generated from /src/lib/schema.graphql and /src/lib/queries.graphql,
+as configured in /codegen.yml. To regenerate run "yarn && yarn codegen" in project root.

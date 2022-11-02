@@ -45,7 +45,7 @@ MidlertidigDeaktivert.args = {
 };
 
 export default {
-    title: "NavEnhetStatusPanel",
+    title: "Personalia/Adresse/NavEnhetStatusPanel",
     component: NavEnhetStatusPanel,
     argTypes: {
         navEnhet: {

@@ -32,7 +32,7 @@ Matrikkel.args = {
 };
 
 export default {
-    title: "Adressefelt",
+    title: "Personalia/Adresse/Adressefelt",
     component: Adressefelt,
     argTypes: {
         personalia: {

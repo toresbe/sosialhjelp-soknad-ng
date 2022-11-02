@@ -1,7 +1,7 @@
 import type {NextPage} from "next";
 import Head from "next/head";
 import NySoknad from "../components/informasjon/NySoknad";
-import {SoknadDiv} from "../components/layout/soknadDiv";
+import {SoknadDiv} from "../components/layout/SoknadDiv";
 
 const Home: NextPage = () => {
     return (

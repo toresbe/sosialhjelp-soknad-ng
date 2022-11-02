@@ -19,7 +19,7 @@ export const FromKrr = ({fraKrr, onEdit}: FromKrrProps) => {
                 <Detail size={"small"}>{t("fraKrr")}</Detail>
                 {fraKrrFormattert ?? <Loader size={"xsmall"} />}
             </div>
-            <Button onClick={onEdit}>Jeg vil kontaktes på et annet nummer</Button>
+            <Button onClick={onEdit}>{t("annetNummer")}</Button>
         </Flex>
     );
 };

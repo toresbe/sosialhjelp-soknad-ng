@@ -1,7 +1,7 @@
 import {Stepper} from "@navikt/ds-react";
 
 export interface SkrittIndikatorProps {
-    activeStep: number /* test */;
+    activeStep: number;
     onStepChange: (step: number) => void;
 }
 
