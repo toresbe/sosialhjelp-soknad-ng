@@ -1,7 +1,7 @@
 import {z, ZodType} from "zod";
 import {API_BASE_URL, API_BASE_URL_WITH_TOKEN} from "../config";
 import logger from "../logger";
-import {LoginRedirectSchema} from "./legacyTypes/loginRedirect";
+import {LoginRedirectSchema} from "../legacyTypes/loginRedirect";
 import {HttpMethod} from "undici/types/dispatcher";
 import {RequestCookies} from "next/dist/server/web/spec-extension/cookies";
 
@@ -39,7 +39,6 @@ export const serverRequest = async <T>(
         );
 
     //headers.set("X-XSRF-TOKEN", await getXsrfToken(await getXsrfCookies(cookies)));
-
     const options: RequestInit = {
         method,
         headers,

@@ -1,4 +1,4 @@
-import {LegacyGateadresse} from "../apiShim/legacyTypes/personalia";
+import {LegacyGateadresse} from "../legacyTypes/personalia";
 
 // Formatterer slik: <adressenavn> <nummer><ev. bokstav> - støtter ikke adressetilleggsnavn
 export const fmtLegacyGateadresse = ({gatenavn, husnummer, husbokstav}: LegacyGateadresse) =>

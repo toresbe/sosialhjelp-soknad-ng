@@ -1,5 +1,5 @@
 // Konverterer GraphQL-definert adressevalg til API-kompatibelt
-import {LegacyAdresseKategori} from "../legacyTypes/personalia";
+import {LegacyAdresseKategori} from "../../legacyTypes/personalia";
 import {AdresseValg} from "../../../generated/apolloServerTypes";
 
 // Konverter GraphQL-kompatibelt adressevalg til legacy-adressevalg

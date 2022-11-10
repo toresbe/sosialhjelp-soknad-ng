@@ -1,42 +1,49 @@
 mutation nySoknad {
     nySoknad {
-        id
-    }
-}
-
-query getTelefon($soknadId: ID!) {
-    soknad(id: $soknadId) {
-        id
-        telefon {
-            fraKrr
-            brukerdefinert
+        status
+        soknad {
+            id
         }
     }
 }
 
 query getPersonalia($soknadId: ID!) {
     soknad(id: $soknadId) {
-        id
-        ...BasisPersonalia
-        opphold {
-            ...Adresser
-        }
+        ...PageOne
     }
 }
 
-fragment BasisPersonalia on Soknad {
+fragment PageOne on Soknad {
+    id
     personalia {
-        navn {
-            fornavn
-            mellomnavn
-            etternavn
-        }
-        fnr
-        statsborgerskap
+        ...BasisPersonalia
     }
+    opphold {
+        ...Opphold
+    }
+    telefon {
+        ...Telefon
+    }
+
 }
 
-fragment Adresser on Opphold {
+fragment Telefon on TelefonData {
+    brukerdefinert
+    fraKrr
+}
+
+fragment BasisPersonalia on Personalia {
+    navn {
+        fornavn
+        mellomnavn
+        etternavn
+    }
+    fnr
+    statsborgerskap
+}
+
+fragment Opphold on Opphold {
+    valgtAdresse
     bostedsAdresse {
         adresseTekst
         postnummer
@@ -52,25 +59,33 @@ fragment Adresser on Opphold {
         postnummer
         poststed
     }
+    navEnhet {
+        navn
+        kommune
+    }
 }
 
-mutation SetTelefonnummer($input: SetTelefonnummerInput!) {
-    setTelefonnummer(input: $input) {
-        soknad {
-            id
-            telefon {
-                brukerdefinert
+mutation SetTelefonnummer($behandlingsId: ID!, $input: Telefon!) {
+    soknad(id: $behandlingsId) {
+        telefon(input: $input) {
+            soknad {
+                id
+                telefon {
+                    brukerdefinert
+                }
             }
         }
     }
 }
 
-mutation SetAdresse($input: SetAdresseInput!) {
-    setAdresse(input: $input) {
-        soknad {
-            id
-            opphold {
-                ...Adresser
+mutation SetAdresse($behandlingsId: ID!, $input: Adresse!) {
+    soknad(id: $behandlingsId) {
+        adresse(input: $input) {
+            soknad {
+                id
+                opphold {
+                    ...Opphold
+                }
             }
         }
     }

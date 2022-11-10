@@ -1,5 +1,5 @@
 import {RESTRequest} from "../restClients";
-import {LegacyTelefon, LegacyTelefonSchema} from "../legacyTypes/personalia";
+import {LegacyTelefon, LegacyTelefonSchema} from "../../legacyTypes/personalia";
 import {Resolver, Soknad, TelefonData} from "../../../generated/apolloServerTypes";
 import {DeepPartial} from "utility-types";
 import {ApolloContextType} from "../apolloServer";

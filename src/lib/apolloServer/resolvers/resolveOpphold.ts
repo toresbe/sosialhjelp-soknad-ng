@@ -1,4 +1,4 @@
-import {LegacyAdresser, LegacyAdresserSchema, LegacyNavEnhet, LegacyNavEnhetSchema} from "../legacyTypes/personalia";
+import {LegacyAdresser, LegacyAdresserSchema, LegacyNavEnhet, LegacyNavEnhetSchema} from "../../legacyTypes/personalia";
 import {RESTRequest} from "../restClients";
 import {Opphold, Resolver, Soknad} from "../../../generated/apolloServerTypes";
 import {adresseDataFraLegacy} from "../translators/adresseData";

@@ -53,7 +53,9 @@ export const LegacyKontonummerSchema = z.object({
 });
 
 export const LegacyNavEnhetSchema = z.object({
-    orgnr: z.null(),
+    // FIXME: should be z.null() as NAV units don't have these with the new search,
+    //   but it still comes in as string! is the mock data wrong?
+    orgnr: z.string(),
     behandlingsansvarlig: z.null(),
     enhetsnr: z.string(),
     isMottakMidlertidigDeaktivert: z.boolean(),

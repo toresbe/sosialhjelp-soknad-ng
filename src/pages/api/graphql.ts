@@ -1,7 +1,7 @@
 // This code, which runs in a server-side Node environment, serves
 // the GraphQL endpoint on /api/graphql.
 
-import {apolloServer} from "../../lib/apiShim/apolloServer";
+import {apolloServer} from "../../lib/apolloServer/apolloServer";
 
 const startServer = apolloServer.start();
 

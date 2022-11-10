@@ -1,7 +1,7 @@
 // Konverterer GraphQL-definert vegadresse til REST API-kompatibel
 
 import {AdresseFraSystem, InputVegadresse} from "../../../generated/apolloServerTypes";
-import {LegacyAdresseElement, LegacyGateadresse} from "../legacyTypes/personalia";
+import {LegacyAdresseElement, LegacyGateadresse} from "../../legacyTypes/personalia";
 import {fmtLegacyGateadresse} from "../../formatters/fmtLegacyGateadresse";
 
 export const vegadresseTilLegacy = (adresse: InputVegadresse): LegacyAdresseElement => {

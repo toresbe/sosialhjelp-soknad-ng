@@ -1,28 +1,41 @@
 scalar DateTime
 
 type Mutation {
-    nySoknad: Soknad!
-    setTelefonnummer(input: SetTelefonnummerInput!): SoknadMutation!
-    setAdresse(input: SetAdresseInput!): SoknadMutation!
+    soknad(id: ID!): SoknadMutations!
+    nySoknad: SoknadMutationResult!
 }
 
-input SetTelefonnummerInput {
-    soknadId: ID!
-    tlfnr: String
+type SoknadMutations {
+    telefon(input: Telefon!): SoknadMutationResult!
+    adresse(input: Adresse!): SoknadMutationResult!
 }
 
-type SoknadMutation {
+input Telefon {
+    brukerdefinert: String
+}
+
+enum MutationStatus {
+    SUCCESS
+    ERROR
+}
+
+type SoknadMutationResult {
+    status: MutationStatus!
     soknad: Soknad
 }
 
-input SetAdresseInput {
-    soknadId: ID!
-    adresseValg: AdresseValg!
-    soknadsAdresse: InputVegadresse
+input Adresse {
+    valg: AdresseValg!
+    brukerdefinert: InputVegadresse
 }
 
 type Query {
     soknad(id: ID!): Soknad
+    adresseSok(query: String!): AdresseSokResultat!
+}
+
+type AdresseSokResultat {
+    treff: [Vegadresse]!
 }
 
 type Soknad {
@@ -42,9 +55,9 @@ type Soknad {
     telefon: TelefonData!
 
     """
-    Informasjon om oppholdssted (og nærmeste NAV-enhet)
+    Informasjon om oppholdssted og nærmeste NAV-enhet
     """
-    opphold: Opphold
+    opphold: Opphold!
 }
 
 type Opphold {
@@ -175,6 +188,53 @@ input InputVegadresse {
 
     """
      Firesifret nummerering av kommunen i henhold til Statistisk sentralbyrå sin offisielle liste
+
+    Merknad: Det presiseres at kommunenummer alltid skal ha 4 siffer, dvs. eventuelt med ledende null.
+    """
+    kommunenummer: String
+}
+
+type Vegadresse {
+    """
+    Navn på gate, veg, sti, plass eller område som er ført i matrikkelen (eksempel Sørumvegen).
+    """
+    adressenavn: String!
+
+    """
+    Adressebokstav, del av adressenummer (jfr Matrikkelforskrift § 2f).
+    Ved behov kan det i tillegg til tallet brukes en etterfølgende bokstav.
+
+    Bokstav skal bare brukes for å unngå omnummerering i tidligere tildelte adresser.
+    Bokstav skal gis i alfabetisk rekkefølge. (matrikkelforskrift § 52 tredje ledd).
+
+    Merknad: Høyst en bokstav
+    """
+    bokstav: String
+
+    """
+    Del av adressenummer som er definert slik i matrikkelforskrift:
+
+    et nummer og en eventuell bokstav (husnummer) som entydig identifiserer eiendommer, anlegg,
+    bygninger eller innganger til bygninger innenfor en adresserbar gate, veg, sti, plass eller
+    område (Forskrift § 2f).
+    """
+    nummer: String!
+
+    """
+    Firesifret kode som identifiserer et postnummerområde
+
+    Merknad: Det første sifferet angir postsone, de to første sifrene angir postregion,
+    de tre første sifrene angir postområde og alle fire sifrene angir postnummerområde/poststed.
+    """
+    postnummer: String!
+
+    """
+    Navn på poststed i henhold til Postens egne lister
+    """
+    poststed: String
+
+    """
+    Firesifret nummerering av kommunen i henhold til Statistisk sentralbyrå sin offisielle liste
 
     Merknad: Det presiseres at kommunenummer alltid skal ha 4 siffer, dvs. eventuelt med ledende null.
     """

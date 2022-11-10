@@ -1,4 +1,4 @@
-import {LegacyNavEnhet} from "../legacyTypes/personalia";
+import {LegacyNavEnhet} from "../../legacyTypes/personalia";
 import {NavEnhetStatus} from "../../../generated/apolloServerTypes";
 
 // Konverter GraphQL-kompatibelt NAV-enhet-status fra legacy

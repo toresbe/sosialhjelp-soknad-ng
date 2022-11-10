@@ -1,25 +1,23 @@
 import * as React from "react";
-import styled from "styled-components";
 import {AdresseFraSystem} from "../../../generated/apolloClientTypes";
-
-const AdresseEtikett = styled.div`
-    width: fit-content;
-    border: 2px solid #ddd;
-    border-radius: 10px;
-    padding: 1em;
-`;
+import {Maybe} from "@graphql-tools/utils";
 
 export interface AdressefeltProps {
-    adresse: AdresseFraSystem;
+    className?: string;
+    adresse: Maybe<AdresseFraSystem>;
 }
 
-export const Adressefelt = ({adresse: {adresseTekst, poststed, postnummer}}: AdressefeltProps) => {
+export const Adressefelt = ({className, adresse}: AdressefeltProps) => {
+    if (!adresse) return null;
+
+    const {adresseTekst, poststed, postnummer} = adresse;
+
     return (
-        <AdresseEtikett className={"h-adr"}>
+        <div className={"h-adr " + className ?? ""}>
             <span className="p-street-address">{adresseTekst}</span>
             <br />
             <span className="p-postal-code">{postnummer}</span> <span className="p-locality">{poststed}</span>
-        </AdresseEtikett>
+        </div>
     );
 };
 

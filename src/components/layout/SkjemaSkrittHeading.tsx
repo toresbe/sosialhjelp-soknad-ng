@@ -6,5 +6,7 @@ export interface SkjemaSkrittHeadingProps {
 
 // FIXME: Hard-coded to page 1 - must look up page headings from i18n
 export const SkjemaSkrittHeading = ({activeStep}: SkjemaSkrittHeadingProps) => (
-    <Heading size={"large"}>Personopplysninger</Heading>
+    <div className={"text-center"}>
+        <Heading size={"large"}>Personopplysninger</Heading>
+    </div>
 );

@@ -1,21 +1,23 @@
-import AccordionItem from "@navikt/ds-react/esm/accordion/AccordionItem";
 import {Notes} from "@navikt/ds-icons";
-import {Heading} from "@navikt/ds-react";
-import AccordionContent from "@navikt/ds-react/esm/accordion/AccordionContent";
+import {Button, Heading} from "@navikt/ds-react";
 import React from "react";
 import {AccordionHeaderOversikt} from "./AccordionHeaderOversikt";
+import {Accordion} from "@navikt/ds-react";
 
 export const NySoknad = () => (
-    <AccordionItem>
-        <AccordionHeaderOversikt ikon={<Notes style={{padding: ".15rem"}} />}>
+    <Accordion.Item>
+        <AccordionHeaderOversikt ikon={<Notes />}>
             <Heading level="2" size="small">
                 Start en ny søknad
             </Heading>
         </AccordionHeaderOversikt>
-        <AccordionContent>
+        <Accordion.Content>
             <div>Info om ny søknad goes here</div>
-        </AccordionContent>
-    </AccordionItem>
+            <div className={"text-center"}>
+                <Button onClick={() => {}}>Ny søknad</Button>
+            </div>
+        </Accordion.Content>
+    </Accordion.Item>
 );
 
 export default NySoknad;

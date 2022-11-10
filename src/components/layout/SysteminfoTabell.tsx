@@ -13,13 +13,12 @@ export const SysteminfoTabell = styled.table`
     }
     tr {
         margin-bottom: 0.5em;
-        display: flex;
     }
     th {
         text-align: right;
         padding-right: 1.5em;
-        display: block;
-        flex-basis: 30%;
+        vertical-align: middle;
+        width: 250px;
     }
     td {
         flex-grow: 1;

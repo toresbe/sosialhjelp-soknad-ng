@@ -13,10 +13,12 @@ import {resolveSoknad} from "./resolvers/resolveSoknad";
 import {mutateTelefonnummer} from "./resolvers/mutateTelefonnummer";
 import {mutateAdresse} from "./resolvers/mutateAdresse";
 import {resolveOpphold} from "./resolvers/resolveOpphold";
+import {resolveAdresseSok} from "./resolvers/resolveAdresseSok";
 
 const resolvers: Resolvers = {
     Query: {
         soknad: resolveSoknad,
+        adresseSok: resolveAdresseSok,
     },
     Mutation: {
         nySoknad: mutateNySoknad,

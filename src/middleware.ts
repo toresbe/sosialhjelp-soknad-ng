@@ -1,7 +1,7 @@
 import {NextResponse} from "next/server";
 import type {NextRequest} from "next/server";
-import {convertNextJSCookiesToRecord, HTTPUnauthorized, RESTRequest} from "./lib/apiShim/restClients";
-import {LegacyTilgangResponse, LegacyTilgangResponseSchema} from "./lib/apiShim/legacyTypes/statusInformation";
+import {convertNextJSCookiesToRecord, HTTPUnauthorized, RESTRequest} from "./lib/apolloServer/restClients";
+import {LegacyTilgangResponse, LegacyTilgangResponseSchema} from "./lib/legacyTypes/statusInformation";
 
 const RequireSession = async (req: NextRequest) => {
     try {

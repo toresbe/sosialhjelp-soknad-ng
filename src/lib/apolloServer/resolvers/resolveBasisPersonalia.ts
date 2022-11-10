@@ -1,5 +1,5 @@
 import {RESTRequest} from "../restClients";
-import {LegacyPersonalia, LegacyPersonaliaSchema} from "../legacyTypes/personalia";
+import {LegacyPersonalia, LegacyPersonaliaSchema} from "../../legacyTypes/personalia";
 import {Personalia, Resolver, Soknad} from "../../../generated/apolloServerTypes";
 import {DeepPartial} from "utility-types";
 import {translatePersonalia} from "../translators/personalia";

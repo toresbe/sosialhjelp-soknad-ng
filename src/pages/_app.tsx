@@ -4,11 +4,14 @@ import {useApollo} from "../lib/apolloClient/useApollo";
 import {appWithTranslation} from "next-i18next";
 import "@navikt/ds-css";
 import {AppBanner} from "../components/layout/AppBanner";
+import "../styles/globals.css";
 
 const MyApp = ({Component, pageProps}: AppProps) => (
     <ApolloProvider client={useApollo(pageProps.initialApolloState)}>
         <AppBanner />
-        <Component {...pageProps} />
+        <main>
+            <Component {...pageProps} />
+        </main>
     </ApolloProvider>
 );
 

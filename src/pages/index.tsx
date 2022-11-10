@@ -2,6 +2,8 @@ import type {NextPage} from "next";
 import Head from "next/head";
 import NySoknad from "../components/informasjon/NySoknad";
 import {SoknadDiv} from "../components/layout/SoknadDiv";
+import {GetServerSideProps} from "next";
+import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 
 const Home: NextPage = () => {
     return (
@@ -10,13 +12,19 @@ const Home: NextPage = () => {
                 <title>Sosialhjelpsøknad</title>
             </Head>
 
-            <main>
-                <SoknadDiv>
-                    <NySoknad />
-                </SoknadDiv>
-            </main>
+            <SoknadDiv>
+                <NySoknad />
+            </SoknadDiv>
         </div>
     );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+    return {
+        props: {
+            ...(await serverSideTranslations("nb")),
+        },
+    };
 };
 
 export default Home;

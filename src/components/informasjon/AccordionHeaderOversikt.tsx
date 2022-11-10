@@ -1,31 +1,5 @@
 import React from "react";
-import styled from "styled-components";
-import AccordionHeader from "@navikt/ds-react/esm/accordion/AccordionHeader";
-import {digisosColors, MEDIA_QUERY_BREAKPOINT_MEDIUM} from "../../lib/config";
-
-const AccordionHeaderStyled = styled(AccordionHeader)`
-    > div.ikon {
-        height: 3.5rem;
-        width: 3.5rem;
-        margin: 0 0.5rem;
-        flex-shrink: 0;
-        background-color: ${digisosColors.digisosLysGronn};
-        border: 0.5rem solid ${digisosColors.digisosLysGronn};
-        border-radius: 50%;
-
-        > svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        @media ${MEDIA_QUERY_BREAKPOINT_MEDIUM} {
-            display: none;
-        }
-    }
-    > div.tekst {
-        flex-grow: 1;
-    }
-`;
+import {Accordion} from "@navikt/ds-react";
 
 interface AccordionHeaderOversiktProps {
     ikon?: React.ReactNode;
@@ -34,8 +8,12 @@ interface AccordionHeaderOversiktProps {
 
 // Spesialtilpasset AccordionHeader-wrapper for Søknadsoversikt, med prop for å inkludere et ikon
 export const AccordionHeaderOversikt = ({ikon, children}: AccordionHeaderOversiktProps) => (
-    <AccordionHeaderStyled>
-        <div className="ikon">{ikon}</div>
-        <div className="tekst">{children}</div>
-    </AccordionHeaderStyled>
+    <Accordion.Header className={"items-center"}>
+        <div className={"flex items-center"}>
+            <div className="aspect-square w-14 [&>svg]:w-full [&>svg]:h-full bg-digisosGronnLys rounded-full p-2 mr-6">
+                {ikon}
+            </div>
+            <div className="grow h-fit">{children}</div>
+        </div>
+    </Accordion.Header>
 );

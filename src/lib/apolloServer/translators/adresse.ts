@@ -1,4 +1,4 @@
-import {LegacyAdresseElement} from "../legacyTypes/personalia";
+import {LegacyAdresseElement} from "../../legacyTypes/personalia";
 import {AdresseFraSystem} from "../../../generated/apolloServerTypes";
 import {vegadresseFraLegacy} from "./vegadresse";
 import {matrikkeladresseFraLegacy} from "./matrikkeladresse";
