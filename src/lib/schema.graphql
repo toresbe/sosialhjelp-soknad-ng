@@ -1,7 +1,7 @@
 scalar DateTime
 
 type Mutation {
-    soknad(id: ID!): SoknadMutations!
+    soknad: SoknadMutations!
     nySoknad: SoknadMutationResult!
 }
 
@@ -11,6 +11,7 @@ type SoknadMutations {
 }
 
 input Telefon {
+    behandlingsId: ID!
     brukerdefinert: String
 }
 
@@ -25,7 +26,8 @@ type SoknadMutationResult {
 }
 
 input Adresse {
-    valg: AdresseValg!
+    behandlingsId: ID!
+    valgtAdresse: AdresseValg
     brukerdefinert: InputVegadresse
 }
 
@@ -35,7 +37,7 @@ type Query {
 }
 
 type AdresseSokResultat {
-    treff: [Vegadresse]!
+    treff: [Vegadresse!]!
 }
 
 type Soknad {
@@ -79,7 +81,7 @@ type Opphold {
     """
     Adresse valgt av bruker.
     """
-    valgtAdresse: AdresseValg!
+    valgtAdresse: AdresseValg
 
     """
     navEnhet for brukerens oppholdssted
@@ -184,7 +186,7 @@ input InputVegadresse {
     """
     Navn på poststed i henhold til Postens egne lister
     """
-    poststed: String
+    poststed: String!
 
     """
      Firesifret nummerering av kommunen i henhold til Statistisk sentralbyrå sin offisielle liste
@@ -231,7 +233,7 @@ type Vegadresse {
     """
     Navn på poststed i henhold til Postens egne lister
     """
-    poststed: String
+    poststed: String!
 
     """
     Firesifret nummerering av kommunen i henhold til Statistisk sentralbyrå sin offisielle liste

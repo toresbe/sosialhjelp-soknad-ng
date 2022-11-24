@@ -19,6 +19,3 @@ generates:
       - typescript-resolvers
       - add:
           content: "import { DeepPartial } from 'utility-types';"
-  ./graphql.schema.json:
-    plugins:
-      - introspection

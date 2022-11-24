@@ -1,7 +1,7 @@
 import {adresseValgFraLegacy} from "./adresseValg";
 import {AdresseValg, Opphold} from "../../../generated/apolloServerTypes";
 import {adresseFraLegacy} from "./adresse";
-import {LegacyAdresser} from "../../legacyTypes/personalia";
+import {LegacyAdresser} from "../restSchemas/personalia";
 
 export const adresseDataFraLegacy = ({valg, folkeregistrert, soknad, midlertidig}: LegacyAdresser): Opphold => {
     const valgtAdresse = adresseValgFraLegacy(valg || "folkeregistrert");

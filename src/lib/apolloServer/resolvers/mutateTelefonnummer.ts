@@ -1,15 +1,14 @@
 import {
     MutationStatus,
     Resolver,
-    Soknad,
     SoknadMutationResult,
     SoknadMutationsTelefonArgs,
     TelefonData,
 } from "../../../generated/apolloServerTypes";
-import {RESTRequest} from "../restClients";
-import {LegacyTelefon, LegacyTelefonInput, LegacyTelefonSchema} from "../../legacyTypes/personalia";
-import {DeepPartial} from "utility-types";
+import {restClient} from "../restClients";
+import {LegacyTelefon, LegacyTelefonInput, LegacyTelefonSchema} from "../restSchemas/personalia";
 import {ApolloContextType} from "../apolloServer";
+import {DeepPartial} from "utility-types";
 
 const telefonnummerToLegacy = ({brukerdefinert}: Pick<TelefonData, "brukerdefinert">): LegacyTelefonInput => ({
     brukerdefinert: brukerdefinert !== null,
@@ -18,11 +17,11 @@ const telefonnummerToLegacy = ({brukerdefinert}: Pick<TelefonData, "brukerdefine
 
 export const mutateTelefonnummer: Resolver<
     DeepPartial<SoknadMutationResult>,
-    Soknad,
+    any,
     ApolloContextType,
     SoknadMutationsTelefonArgs
-> = async ({id: behandlingsId}, {input: {brukerdefinert}}, {cookies}) => {
-    await RESTRequest<LegacyTelefon>({
+> = async (_, {input: {behandlingsId, brukerdefinert}}, {cookies}) => {
+    await restClient<LegacyTelefon>({
         method: "PUT",
         path: `soknader/${behandlingsId}/personalia/telefonnummer`,
         body: JSON.stringify(telefonnummerToLegacy({brukerdefinert})),

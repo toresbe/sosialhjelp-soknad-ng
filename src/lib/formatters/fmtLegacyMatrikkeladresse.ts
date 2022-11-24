@@ -1,4 +1,4 @@
-import {LegacyMatrikkelAdresse} from "../legacyTypes/personalia";
+import {LegacyMatrikkelAdresse} from "../apolloServer/restSchemas/personalia";
 
 // Matrikkeladresse: <gardsnummer>/<bruksnummer>/<ev festenummer>-<ev undernummer>
 // ev= hvis fins. Hvis ikke skal formateringstegn utgå foran/bak

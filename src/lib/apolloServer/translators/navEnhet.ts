@@ -1,4 +1,4 @@
-import {LegacyNavEnhet} from "../../legacyTypes/personalia";
+import {LegacyNavEnhet} from "../restSchemas/personalia";
 import {NavEnhet} from "../../../generated/apolloServerTypes";
 import {navEnhetStatusFraLegacy} from "./navEnhetStatus";
 

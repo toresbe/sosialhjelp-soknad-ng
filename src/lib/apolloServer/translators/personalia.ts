@@ -1,4 +1,4 @@
-import {LegacyPersonalia} from "../../legacyTypes/personalia";
+import {LegacyPersonalia} from "../restSchemas/personalia";
 import {Personalia} from "../../../generated/apolloServerTypes";
 
 export const translatePersonalia = ({navn, fodselsnummer, statsborgerskap}: LegacyPersonalia): Personalia => ({

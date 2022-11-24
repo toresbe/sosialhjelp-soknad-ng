@@ -18,8 +18,9 @@ export type Scalars = {
 };
 
 export type Adresse = {
+  behandlingsId: Scalars['ID'];
   brukerdefinert?: InputMaybe<InputVegadresse>;
-  valg: AdresseValg;
+  valgtAdresse?: InputMaybe<AdresseValg>;
 };
 
 /** Adresse, kokt ned til streng av backend */
@@ -44,7 +45,7 @@ export type AdresseFraSystem = {
 
 export type AdresseSokResultat = {
   __typename?: 'AdresseSokResultat';
-  treff: Array<Maybe<Vegadresse>>;
+  treff: Array<Vegadresse>;
 };
 
 export enum AdresseValg {
@@ -88,18 +89,13 @@ export type InputVegadresse = {
    */
   postnummer: Scalars['String'];
   /** Navn på poststed i henhold til Postens egne lister */
-  poststed?: InputMaybe<Scalars['String']>;
+  poststed: Scalars['String'];
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
   nySoknad: SoknadMutationResult;
   soknad: SoknadMutations;
-};
-
-
-export type MutationSoknadArgs = {
-  id: Scalars['ID'];
 };
 
 export enum MutationStatus {
@@ -139,7 +135,7 @@ export type Opphold = {
   /** Adresse definert av søker */
   soknadsAdresse?: Maybe<AdresseFraSystem>;
   /** Adresse valgt av bruker. */
-  valgtAdresse: AdresseValg;
+  valgtAdresse?: Maybe<AdresseValg>;
 };
 
 export type Personalia = {
@@ -200,6 +196,7 @@ export type SoknadMutationsTelefonArgs = {
 };
 
 export type Telefon = {
+  behandlingsId: Scalars['ID'];
   brukerdefinert?: InputMaybe<Scalars['String']>;
 };
 
@@ -245,7 +242,7 @@ export type Vegadresse = {
    */
   postnummer: Scalars['String'];
   /** Navn på poststed i henhold til Postens egne lister */
-  poststed?: Maybe<Scalars['String']>;
+  poststed: Scalars['String'];
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -371,7 +368,7 @@ export type AdresseFraSystemResolvers<ContextType = any, ParentType extends Reso
 }>;
 
 export type AdresseSokResultatResolvers<ContextType = any, ParentType extends ResolversParentTypes['AdresseSokResultat'] = ResolversParentTypes['AdresseSokResultat']> = ResolversObject<{
-  treff?: Resolver<Array<Maybe<ResolversTypes['Vegadresse']>>, ParentType, ContextType>;
+  treff?: Resolver<Array<ResolversTypes['Vegadresse']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -381,7 +378,7 @@ export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversT
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
   nySoknad?: Resolver<ResolversTypes['SoknadMutationResult'], ParentType, ContextType>;
-  soknad?: Resolver<ResolversTypes['SoknadMutations'], ParentType, ContextType, RequireFields<MutationSoknadArgs, 'id'>>;
+  soknad?: Resolver<ResolversTypes['SoknadMutations'], ParentType, ContextType>;
 }>;
 
 export type NavEnhetResolvers<ContextType = any, ParentType extends ResolversParentTypes['NavEnhet'] = ResolversParentTypes['NavEnhet']> = ResolversObject<{
@@ -404,7 +401,7 @@ export type OppholdResolvers<ContextType = any, ParentType extends ResolversPare
   navEnhet?: Resolver<Maybe<ResolversTypes['NavEnhet']>, ParentType, ContextType>;
   oppholdsAdresse?: Resolver<Maybe<ResolversTypes['AdresseFraSystem']>, ParentType, ContextType>;
   soknadsAdresse?: Resolver<Maybe<ResolversTypes['AdresseFraSystem']>, ParentType, ContextType>;
-  valgtAdresse?: Resolver<ResolversTypes['AdresseValg'], ParentType, ContextType>;
+  valgtAdresse?: Resolver<Maybe<ResolversTypes['AdresseValg']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -452,7 +449,7 @@ export type VegadresseResolvers<ContextType = any, ParentType extends ResolversP
   kommunenummer?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   nummer?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   postnummer?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  poststed?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  poststed?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 

@@ -15,8 +15,9 @@ export type Scalars = {
 };
 
 export type Adresse = {
+  behandlingsId: Scalars['ID'];
   brukerdefinert?: InputMaybe<InputVegadresse>;
-  valg: AdresseValg;
+  valgtAdresse?: InputMaybe<AdresseValg>;
 };
 
 /** Adresse, kokt ned til streng av backend */
@@ -41,7 +42,7 @@ export type AdresseFraSystem = {
 
 export type AdresseSokResultat = {
   __typename?: 'AdresseSokResultat';
-  treff: Array<Maybe<Vegadresse>>;
+  treff: Array<Vegadresse>;
 };
 
 export enum AdresseValg {
@@ -85,18 +86,13 @@ export type InputVegadresse = {
    */
   postnummer: Scalars['String'];
   /** Navn på poststed i henhold til Postens egne lister */
-  poststed?: InputMaybe<Scalars['String']>;
+  poststed: Scalars['String'];
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
   nySoknad: SoknadMutationResult;
   soknad: SoknadMutations;
-};
-
-
-export type MutationSoknadArgs = {
-  id: Scalars['ID'];
 };
 
 export enum MutationStatus {
@@ -136,7 +132,7 @@ export type Opphold = {
   /** Adresse definert av søker */
   soknadsAdresse?: Maybe<AdresseFraSystem>;
   /** Adresse valgt av bruker. */
-  valgtAdresse: AdresseValg;
+  valgtAdresse?: Maybe<AdresseValg>;
 };
 
 export type Personalia = {
@@ -197,6 +193,7 @@ export type SoknadMutationsTelefonArgs = {
 };
 
 export type Telefon = {
+  behandlingsId: Scalars['ID'];
   brukerdefinert?: InputMaybe<Scalars['String']>;
 };
 
@@ -242,7 +239,7 @@ export type Vegadresse = {
    */
   postnummer: Scalars['String'];
   /** Navn på poststed i henhold til Postens egne lister */
-  poststed?: Maybe<Scalars['String']>;
+  poststed: Scalars['String'];
 };
 
 export type NySoknadMutationVariables = Exact<{ [key: string]: never; }>;
@@ -251,22 +248,26 @@ export type NySoknadMutationVariables = Exact<{ [key: string]: never; }>;
 export type NySoknadMutation = { __typename?: 'Mutation', nySoknad: { __typename?: 'SoknadMutationResult', status: MutationStatus, soknad?: { __typename?: 'Soknad', id: string } | null } };
 
 export type GetPersonaliaQueryVariables = Exact<{
-  soknadId: Scalars['ID'];
+  behandlingsId: Scalars['ID'];
 }>;
 
 
-export type GetPersonaliaQuery = { __typename?: 'Query', soknad?: { __typename?: 'Soknad', id: string, personalia: { __typename?: 'Personalia', fnr: string, statsborgerskap: string, navn: { __typename?: 'Navn', fornavn: string, mellomnavn?: string | null, etternavn: string } }, opphold: { __typename?: 'Opphold', valgtAdresse: AdresseValg, bostedsAdresse?: { __typename?: 'AdresseFraSystem', adresseTekst: string, postnummer: string, poststed: string } | null, oppholdsAdresse?: { __typename?: 'AdresseFraSystem', adresseTekst: string, postnummer: string, poststed: string } | null, soknadsAdresse?: { __typename?: 'AdresseFraSystem', adresseTekst: string, postnummer: string, poststed: string } | null, navEnhet?: { __typename?: 'NavEnhet', navn: string, kommune: string } | null }, telefon: { __typename?: 'TelefonData', brukerdefinert?: string | null, fraKrr?: string | null } } | null };
+export type GetPersonaliaQuery = { __typename?: 'Query', soknad?: { __typename?: 'Soknad', id: string, personalia: { __typename?: 'Personalia', fnr: string, statsborgerskap: string, navn: { __typename?: 'Navn', fornavn: string, mellomnavn?: string | null, etternavn: string } }, telefon: { __typename?: 'TelefonData', brukerdefinert?: string | null, fraKrr?: string | null } } | null };
 
-export type PageOneFragment = { __typename?: 'Soknad', id: string, personalia: { __typename?: 'Personalia', fnr: string, statsborgerskap: string, navn: { __typename?: 'Navn', fornavn: string, mellomnavn?: string | null, etternavn: string } }, opphold: { __typename?: 'Opphold', valgtAdresse: AdresseValg, bostedsAdresse?: { __typename?: 'AdresseFraSystem', adresseTekst: string, postnummer: string, poststed: string } | null, oppholdsAdresse?: { __typename?: 'AdresseFraSystem', adresseTekst: string, postnummer: string, poststed: string } | null, soknadsAdresse?: { __typename?: 'AdresseFraSystem', adresseTekst: string, postnummer: string, poststed: string } | null, navEnhet?: { __typename?: 'NavEnhet', navn: string, kommune: string } | null }, telefon: { __typename?: 'TelefonData', brukerdefinert?: string | null, fraKrr?: string | null } };
+export type PageOneFragment = { __typename?: 'Soknad', id: string, personalia: { __typename?: 'Personalia', fnr: string, statsborgerskap: string, navn: { __typename?: 'Navn', fornavn: string, mellomnavn?: string | null, etternavn: string } }, telefon: { __typename?: 'TelefonData', brukerdefinert?: string | null, fraKrr?: string | null } };
 
 export type TelefonFragment = { __typename?: 'TelefonData', brukerdefinert?: string | null, fraKrr?: string | null };
 
 export type BasisPersonaliaFragment = { __typename?: 'Personalia', fnr: string, statsborgerskap: string, navn: { __typename?: 'Navn', fornavn: string, mellomnavn?: string | null, etternavn: string } };
 
-export type OppholdFragment = { __typename?: 'Opphold', valgtAdresse: AdresseValg, bostedsAdresse?: { __typename?: 'AdresseFraSystem', adresseTekst: string, postnummer: string, poststed: string } | null, oppholdsAdresse?: { __typename?: 'AdresseFraSystem', adresseTekst: string, postnummer: string, poststed: string } | null, soknadsAdresse?: { __typename?: 'AdresseFraSystem', adresseTekst: string, postnummer: string, poststed: string } | null, navEnhet?: { __typename?: 'NavEnhet', navn: string, kommune: string } | null };
+export type GetOppholdQueryVariables = Exact<{
+  behandlingsId: Scalars['ID'];
+}>;
+
+
+export type GetOppholdQuery = { __typename?: 'Query', soknad?: { __typename?: 'Soknad', opphold: { __typename?: 'Opphold', valgtAdresse?: AdresseValg | null, bostedsAdresse?: { __typename?: 'AdresseFraSystem', adresseTekst: string, postnummer: string, poststed: string } | null, oppholdsAdresse?: { __typename?: 'AdresseFraSystem', adresseTekst: string, postnummer: string, poststed: string } | null, soknadsAdresse?: { __typename?: 'AdresseFraSystem', adresseTekst: string, postnummer: string, poststed: string } | null, navEnhet?: { __typename?: 'NavEnhet', id: string, navn: string, kommune: string, status: NavEnhetStatus } | null } } | null };
 
 export type SetTelefonnummerMutationVariables = Exact<{
-  behandlingsId: Scalars['ID'];
   input: Telefon;
 }>;
 
@@ -274,18 +275,25 @@ export type SetTelefonnummerMutationVariables = Exact<{
 export type SetTelefonnummerMutation = { __typename?: 'Mutation', soknad: { __typename?: 'SoknadMutations', telefon: { __typename?: 'SoknadMutationResult', soknad?: { __typename?: 'Soknad', id: string, telefon: { __typename?: 'TelefonData', brukerdefinert?: string | null } } | null } } };
 
 export type SetAdresseMutationVariables = Exact<{
-  behandlingsId: Scalars['ID'];
   input: Adresse;
 }>;
 
 
-export type SetAdresseMutation = { __typename?: 'Mutation', soknad: { __typename?: 'SoknadMutations', adresse: { __typename?: 'SoknadMutationResult', soknad?: { __typename?: 'Soknad', id: string, opphold: { __typename?: 'Opphold', valgtAdresse: AdresseValg, bostedsAdresse?: { __typename?: 'AdresseFraSystem', adresseTekst: string, postnummer: string, poststed: string } | null, oppholdsAdresse?: { __typename?: 'AdresseFraSystem', adresseTekst: string, postnummer: string, poststed: string } | null, soknadsAdresse?: { __typename?: 'AdresseFraSystem', adresseTekst: string, postnummer: string, poststed: string } | null, navEnhet?: { __typename?: 'NavEnhet', navn: string, kommune: string } | null } } | null } } };
+export type SetAdresseMutation = { __typename?: 'Mutation', soknad: { __typename?: 'SoknadMutations', adresse: { __typename?: 'SoknadMutationResult', soknad?: { __typename?: 'Soknad', id: string, opphold: { __typename?: 'Opphold', valgtAdresse?: AdresseValg | null, soknadsAdresse?: { __typename?: 'AdresseFraSystem', adresseTekst: string } | null } } | null } } };
+
+export type AdresseSokQueryVariables = Exact<{
+  query: Scalars['String'];
+}>;
+
+
+export type AdresseSokQuery = { __typename?: 'Query', adresseSok: { __typename?: 'AdresseSokResultat', treff: Array<{ __typename: 'Vegadresse', adressenavn: string, nummer: string, bokstav?: string | null, kommunenummer?: string | null, postnummer: string, poststed: string }> } };
 
 export const BasisPersonaliaFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BasisPersonalia"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Personalia"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"navn"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"fornavn"}},{"kind":"Field","name":{"kind":"Name","value":"mellomnavn"}},{"kind":"Field","name":{"kind":"Name","value":"etternavn"}}]}},{"kind":"Field","name":{"kind":"Name","value":"fnr"}},{"kind":"Field","name":{"kind":"Name","value":"statsborgerskap"}}]}}]} as unknown as DocumentNode<BasisPersonaliaFragment, unknown>;
-export const OppholdFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Opphold"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Opphold"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"valgtAdresse"}},{"kind":"Field","name":{"kind":"Name","value":"bostedsAdresse"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adresseTekst"}},{"kind":"Field","name":{"kind":"Name","value":"postnummer"}},{"kind":"Field","name":{"kind":"Name","value":"poststed"}}]}},{"kind":"Field","name":{"kind":"Name","value":"oppholdsAdresse"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adresseTekst"}},{"kind":"Field","name":{"kind":"Name","value":"postnummer"}},{"kind":"Field","name":{"kind":"Name","value":"poststed"}}]}},{"kind":"Field","name":{"kind":"Name","value":"soknadsAdresse"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adresseTekst"}},{"kind":"Field","name":{"kind":"Name","value":"postnummer"}},{"kind":"Field","name":{"kind":"Name","value":"poststed"}}]}},{"kind":"Field","name":{"kind":"Name","value":"navEnhet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"navn"}},{"kind":"Field","name":{"kind":"Name","value":"kommune"}}]}}]}}]} as unknown as DocumentNode<OppholdFragment, unknown>;
 export const TelefonFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Telefon"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TelefonData"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"brukerdefinert"}},{"kind":"Field","name":{"kind":"Name","value":"fraKrr"}}]}}]} as unknown as DocumentNode<TelefonFragment, unknown>;
-export const PageOneFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PageOne"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Soknad"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"personalia"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BasisPersonalia"}}]}},{"kind":"Field","name":{"kind":"Name","value":"opphold"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Opphold"}}]}},{"kind":"Field","name":{"kind":"Name","value":"telefon"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Telefon"}}]}}]}},...BasisPersonaliaFragmentDoc.definitions,...OppholdFragmentDoc.definitions,...TelefonFragmentDoc.definitions]} as unknown as DocumentNode<PageOneFragment, unknown>;
+export const PageOneFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PageOne"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Soknad"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"personalia"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BasisPersonalia"}}]}},{"kind":"Field","name":{"kind":"Name","value":"telefon"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Telefon"}}]}}]}},...BasisPersonaliaFragmentDoc.definitions,...TelefonFragmentDoc.definitions]} as unknown as DocumentNode<PageOneFragment, unknown>;
 export const NySoknadDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"nySoknad"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nySoknad"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"soknad"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<NySoknadMutation, NySoknadMutationVariables>;
-export const GetPersonaliaDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getPersonalia"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"soknadId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"soknad"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"soknadId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PageOne"}}]}}]}},...PageOneFragmentDoc.definitions]} as unknown as DocumentNode<GetPersonaliaQuery, GetPersonaliaQueryVariables>;
-export const SetTelefonnummerDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SetTelefonnummer"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"behandlingsId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Telefon"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"soknad"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"behandlingsId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"telefon"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"soknad"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"telefon"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"brukerdefinert"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<SetTelefonnummerMutation, SetTelefonnummerMutationVariables>;
-export const SetAdresseDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SetAdresse"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"behandlingsId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Adresse"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"soknad"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"behandlingsId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adresse"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"soknad"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"opphold"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Opphold"}}]}}]}}]}}]}}]}},...OppholdFragmentDoc.definitions]} as unknown as DocumentNode<SetAdresseMutation, SetAdresseMutationVariables>;
+export const GetPersonaliaDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getPersonalia"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"behandlingsId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"soknad"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"behandlingsId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PageOne"}}]}}]}},...PageOneFragmentDoc.definitions]} as unknown as DocumentNode<GetPersonaliaQuery, GetPersonaliaQueryVariables>;
+export const GetOppholdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getOpphold"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"behandlingsId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"soknad"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"behandlingsId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"opphold"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"valgtAdresse"}},{"kind":"Field","name":{"kind":"Name","value":"bostedsAdresse"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adresseTekst"}},{"kind":"Field","name":{"kind":"Name","value":"postnummer"}},{"kind":"Field","name":{"kind":"Name","value":"poststed"}}]}},{"kind":"Field","name":{"kind":"Name","value":"oppholdsAdresse"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adresseTekst"}},{"kind":"Field","name":{"kind":"Name","value":"postnummer"}},{"kind":"Field","name":{"kind":"Name","value":"poststed"}}]}},{"kind":"Field","name":{"kind":"Name","value":"soknadsAdresse"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adresseTekst"}},{"kind":"Field","name":{"kind":"Name","value":"postnummer"}},{"kind":"Field","name":{"kind":"Name","value":"poststed"}}]}},{"kind":"Field","name":{"kind":"Name","value":"navEnhet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"navn"}},{"kind":"Field","name":{"kind":"Name","value":"kommune"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetOppholdQuery, GetOppholdQueryVariables>;
+export const SetTelefonnummerDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SetTelefonnummer"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Telefon"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"soknad"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"telefon"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"soknad"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"telefon"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"brukerdefinert"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<SetTelefonnummerMutation, SetTelefonnummerMutationVariables>;
+export const SetAdresseDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SetAdresse"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Adresse"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"soknad"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adresse"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"soknad"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"opphold"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"valgtAdresse"}},{"kind":"Field","name":{"kind":"Name","value":"soknadsAdresse"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adresseTekst"}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<SetAdresseMutation, SetAdresseMutationVariables>;
+export const AdresseSokDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AdresseSok"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"query"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adresseSok"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"query"},"value":{"kind":"Variable","name":{"kind":"Name","value":"query"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"treff"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"adressenavn"}},{"kind":"Field","name":{"kind":"Name","value":"nummer"}},{"kind":"Field","name":{"kind":"Name","value":"bokstav"}},{"kind":"Field","name":{"kind":"Name","value":"kommunenummer"}},{"kind":"Field","name":{"kind":"Name","value":"postnummer"}},{"kind":"Field","name":{"kind":"Name","value":"poststed"}}]}}]}}]}}]} as unknown as DocumentNode<AdresseSokQuery, AdresseSokQueryVariables>;

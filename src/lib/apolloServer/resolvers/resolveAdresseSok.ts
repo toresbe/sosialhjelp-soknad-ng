@@ -1,24 +1,21 @@
 import {AdresseSokResultat, QueryAdresseSokArgs, Resolver} from "../../../generated/apolloServerTypes";
-import {RESTRequest} from "../restClients";
+import {restClient} from "../restClients";
 import {ApolloContextType} from "../apolloServer";
-import {LegacyAdressesokTreffSchema} from "../../legacyTypes/personalia";
+import {LegacyAdressesokTreffListe, LegacyAdressesokTreffListeSchema} from "../restSchemas/personalia";
+import {vegadresseFraLegacyTreff} from "../translators/vegadresse";
 
 export const resolveAdresseSok: Resolver<AdresseSokResultat, any, ApolloContextType, QueryAdresseSokArgs> = async (
     parent,
     {query},
     {cookies}
 ) => {
-    console.log("cookies:", cookies);
-
-    const results = await RESTRequest({
+    const results = await restClient<LegacyAdressesokTreffListe>({
         path: `informasjon/adressesok?sokestreng=${encodeURI(query)}`,
-        schema: LegacyAdressesokTreffSchema,
+        schema: LegacyAdressesokTreffListeSchema,
         cookies,
     });
 
-    console.log(results);
-
     return {
-        treff: [],
+        treff: results?.map((treff) => vegadresseFraLegacyTreff(treff)),
     };
 };

@@ -4,7 +4,6 @@ import {
     ApolloServerPluginLandingPageProductionDefault,
 } from "apollo-server-core";
 import {readFileSync} from "fs";
-
 import {mutateNySoknad} from "./resolvers/mutateNySoknad";
 import {resolveTelefonnummer} from "./resolvers/resolveTelefonnummer";
 import {resolveBasisPersonalia} from "./resolvers/resolveBasisPersonalia";
@@ -22,8 +21,11 @@ const resolvers: Resolvers = {
     },
     Mutation: {
         nySoknad: mutateNySoknad,
-        setTelefonnummer: mutateTelefonnummer,
-        setAdresse: mutateAdresse,
+        soknad: async () => ({}),
+    },
+    SoknadMutations: {
+        telefon: mutateTelefonnummer,
+        adresse: mutateAdresse,
     },
     Soknad: {
         telefon: resolveTelefonnummer,

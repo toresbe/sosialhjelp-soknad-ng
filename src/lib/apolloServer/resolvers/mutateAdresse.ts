@@ -1,29 +1,29 @@
 import {
     MutationStatus,
     Resolver,
-    Soknad,
     SoknadMutationResult,
     SoknadMutationsAdresseArgs,
 } from "../../../generated/apolloServerTypes";
 import {DeepPartial} from "utility-types";
-import {RESTRequest} from "../restClients";
-import {LegacyAdresser, LegacyAdresserSchema, LegacyNavEnhet, LegacyNavEnhetSchema} from "../../legacyTypes/personalia";
+import {restClient} from "../restClients";
+import {
+    LegacyAdresser,
+    LegacyAdresserSchema,
+    LegacyNavEnheter,
+    LegacyNavEnheterSchema,
+} from "../restSchemas/personalia";
 import {vegadresseTilLegacy} from "../translators/vegadresse";
 import {adresseValgTilLegacy} from "../translators/adresseValg";
 import {navEnhetFraLegacy} from "../translators/navEnhet";
-import {UserInputError} from "apollo-server-micro";
 import {ApolloContextType} from "../apolloServer";
 
 export const mutateAdresse: Resolver<
     DeepPartial<SoknadMutationResult>,
-    Soknad,
+    any,
     ApolloContextType,
     SoknadMutationsAdresseArgs
-> = async ({id: behandlingsId}, {input: {valg, brukerdefinert}}, {cookies}) => {
-    if (!brukerdefinert) throw new UserInputError("brukerdefinert kan ikke være tom");
-    if (!valg) throw new UserInputError("valg kan ikke være tom");
-
-    const adresser = await RESTRequest<LegacyAdresser>({
+> = async (_, {input: {behandlingsId, valgtAdresse, brukerdefinert}}, {cookies}) => {
+    const adresser = await restClient<LegacyAdresser>({
         path: `soknader/${behandlingsId}/personalia/adresser`,
         schema: LegacyAdresserSchema,
         cookies,
@@ -32,14 +32,24 @@ export const mutateAdresse: Resolver<
     const legacyAdresser: LegacyAdresser = {
         ...adresser,
         soknad: brukerdefinert ? vegadresseTilLegacy(brukerdefinert) : adresser.soknad,
-        valg: adresseValgTilLegacy(valg),
+        valg: valgtAdresse ? adresseValgTilLegacy(valgtAdresse) : null,
     };
 
-    const legacyNavEnhet = await RESTRequest<LegacyNavEnhet>({
+    const legacyNavEnhet = await restClient<LegacyNavEnheter>({
         method: "PUT",
-        path: `soknader/${behandlingsId}/personalia/adresser`,
         body: JSON.stringify(legacyAdresser),
-        schema: LegacyNavEnhetSchema,
+        path: `soknader/${behandlingsId}/personalia/adresser`,
+        schema: LegacyNavEnheterSchema,
+        cookies,
+    });
+
+    legacyNavEnhet[0].valgt = true;
+
+    await restClient<LegacyNavEnheter>({
+        method: "PUT",
+        path: `soknader/${behandlingsId}/personalia/navEnheter`,
+        body: JSON.stringify(legacyNavEnhet[0]),
+        schema: LegacyNavEnheterSchema,
         cookies,
     });
 
@@ -48,9 +58,9 @@ export const mutateAdresse: Resolver<
         soknad: {
             id: behandlingsId,
             opphold: {
-                navEnhet: navEnhetFraLegacy(legacyNavEnhet),
+                navEnhet: navEnhetFraLegacy(legacyNavEnhet[0]),
                 adresser: {
-                    valgt: valg,
+                    valgt: valgtAdresse,
                     soknadsadresse: brukerdefinert ?? undefined,
                 },
             },

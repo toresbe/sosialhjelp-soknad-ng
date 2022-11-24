@@ -7,8 +7,8 @@ mutation nySoknad {
     }
 }
 
-query getPersonalia($soknadId: ID!) {
-    soknad(id: $soknadId) {
+query getPersonalia($behandlingsId: ID!) {
+    soknad(id: $behandlingsId) {
         ...PageOne
     }
 }
@@ -18,13 +18,9 @@ fragment PageOne on Soknad {
     personalia {
         ...BasisPersonalia
     }
-    opphold {
-        ...Opphold
-    }
     telefon {
         ...Telefon
     }
-
 }
 
 fragment Telefon on TelefonData {
@@ -42,31 +38,38 @@ fragment BasisPersonalia on Personalia {
     statsborgerskap
 }
 
-fragment Opphold on Opphold {
-    valgtAdresse
-    bostedsAdresse {
-        adresseTekst
-        postnummer
-        poststed
-    }
-    oppholdsAdresse {
-        adresseTekst
-        postnummer
-        poststed
-    }
-    soknadsAdresse {
-        adresseTekst
-        postnummer
-        poststed
-    }
-    navEnhet {
-        navn
-        kommune
+query getOpphold($behandlingsId: ID!) {
+    soknad(id: $behandlingsId) {
+        opphold{
+            valgtAdresse
+            bostedsAdresse {
+                adresseTekst
+                postnummer
+                poststed
+            }
+            oppholdsAdresse {
+                adresseTekst
+                postnummer
+                poststed
+            }
+            soknadsAdresse {
+                adresseTekst
+                postnummer
+                poststed
+            }
+            navEnhet {
+                id
+                navn
+                kommune
+                status
+            }
+        }
     }
 }
 
-mutation SetTelefonnummer($behandlingsId: ID!, $input: Telefon!) {
-    soknad(id: $behandlingsId) {
+
+mutation SetTelefonnummer($input: Telefon!) {
+    soknad {
         telefon(input: $input) {
             soknad {
                 id
@@ -78,15 +81,31 @@ mutation SetTelefonnummer($behandlingsId: ID!, $input: Telefon!) {
     }
 }
 
-mutation SetAdresse($behandlingsId: ID!, $input: Adresse!) {
-    soknad(id: $behandlingsId) {
+mutation SetAdresse( $input: Adresse!) {
+    soknad {
         adresse(input: $input) {
             soknad {
                 id
                 opphold {
-                    ...Opphold
+                    valgtAdresse
+                    soknadsAdresse {
+                        adresseTekst
+                    }
                 }
             }
+        }
+    }
+}
+
+query AdresseSok ($query: String!){
+    adresseSok(query: $query) {
+        treff {
+            adressenavn
+            nummer
+            bokstav
+            kommunenummer
+            postnummer
+            poststed
         }
     }
 }

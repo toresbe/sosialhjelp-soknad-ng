@@ -14,7 +14,6 @@ export const Aktiv = Template.bind({});
 
 Aktiv.args = {
     navEnhet: {
-        id: "123",
         navn: "LOL",
         kommune: "LMAO",
         status: NavEnhetStatus.Aktiv,
@@ -26,7 +25,6 @@ export const Deaktivert = Template.bind({});
 // @ts-ignore
 Deaktivert.args = {
     navEnhet: {
-        id: "123",
         navn: "LOL",
         kommune: "LMAO",
         status: NavEnhetStatus.Deaktivert,
@@ -37,7 +35,6 @@ export const MidlertidigDeaktivert = Template.bind({});
 
 MidlertidigDeaktivert.args = {
     navEnhet: {
-        id: "123",
         navn: "LOL",
         kommune: "LMAO",
         status: NavEnhetStatus.MidlDeaktivert,

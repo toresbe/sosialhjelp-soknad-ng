@@ -3,7 +3,6 @@ import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import {GetServerSideProps} from "next";
 import {BasisPersonalia} from "../../components/personalia/BasisPersonalia";
 import {SkjemaSkritt} from "../../components/layout/SkjemaSkritt";
-import {Opphold} from "../../components/personalia/adresse/Adresse";
 import {useMutation, useQuery} from "@apollo/client";
 import {
     GetPersonaliaDocument,
@@ -11,31 +10,31 @@ import {
     Maybe,
     SetTelefonnummerDocument,
 } from "../../generated/apolloClientTypes";
+import {Opphold} from "./Opphold";
 
 export const Page1 = ({behandlingsId}: {behandlingsId: string}) => {
-    const soknadId = behandlingsId;
-
-    const {data} = useQuery<GetPersonaliaQuery>(GetPersonaliaDocument, {variables: {soknadId}});
+    const {data} = useQuery<GetPersonaliaQuery>(GetPersonaliaDocument, {variables: {behandlingsId}});
     const [mutate] = useMutation(SetTelefonnummerDocument);
 
     // TODO: Metrics for network failures.
     const setTelefonnummer = async (tlfnr: Maybe<string>) => {
         try {
-            await mutate({variables: {behandlingsId, input: {brukerdefinert: tlfnr}}});
+            await mutate({variables: {input: {behandlingsId, brukerdefinert: tlfnr}}});
         } catch (e: any) {
             return e.toString();
         }
 
         return null;
     };
+
     if (!data?.soknad) return null;
 
-    const {personalia, opphold, telefon} = data?.soknad;
+    const {personalia, telefon} = data?.soknad;
 
     return (
         <SkjemaSkritt activeStep={1}>
             <BasisPersonalia personalia={personalia} />
-            <Opphold opphold={opphold} />
+            <Opphold />
             <Telefon telefon={telefon} onSetTelefonnummer={setTelefonnummer} />
         </SkjemaSkritt>
     );

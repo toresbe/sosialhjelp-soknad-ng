@@ -1,5 +1,5 @@
-import {RESTRequest} from "../restClients";
-import {NySoknadResponse, NySoknadResponseSchema} from "../../legacyTypes/nySoknad";
+import {restClient} from "../restClients";
+import {NySoknadResponse, NySoknadResponseSchema} from "../restSchemas/nySoknad";
 import {MutationStatus, Resolver, SoknadMutationResult} from "../../../generated/apolloServerTypes";
 import {ApolloContextType} from "../apolloServer";
 import {DeepPartial} from "utility-types";
@@ -15,7 +15,7 @@ export const mutateNySoknad: Resolver<DeepPartial<SoknadMutationResult>, any, Ap
     args,
     {cookies}
 ) => {
-    const {brukerBehandlingId} = await RESTRequest<NySoknadResponse>({
+    const {brukerBehandlingId} = await restClient<NySoknadResponse>({
         path: "soknader/opprettSoknad",
         method: "POST",
         schema: NySoknadResponseSchema,

@@ -1,6 +1,6 @@
 // Konverterer GraphQL-definert adressevalg til API-kompatibelt
-import {LegacyAdresseKategori} from "../../legacyTypes/personalia";
-import {AdresseValg} from "../../../generated/apolloServerTypes";
+import {LegacyAdresseKategori} from "../restSchemas/personalia";
+import {AdresseValg, Maybe} from "../../../generated/apolloServerTypes";
 
 // Konverter GraphQL-kompatibelt adressevalg til legacy-adressevalg
 export const adresseValgTilLegacy = (valg: AdresseValg): LegacyAdresseKategori => {
@@ -15,7 +15,7 @@ export const adresseValgTilLegacy = (valg: AdresseValg): LegacyAdresseKategori =
 };
 
 // Konverter GraphQL-kompatibelt adressevalg fra legacy-adressevalg
-export const adresseValgFraLegacy = (valg: LegacyAdresseKategori): AdresseValg => {
+export const adresseValgFraLegacy = (valg: Maybe<LegacyAdresseKategori>): Maybe<AdresseValg> => {
     switch (valg) {
         case "folkeregistrert":
             return AdresseValg.Bosted;
@@ -23,5 +23,7 @@ export const adresseValgFraLegacy = (valg: LegacyAdresseKategori): AdresseValg =
             return AdresseValg.Opphold;
         case "soknad":
             return AdresseValg.Soknad;
+        case null:
+            return null;
     }
 };

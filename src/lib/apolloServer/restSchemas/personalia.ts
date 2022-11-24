@@ -55,7 +55,7 @@ export const LegacyKontonummerSchema = z.object({
 export const LegacyNavEnhetSchema = z.object({
     // FIXME: should be z.null() as NAV units don't have these with the new search,
     //   but it still comes in as string! is the mock data wrong?
-    orgnr: z.string(),
+    orgnr: z.string().nullable(),
     behandlingsansvarlig: z.null(),
     enhetsnr: z.string(),
     isMottakMidlertidigDeaktivert: z.boolean(),
@@ -66,22 +66,28 @@ export const LegacyNavEnhetSchema = z.object({
     valgt: z.boolean(),
 });
 
+export const LegacyNavEnheterSchema = z.array(LegacyNavEnhetSchema).max(1);
+
 export type LegacyNavEnhet = z.infer<typeof LegacyNavEnhetSchema>;
+export type LegacyNavEnheter = z.infer<typeof LegacyNavEnheterSchema>;
 
 export const LegacyAdressesokTreffSchema = z.object({
-    adresse: z.string().nullable(),
-    husnummer: z.string().nullable(),
+    adresse: z.string(),
+    husnummer: z.string(),
     husbokstav: z.string().nullable(),
     kommunenummer: z.string().length(4).nullable(),
-    kommunenavn: z.string().nullable(),
-    postnummer: z.string().nullable(),
-    poststed: z.string().nullable(),
+    kommunenavn: z.string(),
+    postnummer: z.string(),
+    poststed: z.string(),
     geografiskTilknytning: z.string().nullable(),
     gatekode: z.string().nullable(),
     bydel: z.string().nullable(),
     type: z.literal("GATEADRESSE"),
 });
 
+export const LegacyAdressesokTreffListeSchema = z.array(LegacyAdressesokTreffSchema);
+
+export type LegacyAdressesokTreffListe = z.infer<typeof LegacyAdressesokTreffListeSchema>;
 export type LegacyAdressesokTreff = z.infer<typeof LegacyAdressesokTreffSchema>;
 
 // Terminologien er standardisert for å samsvare med PDLs begrepsbruk.
@@ -110,19 +116,17 @@ export type LegacyMatrikkelAdresse = z.infer<typeof LegacyMatrikkelAdresseSchema
 
 // All of these are nullable because the data is of varying quality
 // https://pdldocs-navno.msappproxy.net/ekstern/index.html#opplysningstyper-adresseformater-vegadresse
-export const LegacyGateadresseSchema = z
-    .object({
-        kommunenummer: z.string().nullable(),
-        landkode: z.string(),
-        adresselinjer: z.array(z.string()),
-        bolignummer: z.string().nullable(),
-        postnummer: z.string(),
-        poststed: z.string(),
-        gatenavn: z.string(),
-        husnummer: z.string(),
-        husbokstav: z.string().nullable(),
-    })
-    .partial();
+export const LegacyGateadresseSchema = z.object({
+    kommunenummer: z.string().nullable(),
+    landkode: z.string().optional(),
+    adresselinjer: z.array(z.string()).optional(),
+    bolignummer: z.string().nullable(),
+    postnummer: z.string(),
+    poststed: z.string(),
+    gatenavn: z.string(),
+    husnummer: z.string(),
+    husbokstav: z.string().nullable(),
+});
 
 export type LegacyGateadresse = z.infer<typeof LegacyGateadresseSchema>;
 

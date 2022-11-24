@@ -1,4 +1,4 @@
-import {LegacyMatrikkelAdresse} from "../../legacyTypes/personalia";
+import {LegacyMatrikkelAdresse} from "../restSchemas/personalia";
 import {AdresseFraSystem} from "../../../generated/apolloServerTypes";
 import {fmtLegacyMatrikkeladresse} from "../../formatters/fmtLegacyMatrikkeladresse";
 

@@ -1,12 +1,15 @@
-import {z, ZodType} from "zod";
+import {z} from "zod";
 import {API_BASE_URL, API_BASE_URL_WITH_TOKEN} from "../config";
 import logger from "../logger";
-import {LoginRedirectSchema} from "../legacyTypes/loginRedirect";
+import {LoginRedirectSchema} from "./restSchemas/loginRedirect";
 import {HttpMethod} from "undici/types/dispatcher";
 import {RequestCookies} from "next/dist/server/web/spec-extension/cookies";
 
 export const getApiBaseUrl = (withAccessToken?: boolean) => (withAccessToken ? API_BASE_URL_WITH_TOKEN : API_BASE_URL);
 
+type CookiesType = Partial<{[key: string]: string}>;
+
+// Custom exception used to obtain loginUrl in case we are redirected to auth during a request.
 export class HTTPUnauthorized extends Error {
     public readonly loginUrl: string;
 
@@ -17,15 +20,9 @@ export class HTTPUnauthorized extends Error {
         this.loginUrl = loginUrl;
     }
 }
-type CookiesType = Partial<{[key: string]: string}>;
 
-export const serverRequest = async <T>(
-    path: string,
-    method?: string,
-    body?: string,
-    schema?: z.Schema,
-    cookies?: CookiesType
-): Promise<T> => {
+// Throws HTTPUnauthorized on 401
+export const restClient = async <T>({path, method = "GET", body, schema, cookies}: ServerRequest): Promise<T> => {
     const requestUri = getApiBaseUrl(false) + path;
 
     const headers = new Headers({"Content-Type": "application/json", accept: "application/json, text/plain, */*"});
@@ -38,7 +35,6 @@ export const serverRequest = async <T>(
                 .join(";")
         );
 
-    //headers.set("X-XSRF-TOKEN", await getXsrfToken(await getXsrfCookies(cookies)));
     const options: RequestInit = {
         method,
         headers,
@@ -64,10 +60,10 @@ export const serverRequest = async <T>(
             if (!schema) return jsonResponse as T;
 
             try {
-                return schema.parse(jsonResponse);
+                return schema.parse(jsonResponse) as T;
             } catch (e: any) {
                 // TODO: Examine the security implications of logging this way
-                if (e instanceof z.ZodError) logger.warn(`Failed to validate from ${path}: Zod error ${e.toString()}`);
+                if (e instanceof z.ZodError) logger.warn(`Failed to validate ${path}: Zod error ${e.toString()}`);
 
                 return jsonResponse as T;
             }
@@ -75,11 +71,11 @@ export const serverRequest = async <T>(
 };
 
 export interface ServerRequest {
+    path: string; // The API base url is prepended by restClient
     method?: HttpMethod;
-    path: string;
     body?: string;
-    schema?: ZodType;
-    cookies?: CookiesType;
+    schema?: z.Schema; // Optional schema against which to validate data. Will only log a warning on mismatch.
+    cookies?: CookiesType; // Request cookies
 }
 
 // Converts from NextJS cookie object to Record<string,string>.
@@ -89,6 +85,3 @@ export const convertNextJSCookiesToRecord = (cookies: RequestCookies): Record<st
     cookies.getAll().forEach((c) => (convertedCookies[c.name] = c.value));
     return convertedCookies;
 };
-
-export const RESTRequest = async <T>({method = "GET", path, body, schema, cookies}: ServerRequest): Promise<T> =>
-    serverRequest<T>(path, method, body, schema, cookies);

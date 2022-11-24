@@ -1,12 +1,12 @@
 import * as React from "react";
 import {Alert, GuidePanel, Heading} from "@navikt/ds-react";
 import {Trans, useTranslation} from "next-i18next";
-import {NavEnhet, NavEnhetStatus} from "../../generated/apolloClientTypes";
+import {Maybe, NavEnhet, NavEnhetStatus} from "../../generated/apolloClientTypes";
 import Brevkonvolutt from "../icons/Brevkonvolutt";
 import styled from "styled-components";
 
 interface NavEnhetStatusPanelProps {
-    navEnhet: NavEnhet;
+    navEnhet?: Maybe<NavEnhet>;
 }
 
 const MidtstiltGuidePanel = styled(GuidePanel)`
@@ -14,10 +14,16 @@ const MidtstiltGuidePanel = styled(GuidePanel)`
         display: flex;
         align-items: center;
     }
+
+    margin-left: -40px;
 `;
 
-export const NavEnhetStatusPanel = ({navEnhet: {navn, kommune, status}}: NavEnhetStatusPanelProps) => {
+export const NavEnhetStatusPanel = ({navEnhet}: NavEnhetStatusPanelProps) => {
     const {t} = useTranslation("skjema", {keyPrefix: "navEnhet"});
+
+    if (!navEnhet) return null;
+
+    const {navn, kommune, status} = navEnhet;
 
     const GyldigMottaker = (
         <MidtstiltGuidePanel illustration={<Brevkonvolutt />}>{t("gyldig", {navn, kommune})}</MidtstiltGuidePanel>

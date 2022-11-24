@@ -1,11 +1,11 @@
 import {NextResponse} from "next/server";
 import type {NextRequest} from "next/server";
-import {convertNextJSCookiesToRecord, HTTPUnauthorized, RESTRequest} from "./lib/apolloServer/restClients";
-import {LegacyTilgangResponse, LegacyTilgangResponseSchema} from "./lib/legacyTypes/statusInformation";
+import {convertNextJSCookiesToRecord, HTTPUnauthorized, restClient} from "./lib/apolloServer/restClients";
+import {LegacyTilgangResponse, LegacyTilgangResponseSchema} from "./lib/apolloServer/restSchemas/statusInformation";
 
 const RequireSession = async (req: NextRequest) => {
     try {
-        await RESTRequest<LegacyTilgangResponse>({
+        await restClient<LegacyTilgangResponse>({
             path: `informasjon/utslagskriterier/sosialhjelp`,
             schema: LegacyTilgangResponseSchema,
             cookies: convertNextJSCookiesToRecord(req.cookies),
@@ -32,4 +32,17 @@ const RequireSession = async (req: NextRequest) => {
 // Om den bouncer oss til login, så følger vi den lenken.
 export const middleware = async (req: NextRequest) => {
     return await RequireSession(req);
+};
+
+export const config = {
+    matcher: [
+        /*
+         * Match all request paths except for the ones starting with:
+         * - api (API routes)
+         * - _next/static (static files)
+         * - favicon.ico (favicon file)
+         */
+        "/((?!api|_next/static|favicon.ico).*)",
+        "/",
+    ],
 };
